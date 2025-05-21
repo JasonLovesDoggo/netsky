@@ -1,11 +1,14 @@
+import javax.swing.*;
+import java.awt.*;
+
 // Base abstract class for all scenes
-public abstract class BaseScene extends javax.swing.JPanel {
+public abstract class BaseScene extends JPanel {
     protected SceneManager sceneManager;
 
     public BaseScene(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
-        setLayout(new java.awt.BorderLayout());
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(800, 600));
 
         // Initialize the scene components
         initializeComponents();

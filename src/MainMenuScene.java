@@ -26,7 +26,7 @@ public class MainMenuScene extends BaseScene {
 
         // Button panel
         buttonPanel = new JPanel();
-        buttonPanel.setLayout(new java.awt.GridLayout(5, 1, 10, 10));
+        buttonPanel.setLayout(new GridLayout(5, 1, 10, 10));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 150, 20, 150));
 
         // Create menu buttons
@@ -36,12 +36,12 @@ public class MainMenuScene extends BaseScene {
         addButton("Scene 3", e -> sceneManager.showScene(SceneManager.SCENE_3A));
         addButton("Exit", e -> System.exit(0));
 
-        add(buttonPanel, java.awt.BorderLayout.SOUTH);
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private void addButton(String text, ActionListener listener) {
         JButton button = new JButton(text);
-        button.setFont(new Font("Arial", java.awt.Font.PLAIN, 16));
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
         button.addActionListener(listener);
         buttonPanel.add(button);
     }
