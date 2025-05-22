@@ -4,7 +4,7 @@ public class GameFrame extends JFrame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
-    private String playerName = "Player";
+    private String playerName = "Zoey'sLiiii";
 
     public GameFrame(String title) {
         super(title);
