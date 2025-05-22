@@ -19,6 +19,7 @@ public class Scene1A extends BaseScene {
         // Content panel
         contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
+		
 		contentPanel.add(new SceneOneA());
 		
 		  
@@ -47,17 +48,19 @@ public class Scene1A extends BaseScene {
 	 
 	class SceneOneA extends JComponent {
 		public void paint(Graphics g) {
-			Graphics2D g2 = (Graphics2D)g;
+			
+			Image sceneOne = new ImageIcon("./Images/Scene1A.png").getImage();
+			g.drawImage(sceneOne, 0,0, 800, 550, this);
+		
+			/*Graphics2D g2 = (Graphics2D)g;
 			g2.setStroke(new BasicStroke(4));
 			
-			
-			
 			background(g, g2);
-			tree(g, g2);
+			tree(g, g2);*/
 			
 			Robot robotDogLeash = new Robot();
-		robotDogLeash.x = 624+(72/2);
-		robotDogLeash.y = 143+(111/2);
+			robotDogLeash.x = 624+(72/2);
+			robotDogLeash.y = 143+(111/2);
 		
 			robotDogLeash.drawRobot(g);
 		}
