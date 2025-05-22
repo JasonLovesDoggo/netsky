@@ -42,6 +42,7 @@ public class MainMenuScene extends BaseScene {
     private void addButton(String text, ActionListener listener) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.PLAIN, 16));
+        button.setBackground(Palette.ZColor);
         button.addActionListener(listener);
         buttonPanel.add(button);
     }
