@@ -16,4 +16,9 @@ public abstract class BaseScene extends JPanel {
 
     // Method to be implemented by all concrete scenes
     protected abstract void initializeComponents();
+
+    // Method called when the scene is shown
+    public void onShowScene() {
+        // Default implementation does nothing, can be overridden by subclasses
+    }
 }

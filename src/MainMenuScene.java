@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 
 public class MainMenuScene extends BaseScene {
     private JPanel buttonPanel;
+    private JLabel welcomeLabel; // Make welcomeLabel a field to update it
 
     public MainMenuScene(SceneManager sceneManager) {
         super(sceneManager);
@@ -18,8 +19,7 @@ public class MainMenuScene extends BaseScene {
         add(titleLabel, BorderLayout.NORTH);
 
         // Welcome message with player name
-        JLabel welcomeLabel = new JLabel("Welcome, " +
-                sceneManager.getParentFrame().getPlayerName() + "!");
+        welcomeLabel = new JLabel(); // Initialize empty, will be set in onShowScene
         welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(welcomeLabel, BorderLayout.CENTER);
@@ -44,5 +44,14 @@ public class MainMenuScene extends BaseScene {
         button.setFont(new Font("Arial", Font.PLAIN, 16));
         button.addActionListener(listener);
         buttonPanel.add(button);
+    }
+
+    @Override
+    public void onShowScene() {
+        // Update the welcome label with the current player name when the scene is shown
+        if (welcomeLabel != null) {
+            welcomeLabel.setText("Welcome, " +
+                    sceneManager.getParentFrame().getPlayerName() + "!");
+        }
     }
 }

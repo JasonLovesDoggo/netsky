@@ -10,8 +10,8 @@ public class SceneManager {
     public static final String SCENE_3A = "SCENE_3A";
     public static final String SCENE_3B = "SCENE_3B";
 
-    private GameFrame parentFrame;
-    private java.util.Map<String, BaseScene> scenes;
+    private final GameFrame parentFrame;
+    private final java.util.Map<String, BaseScene> scenes;
     private String currentScene;
 
     public SceneManager(GameFrame parentFrame) {
@@ -49,6 +49,9 @@ public class SceneManager {
         BaseScene scene = scenes.get(sceneName);
         parentFrame.getContentPane().add(scene);
         currentScene = sceneName;
+
+        // Call onShowScene for the new scene
+        scene.onShowScene();
 
         // Update UI
         parentFrame.revalidate();
