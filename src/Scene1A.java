@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.geom.*;
 
 public class Scene1A extends BaseScene {
+	JPanel contentPanel;
     public Scene1A(SceneManager sceneManager) {
         super(sceneManager);
     }
@@ -16,9 +17,10 @@ public class Scene1A extends BaseScene {
         add(titleLabel, BorderLayout.NORTH);
 
         // Content panel
-        JPanel contentPanel = new JPanel();
+        contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 		contentPanel.add(new SceneOneA());
+		
 		  
 
        /* JLabel contentLabel = new JLabel("This is Scene 1A content");
@@ -48,8 +50,16 @@ public class Scene1A extends BaseScene {
 			Graphics2D g2 = (Graphics2D)g;
 			g2.setStroke(new BasicStroke(4));
 			
+			
+			
 			background(g, g2);
 			tree(g, g2);
+			
+			Robot robotDogLeash = new Robot();
+		robotDogLeash.x = 624+(72/2);
+		robotDogLeash.y = 143+(111/2);
+		
+			robotDogLeash.drawRobot(g);
 		}
 		
 		private void background(Graphics g, Graphics2D g2) {
