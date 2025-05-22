@@ -52,20 +52,21 @@ public class Scene1A extends BaseScene {
 			Image sceneOne = new ImageIcon("./Images/Scene1A.png").getImage();
 			g.drawImage(sceneOne, 0,0, 800, 550, this);
 		
-			/*Graphics2D g2 = (Graphics2D)g;
+			Graphics2D g2 = (Graphics2D)g;
 			g2.setStroke(new BasicStroke(4));
-			
+			/*
 			background(g, g2);
 			tree(g, g2);*/
 			
 			Robot robotDogLeash = new Robot();
 			robotDogLeash.x = 624+(72/2);
 			robotDogLeash.y = 143+(111/2);
+			robotDogLeash.direction = -1;
 		
-			robotDogLeash.drawRobot(g);
+			robotDogLeash.drawRobot(g, g2);
 		}
 		
-		private void background(Graphics g, Graphics2D g2) {
+		/*private void background(Graphics g, Graphics2D g2) {
 			AffineTransform at = new AffineTransform();
 			at.rotate(Math.toRadians(18), 0, 108);
 			
@@ -118,6 +119,6 @@ public class Scene1A extends BaseScene {
 			g.fillOval(158, 230, 110, 110);
 			g.setColor(new Color(0x2f9e44));
 			g.drawOval(158, 230, 110, 110);
-		}
+		}*/
 	}
 }
