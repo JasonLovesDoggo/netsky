@@ -9,8 +9,11 @@ public class Robot{
 	
 	public void drawRobot(Graphics g, Graphics2D g2) {
 		Image robot = new ImageIcon("./Images/robot.png").getImage();
-		robot = robot.getScaledInstance((direction) * robot.getWidth(null), robot.getHeight(null), Image.SCALE_DEFAULT);
-		g.drawImage(robot, x, y, robot.getWidth(null), robot.getHeight(null), null);
+		if (direction == 1) {
+			g.drawImage(robot, x, y, robot.getWidth(null), robot.getHeight(null), null);
+		} else {
+			g.drawImage(robot, x+robot.getWidth(null), y, (-1) * robot.getWidth(null), robot.getHeight(null), null);
+		}
 		
 		/*g.setColor(Color.white);
 		g.fillOval(x-(72/2), y-(111/2), 72, 111);
