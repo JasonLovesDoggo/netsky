@@ -1,5 +1,5 @@
 !1689;s
-A
+J
 SAU0JGRASP_MAIN_BOUNDS=%<CONTROL_SHELL_BOUNDS>\012PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning\012GCC_COLORS=\012-Run\012ADD_EXE_PATH==Y\012
 SCU0JGRASP_MAIN_BOUNDS=%<CONTROL_SHELL_BOUNDS>\012PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning\012GCC_COLORS=\012-Run\012ADD_EXE_PATH==Y\012
 S+U0JGRASP_MAIN_BOUNDS=%<CONTROL_SHELL_BOUNDS>\012PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning\012GCC_COLORS=\012-Run\012ADD_EXE_PATH==Y\012
@@ -13,7 +13,7 @@ s#i0
 s#k0
 s#j0
 s#l0
-!304;g
+!321;g
 %\011BaseScene.java
 %\011ChangeNameScene.java
 %\011GameFrame.java
@@ -22,6 +22,7 @@ s#l0
 %\011MainMenuScene.java
 %\011netsky.gpj
 %\011Palette.java
+%\011Prompt.java
 %\011Robot.java
 %\011Scene1A.java
 %\011Scene1B.java
@@ -30,7 +31,7 @@ s#l0
 %\011Scene3A.java
 %\011Scene3B.java
 %\011SceneManager.java
-!304;f
+!321;f
 %\011BaseScene.java
 %\011ChangeNameScene.java
 %\011GameFrame.java
@@ -39,6 +40,7 @@ s#l0
 %\011MainMenuScene.java
 %\011netsky.gpj
 %\011Palette.java
+%\011Prompt.java
 %\011Robot.java
 %\011Scene1A.java
 %\011Scene1B.java

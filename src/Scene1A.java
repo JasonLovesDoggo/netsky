@@ -62,8 +62,11 @@ public class Scene1A extends BaseScene {
 			robotDogLeash.x = 624+(72/2);
 			robotDogLeash.y = 143+(111/2);
 			robotDogLeash.direction = 1;
+			robotDogLeash.speech = true;
 		
 			robotDogLeash.drawRobot(g, g2);
+			
+			new Prompt("This is a prompt. Press e", 50, 50, g, g2);
 		}
 		
 		/*private void background(Graphics g, Graphics2D g2) {
