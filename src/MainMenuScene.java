@@ -26,11 +26,12 @@ public class MainMenuScene extends BaseScene {
 
         // Button panel
         buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(5, 1, 10, 10));
+        buttonPanel.setLayout(new GridLayout(6, 1, 10, 10));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 150, 20, 150));
 
         // Create menu buttons
         addButton("Change Name", e -> sceneManager.showScene(SceneManager.CHANGE_NAME));
+		addButton("Pre scene", e -> sceneManager.showScene(SceneManager.SCENE_1NEWS));
         addButton("Scene 1", e -> sceneManager.showScene(SceneManager.SCENE_1A));
         addButton("Scene 2", e -> sceneManager.showScene(SceneManager.SCENE_2A));
         addButton("Scene 3", e -> sceneManager.showScene(SceneManager.SCENE_3A));

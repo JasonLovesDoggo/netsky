@@ -4,19 +4,22 @@ import javax.swing.*;
 
 public class News extends JComponent {
 	String text;
-	int count;
 	int y;
-	JPanel panel;
 	Timer timer;
+	int count;
+	int timerCount;
 	
 	News(String text, JPanel p) {
 		this.text = text;
-		panel = p;
 		
-		timer = new Timer(20, new ActionListener() {
+		timer = new Timer(10, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				y+=2;
+				y+=1;
 				repaint();
+				timerCount++;
+				if (timerCount > 200) {
+					timer.stop();
+				}
 			}
 		});
 	}
@@ -31,24 +34,11 @@ public class News extends JComponent {
 			for(int i = 0; i < text.length()/55; i++) {
 				g.drawString(text.substring(i*55, i*55+55), 50, 500-y*2+i*30);
 			}
+			g.drawString(text.substring(text.length()-text.length()%55), 50, 500-y*2+((text.length()/55))*30);
 		}
 	}
 	
 	public void scroll() {
-		count = 5;
-		/*for(int j = 0; j < 50; j++) {
-			y += 2;
-			try {
-				panel.revalidate();
-				panel.repaint();
-				this.repaint();
-				System.out.println("Print " + j);
-				Thread.sleep(100);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		}*/
 		timer.start();
 	}
 }

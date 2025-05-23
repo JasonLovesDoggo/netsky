@@ -8,7 +8,8 @@ public class Prompt {
 		g2.fill(new RoundRectangle2D.Double(x-20, y-25, text.length()*10, 40, 20, 20));
 		//g.fillRect(x-20, y-25, text.length()*10, 40);
 		g.setColor(Color.black);
-		g.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+		//g.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+		g.setFont(new Font("Consolas", Font.PLAIN, 15));
 		g.drawString(text, x, y);
 	}
 }
