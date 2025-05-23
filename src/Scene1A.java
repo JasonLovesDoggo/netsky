@@ -4,6 +4,7 @@ import java.awt.geom.*;
 
 public class Scene1A extends BaseScene {
 	JPanel contentPanel;
+	
     public Scene1A(SceneManager sceneManager) {
         super(sceneManager);
     }
@@ -44,10 +45,12 @@ public class Scene1A extends BaseScene {
         buttonPanel.add(menuButton);
 
 		add(buttonPanel, BorderLayout.SOUTH);
+		
     }
 	 
 	class SceneOneA extends JComponent {
 		public void paint(Graphics g) {
+			
 			
 			Image sceneOne = new ImageIcon("./Images/Scene1A.png").getImage();
 			g.drawImage(sceneOne, 0,0, 800, 550, this);
@@ -67,6 +70,7 @@ public class Scene1A extends BaseScene {
 			robotDogLeash.drawRobot(g, g2);
 			
 			new Prompt("This is a prompt. Press e", 50, 50, g, g2);
+			
 		}
 		
 		/*private void background(Graphics g, Graphics2D g2) {
