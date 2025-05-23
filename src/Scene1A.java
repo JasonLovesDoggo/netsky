@@ -61,9 +61,6 @@ public class Scene1A extends BaseScene {
 			Robot robotDogLeash = new Robot();
 			robotDogLeash.x = 624+(72/2);
 			robotDogLeash.y = 143+(111/2);
-			robotDogLeash.direction = -1;
-		
-			robotDogLeash.drawRobot(g, g2);
 			robotDogLeash.direction = 1;
 			robotDogLeash.speech = true;
 		
