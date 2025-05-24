@@ -30,20 +30,16 @@ public class HelpIcon extends JComponent{
 	}
 	
 	public void paintComponent(Graphics g) {
-		g.drawImage(icon, 0, 0, icon.getWidth(null)/2, icon.getHeight(null)/2, null);
-		if (helptext) {
-			text.setVisible(true);		
-		} else {
-			text.setVisible(false);
-		}
+		g.drawImage(icon, 0, 0, icon.getWidth(null), icon.getHeight(null), null);
+		text.setVisible(helptext);
 	}
 	
 	public int getWidth() {
-		return icon.getWidth(null)/2;
+		return icon.getWidth(null);
 	}
 	
 	public int getHeight() {
-		return icon.getHeight(null)/2;
+		return icon.getHeight(null);
 	}
 	
 	class HelpText extends JComponent{

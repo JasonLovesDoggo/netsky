@@ -30,22 +30,28 @@ public class Scene1A extends BaseScene {
 		sceneOne.setFocusable(true);
 		sceneOne.addKeyListener(new UserInput());
 		
-		//contentPanel.add(sceneOne);
 		JLayeredPane main = new JLayeredPane();
 		main.setPreferredSize(new Dimension(800, 500));
 		main.add(sceneOne, JLayeredPane.DEFAULT_LAYER);
 		
 		HelpIcon help = new HelpIcon(main);
-		help.setBounds(775-help.getWidth(), 0, help.getWidth(), help.getHeight());
+		help.setBounds(790-help.getWidth(), -10, help.getWidth(), help.getHeight());
 		main.add(help, JLayeredPane.PALETTE_LAYER);
 		main.setBounds(0, 0, 800, 500);
 		
-		contentPanel.add(main);
+		Robot robotDogLeash = new Robot(main);
 		
-
-       /* JLabel contentLabel = new JLabel("This is Scene 1A content");
-        contentLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        contentPanel.add(contentLabel, BorderLayout.CENTER);*/
+		robotDogLeash.direction = 1;
+		robotDogLeash.speech = true;
+		robotDogLeash.setLocation(650, 250);
+		robotDogLeash.setSize(robotDogLeash.getWidth(), robotDogLeash.getHeight());
+		main.add(robotDogLeash, JLayeredPane.PALETTE_LAYER);
+		
+		SceneOneForeground tree = new SceneOneForeground();
+		tree.setBounds(0, 0, 800, 500);
+		main.add(tree, JLayeredPane.PALETTE_LAYER);
+		
+		contentPanel.add(main);
 
         add(contentPanel, BorderLayout.CENTER);
 
@@ -76,27 +82,26 @@ public class Scene1A extends BaseScene {
 			}
 		}
 	}
+	
+	class SceneOneForeground extends JComponent {
+		public void paint(Graphics g) {
+			Image sceneOneTree = new ImageIcon("./Images/Scene1ATree.png").getImage();
+			g.drawImage(sceneOneTree, 100, 120, sceneOneTree.getWidth(null), sceneOneTree.getHeight(null), this);
+		}
+	}
 	 
 	class SceneOneA extends JComponent {
 		public void paint(Graphics g) {
 			sceneOne.requestFocusInWindow();
 			
 			Image sceneOne = new ImageIcon("./Images/Scene1A.png").getImage();
-			g.drawImage(sceneOne, 0,0, 800, 550, this);
-		
+			g.drawImage(sceneOne, 0,0, 800, 500, this);
+			
 			Graphics2D g2 = (Graphics2D)g;
 			g2.setStroke(new BasicStroke(4));
 			/*
 			background(g, g2);
 			tree(g, g2);*/
-			
-			Robot robotDogLeash = new Robot();
-			robotDogLeash.x = 624+(72/2);
-			robotDogLeash.y = 143+(111/2);
-			robotDogLeash.direction = 1;
-			robotDogLeash.speech = true;
-		
-			robotDogLeash.drawRobot(g, g2);
 			
 			switch (promptCount) {
 				case 0: 
