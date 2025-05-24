@@ -23,7 +23,7 @@ public class Scene1A extends BaseScene {
         // Content panel
         contentPanel = new JPanel();
         contentPanel.setLayout(null);
-		contentPanel.setPreferredSize(new Dimension(600, 500));
+		contentPanel.setPreferredSize(new Dimension(800, 500));
 		
 		sceneOne = new SceneOneA();
 		sceneOne.setBounds(0, 0, 800, 500);
@@ -32,11 +32,11 @@ public class Scene1A extends BaseScene {
 		
 		//contentPanel.add(sceneOne);
 		JLayeredPane main = new JLayeredPane();
-		main.setPreferredSize(new Dimension(600, 500));
+		main.setPreferredSize(new Dimension(800, 500));
 		main.add(sceneOne, JLayeredPane.DEFAULT_LAYER);
 		
-		HelpIcon help = new HelpIcon();
-		help.setBounds(0, 0, 100, 100);
+		HelpIcon help = new HelpIcon(main);
+		help.setBounds(775-help.getWidth(), 0, help.getWidth(), help.getHeight());
 		main.add(help, JLayeredPane.PALETTE_LAYER);
 		main.setBounds(0, 0, 800, 500);
 		
@@ -66,21 +66,7 @@ public class Scene1A extends BaseScene {
     }
 	
 	class UserInput extends KeyAdapter {
-		/*public void keyTyped(KeyEvent e) {
-			System.out.println("Key typed!");
-			int id = e.getID();
-			System.out.println(id);
-			if (id == KeyEvent.KEY_TYPED) {
-				char c = e.getKeyChar();
-				System.out.println(c);
-			}
-		}
-		public void keyPressed(KeyEvent e) {
-			System.out.println("Key pressed!");
-			System.out.println(e.getKeyChar());
-		}*/
 		public void keyReleased(KeyEvent e) {
-			System.out.println("Key released: "+e.getKeyChar());
 			if (e.getKeyChar() == 'i') {
 				promptCount++;
 				sceneOne.repaint();
