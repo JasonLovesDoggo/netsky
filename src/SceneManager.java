@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 // Scene manager class to handle switching between scenes
 public class SceneManager {
     // Scene identifiers as constants instead of enum
@@ -63,4 +65,37 @@ public class SceneManager {
     public GameFrame getParentFrame() {
         return parentFrame;
     }
+
+    public void showSkipAheadOptions() {
+        String[] skipOptions = {"Pre-scene", "Scene 1 (Intro)", "Scene 2", "Scene 3"};
+        String selectedSkip = (String) JOptionPane.showInputDialog(
+                this.getParentFrame(),
+                "Choose a point to skip to:",
+                "Skip Ahead",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                skipOptions,
+                skipOptions[0]
+        );
+
+        if (selectedSkip != null) {
+            switch (selectedSkip) {
+                case "Pre-scene":
+                    showScene(SCENE_1NEWS);
+                    break;
+                case "Scene 1 (Intro)":
+                    showScene(SCENE_1A);
+                    break;
+                case "Scene 2":
+                    showScene(SCENE_2A);
+                    break;
+                case "Scene 3":
+                    showScene(SCENE_3A);
+                    break;
+            }
+        }
+    }
+
 }
+
+
