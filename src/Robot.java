@@ -2,6 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.geom.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Robot extends JComponent{
 	public int direction;
@@ -11,9 +12,41 @@ public class Robot extends JComponent{
 	Speech speechBubble;
 	public boolean talk;
 	RobotTalking text;
+	ArrayList<String> words;
+	public int wordsCount;
 	
 	Robot(JLayeredPane pane) {
 		
+		this.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				//System.out.println("Entered!");
+				if (!talk){
+					mouse = true;
+				}
+				repaint();
+			}
+			public void mouseExited(MouseEvent e) {
+				mouse = false;
+				repaint();
+				//System.out.println("Exited");
+			}
+		});
+		
+		robot = new ImageIcon("./Images/robot.png").getImage();
+		speechBubble = new Speech();
+		speechBubble.setSize(speechBubble.getWidth(), speechBubble.getHeight());
+		speechBubble.setVisible(false);
+		pane.add(speechBubble, JLayeredPane.PALETTE_LAYER);
+		
+		text = new RobotTalking();
+		text.setSize(text.getWidth(), text.getHeight());
+		text.setLocation(0, 100);
+		text.setVisible(false);
+		pane.add(text, JLayeredPane.PALETTE_LAYER);
+	}
+	
+	Robot(JLayeredPane pane, ArrayList<String> words) {
+		this.words = words;
 		this.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				//System.out.println("Entered!");
@@ -78,7 +111,7 @@ public class Robot extends JComponent{
 		return robot.getHeight(null);
 	}
 	
-	static class RobotTalking extends JComponent {
+	class RobotTalking extends JComponent {
 		Image text;
 		
 		RobotTalking() {
@@ -87,6 +120,9 @@ public class Robot extends JComponent{
 		
 		public void paintComponent(Graphics g) {
 			g.drawImage(text, 0, 0, text.getWidth(null), text.getHeight(null), null);
+			g.setColor(Color.white);
+			g.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+			g.drawString(words.get(wordsCount), 250, 100);
 		}
 		
 		public int getWidth() {
@@ -106,8 +142,6 @@ public class Robot extends JComponent{
 		}
 		
 		public void paintComponent(Graphics g) {
-			
-			//10, -50
 			g.drawImage(speechBubble, 0, 0, speechBubble.getWidth(null), speechBubble.getHeight(null), null);
 		}
 		

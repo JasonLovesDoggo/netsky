@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Scene1A extends BaseScene {
 	JPanel contentPanel;
@@ -38,7 +39,11 @@ public class Scene1A extends BaseScene {
 		main.add(help, JLayeredPane.PALETTE_LAYER);
 		main.setBounds(0, 0, 800, 500);
 		
-		Robot robotDogLeash = new Robot(main);
+		//Robot:
+		ArrayList<String> text = new ArrayList<String>();
+		text.add("What are you doing?");
+		text.add("I'm walking the dog.");
+		Robot robotDogLeash = new Robot(main, text);
 		
 		robotDogLeash.direction = 1;
 		robotDogLeash.speech = true;
