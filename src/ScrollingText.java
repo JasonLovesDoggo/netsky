@@ -90,4 +90,5 @@ public class ScrollingText extends JComponent {
 
     public void stopScroll() { timer.stop(); }
     public void setScrolling() { if (!timer.isRunning()) timer.start(); }
+    public void setY(int y) { this.y = y; }
 }
