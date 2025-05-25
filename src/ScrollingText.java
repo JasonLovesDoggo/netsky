@@ -87,7 +87,7 @@ public class ScrollingText extends JComponent {
 	public void setScrollSpeed (double speed) {
 		if (speed > 0) scrollSpeed = speed;
 	}
-    public void scroll() { y = 0; accumulatedScroll = 0.0; timer.start(); }
+
     public void stopScroll() { timer.stop(); }
-    public void continueScroll() { if (!timer.isRunning()) timer.start(); }
+    public void setScrolling() { if (!timer.isRunning()) timer.start(); }
 }
