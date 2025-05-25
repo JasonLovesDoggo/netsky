@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.*;
 import java.awt.event.*;
 
 public class Scene1A extends BaseScene {
@@ -83,7 +82,7 @@ public class Scene1A extends BaseScene {
 		}
 	}
 	
-	class SceneOneForeground extends JComponent {
+	static class SceneOneForeground extends JComponent {
 		public void paint(Graphics g) {
 			Image sceneOneTree = new ImageIcon("./Images/Scene1ATree.png").getImage();
 			g.drawImage(sceneOneTree, 100, 120, sceneOneTree.getWidth(null), sceneOneTree.getHeight(null), this);

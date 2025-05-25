@@ -45,6 +45,20 @@ public class ChangeNameScene extends BaseScene {
         // Button panel at the bottom
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Increased gaps
 
+        JButton saveButton = getSaveButton();
+
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.setFont(new Font("Arial", Font.BOLD, 16));
+        cancelButton.setPreferredSize(new Dimension(120, 40)); // Make buttons larger
+        cancelButton.addActionListener(e -> sceneManager.showScene(SceneManager.MAIN_MENU));
+
+        buttonPanel.add(saveButton);
+        buttonPanel.add(cancelButton);
+
+        add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    private JButton getSaveButton() {
         JButton saveButton = new JButton("Save");
         saveButton.setFont(new Font("Arial", Font.BOLD, 16));
         saveButton.setPreferredSize(new Dimension(120, 40)); // Make buttons larger
@@ -60,16 +74,7 @@ public class ChangeNameScene extends BaseScene {
                 feedbackLabel.setText("Name cannot be empty.");
             }
         });
-
-        JButton cancelButton = new JButton("Cancel");
-        cancelButton.setFont(new Font("Arial", Font.BOLD, 16));
-        cancelButton.setPreferredSize(new Dimension(120, 40)); // Make buttons larger
-        cancelButton.addActionListener(e -> sceneManager.showScene(SceneManager.MAIN_MENU));
-
-        buttonPanel.add(saveButton);
-        buttonPanel.add(cancelButton);
-
-        add(buttonPanel, BorderLayout.SOUTH);
+        return saveButton;
     }
 
     @Override

@@ -78,7 +78,7 @@ public class Robot extends JComponent{
 		return robot.getHeight(null);
 	}
 	
-	class RobotTalking extends JComponent {
+	static class RobotTalking extends JComponent {
 		Image text;
 		
 		RobotTalking() {
@@ -98,7 +98,7 @@ public class Robot extends JComponent{
 		}
 	}
 	
-	class Speech extends JComponent {
+	static class Speech extends JComponent {
 		Image speechBubble;
 		
 		Speech() {

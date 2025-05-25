@@ -29,16 +29,22 @@ public class Scene1News extends BaseScene {
         add(contentPanel, BorderLayout.CENTER);
 
         // Navigation buttons
+        JPanel buttonPanel = getButtonPanel(news);
+
+        add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    private JPanel getButtonPanel(ScrollingText news) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-		
-		JButton startNews = new JButton("Start the News");
-		startNews.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				news.scroll();
-			}
-		});
-		
+
+        JButton startNews = new JButton("Start the News");
+        startNews.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                news.scroll();
+            }
+        });
+
         JButton prevButton = new JButton("Next to Scene 1A");
         prevButton.addActionListener(e -> sceneManager.showScene(SceneManager.SCENE_1A));
 
@@ -46,11 +52,10 @@ public class Scene1News extends BaseScene {
         menuButton.addActionListener(e -> sceneManager.showScene(SceneManager.MAIN_MENU));
 
         buttonPanel.add(prevButton);
-		buttonPanel.add(startNews);
+        buttonPanel.add(startNews);
         buttonPanel.add(menuButton);
-
-        add(buttonPanel, BorderLayout.SOUTH);
+        return buttonPanel;
     }
-	
-	
+
+
 }

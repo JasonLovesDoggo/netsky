@@ -42,7 +42,7 @@ public class HelpIcon extends JComponent{
 		return icon.getHeight(null);
 	}
 	
-	class HelpText extends JComponent{
+	static class HelpText extends JComponent{
 		public void paintComponent (Graphics g) {
 			Graphics2D g2 = (Graphics2D)g;
 			g.setColor(new Color(75, 75, 75, 150));
