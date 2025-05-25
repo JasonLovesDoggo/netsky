@@ -22,8 +22,8 @@ public class Scene1News extends BaseScene {
         /*JLabel contentLabel = new JLabel("This is Scene 1B content");
         contentLabel.setHorizontalAlignment(SwingConstants.CENTER);
         contentPanel.add(contentLabel, BorderLayout.CENTER);*/
-		News news = new News("The US senate has passed a controvertial new law - the US is ceding all control to FEANOR (Fully Enabled Autonomous Non-Organic Ruler),\nthe world's first AI that is able to rule a country!\n. . . add more text later");
-        news.scrollSpeed = 0.6;
+		ScrollingText news = new ScrollingText("The US senate has passed a controversial new law\nthe US is ceding all control to FEANOR (Fully Enabled Autonomous Non-Organic Ruler),\nthe world's first AI that is able to rule a country!\n. . . add more text later");
+        news.setScrollSpeed(0.6);
 		contentPanel.add(news);
 
         add(contentPanel, BorderLayout.CENTER);
