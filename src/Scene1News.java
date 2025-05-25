@@ -19,11 +19,9 @@ public class Scene1News extends BaseScene {
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-        /*JLabel contentLabel = new JLabel("This is Scene 1B content");
-        contentLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        contentPanel.add(contentLabel, BorderLayout.CENTER);*/
 		ScrollingText news = new ScrollingText("The US senate has passed a controversial new law\nthe US is ceding all control to FEANOR (Fully Enabled Autonomous Non-Organic Ruler),\nthe world's first AI that is able to rule a country!\n. . . add more text later");
-        news.setScrollSpeed(0.6);
+        news.setScrollSpeed(0.5);
+        news.setY(-28); // Start under the screen
 		contentPanel.add(news);
 
         add(contentPanel, BorderLayout.CENTER);
@@ -40,18 +38,13 @@ public class Scene1News extends BaseScene {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        JButton continueButton = new JButton("Continue");
-        continueButton.addActionListener(e -> {
-            news.setScrolling();
-        });
 
-        JButton nextSceneButton = new JButton("Next Scene (1A)");
+        JButton nextSceneButton = new JButton("Continue");
         nextSceneButton.addActionListener(e -> sceneManager.showScene(SceneManager.SCENE_1A));
 
         JButton menuButton = new JButton("Back to Menu");
         menuButton.addActionListener(e -> sceneManager.showScene(SceneManager.MAIN_MENU));
 
-        buttonPanel.add(continueButton);
         buttonPanel.add(nextSceneButton);
         buttonPanel.add(menuButton);
         return buttonPanel;
