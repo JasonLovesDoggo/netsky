@@ -36,27 +36,41 @@ public class MainMenuScene extends BaseScene {
         add(centerVisualPanel, BorderLayout.CENTER);
 
         // Button panel for main actions
-        JPanel mainButtonPanel = new JPanel();
-        mainButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10)); // Side-by-side layout
-        mainButtonPanel.setOpaque(false);
+        JPanel topButtonPanel = getTopButtonPanel();
 
-        addButton(mainButtonPanel, "Start Game", e -> sceneManager.showScene(SceneManager.SCENE_1NEWS));
-        addButton(mainButtonPanel, "Instructions", e -> showInstructions());
-        addButton(mainButtonPanel, "Change Name", e -> sceneManager.showScene(SceneManager.CHANGE_NAME));
-        addButton(mainButtonPanel, "Skip Ahead", e -> sceneManager.showSkipAheadOptions());
-        addButton(mainButtonPanel, "Exit", e -> System.exit(0));
+        JPanel bottomButtonPanel = new JPanel();
+        bottomButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        bottomButtonPanel.setOpaque(false);
 
-        // Wrapper panel to control the size and position of the mainButtonPanel
-        JPanel buttonWrapperPanel = new JPanel(new BorderLayout()); // Use BorderLayout to center the mainButtonPanel
-        buttonWrapperPanel.setOpaque(false);
-        buttonWrapperPanel.add(mainButtonPanel, BorderLayout.CENTER);
+        addSmallButton(bottomButtonPanel, "Instructions", e -> showInstructions());
+        addSmallButton(bottomButtonPanel, "Change Name", e -> sceneManager.showScene(SceneManager.CHANGE_NAME));
+        addSmallButton(bottomButtonPanel, "Skip Ahead", e -> sceneManager.showSkipAheadOptions());
+        addSmallButton(bottomButtonPanel, "Exit", e -> System.exit(0));
 
-        add(buttonWrapperPanel, BorderLayout.SOUTH);
+        // Wrapper panel to hold both button panels
+        JPanel buttonContainerPanel = new JPanel(new BorderLayout(0, 10));
+        buttonContainerPanel.setOpaque(false);
+        buttonContainerPanel.add(topButtonPanel, BorderLayout.NORTH);
+        buttonContainerPanel.add(bottomButtonPanel, BorderLayout.CENTER);
+
+        add(buttonContainerPanel, BorderLayout.SOUTH);
     }
 
-    private void addButton(JPanel panel, String text, ActionListener listener) {
+    private JPanel getTopButtonPanel() {
+        JPanel topButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        topButtonPanel.setOpaque(false);
+        JButton startGameButton = new JButton("Start Game");
+        startGameButton.setFont(new Font("Arial", Font.BOLD, 28)); // Larger font for Start Game
+        startGameButton.setBackground(Palette.ZColor);
+        startGameButton.setFocusPainted(false);
+        startGameButton.addActionListener(e -> sceneManager.showScene(SceneManager.SCENE_1NEWS));
+        topButtonPanel.add(startGameButton);
+        return topButtonPanel;
+    }
+
+    private void addSmallButton(JPanel panel, String text, ActionListener listener) {
         JButton button = new JButton(text);
-        button.setFont(new Font("Arial", Font.PLAIN, 20)); // Slightly larger font for main buttons
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
         button.setBackground(Palette.ZColor);
         button.setFocusPainted(false);
         button.addActionListener(listener);
