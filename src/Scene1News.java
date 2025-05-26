@@ -49,6 +49,10 @@ public class Scene1News extends BaseScene {
         buttonPanel.add(menuButton);
         return buttonPanel;
     }
+	
+	public void onShowScene () {
+	
+	}
 
 
 }
