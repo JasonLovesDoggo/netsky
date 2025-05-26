@@ -85,6 +85,7 @@ public class MainMenuScene extends BaseScene {
                         "- The 'Start Game' button will begin your adventure from the pre-scene.\n" +
                         "- 'Skip Ahead' allows you to jump to specific parts of the game.\n" +
                         "- In the news scene, text scrolls automatically. Click 'Continue' when ready.\n" +
+						"- Hover over the help icon in the top right corner for some keyboard shortcuts.\n" +
                         "- Enjoy your playthrough!";
         JOptionPane.showMessageDialog(this, instructionsText, "Game Instructions", JOptionPane.INFORMATION_MESSAGE);
     }
