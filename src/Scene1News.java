@@ -1,8 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class Scene1News extends BaseScene {
+    ScrollingText news;
     public Scene1News(SceneManager sceneManager) {
         super(sceneManager);
     }
@@ -19,9 +19,9 @@ public class Scene1News extends BaseScene {
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
-		ScrollingText news = new ScrollingText("The US senate has passed a controversial new law\nthe US is ceding all control to FEANOR (Fully Enabled Autonomous Non-Organic Ruler),\nthe world's first AI that is able to rule a country!\n. . . add more text later");
+        news = new ScrollingText("The US senate has passed a controversial new law\nthe US is ceding all control to FEANOR (Fully Enabled Autonomous Non-Organic Ruler),\nthe world's first AI that is able to rule a country!\n. . . add more text later");
         news.setScrollSpeed(0.5);
-        news.setY(-28); // Start under the screen
+        news.setY(-28); 
 		contentPanel.add(news);
 
         add(contentPanel, BorderLayout.CENTER);
@@ -30,7 +30,6 @@ public class Scene1News extends BaseScene {
         JPanel buttonPanel = getButtonPanel(news); // Pass news to button panel method
 
         add(buttonPanel, BorderLayout.SOUTH);
-        news.setY(-150);
         news.setScrolling();
     }
 
@@ -49,8 +48,15 @@ public class Scene1News extends BaseScene {
         buttonPanel.add(menuButton);
         return buttonPanel;
     }
-	
-	public void onShowScene () {
+
+    @Override
+    public void onShowScene() {
+        // Reset the news scrolling position when the scene is shown
+        if (news != null) {
+            news.setY(-28);
+            news.setScrolling();
+        }
+        super.onShowScene();
 	
 	}
 

@@ -48,7 +48,7 @@ public class ScrollingText extends JComponent {
         FontMetrics fm = g.getFontMetrics();
         int currentY = START_Y - (y * SCROLL_MULT);
 
-        for (String paragraph : text.split("\\n")) {
+        for (String paragraph : text.split("\n")) {
             if (paragraph.isEmpty()) {
                 currentY += LINE_HEIGHT;
                 continue;

@@ -40,7 +40,7 @@ public class Scene1A extends BaseScene {
 		main.setBounds(0, 0, 800, 500);
 		
 		//Robot:
-		ArrayList<String> text = new ArrayList<String>();
+		ArrayList<String> text = new ArrayList<>();
 		text.add("What are you doing?");
 		text.add("I'm walking the dog.");
 		Robot robotDogLeash = new Robot(main, text);

@@ -1,6 +1,5 @@
 import java.awt.*;
 import javax.swing.*;
-import java.awt.geom.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -14,37 +13,7 @@ public class Robot extends JComponent{
 	RobotTalking text;
 	ArrayList<String> words;
 	public int wordsCount;
-	
-	Robot(JLayeredPane pane) {
-		
-		this.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent e) {
-				//System.out.println("Entered!");
-				if (!talk){
-					mouse = true;
-				}
-				repaint();
-			}
-			public void mouseExited(MouseEvent e) {
-				mouse = false;
-				repaint();
-				//System.out.println("Exited");
-			}
-		});
-		
-		robot = new ImageIcon("./Images/robot.png").getImage();
-		speechBubble = new Speech();
-		speechBubble.setSize(speechBubble.getWidth(), speechBubble.getHeight());
-		speechBubble.setVisible(false);
-		pane.add(speechBubble, JLayeredPane.PALETTE_LAYER);
-		
-		text = new RobotTalking();
-		text.setSize(text.getWidth(), text.getHeight());
-		text.setLocation(0, 100);
-		text.setVisible(false);
-		pane.add(text, JLayeredPane.PALETTE_LAYER);
-	}
-	
+
 	Robot(JLayeredPane pane, ArrayList<String> words) {
 		this.words = words;
 		this.addMouseListener(new MouseAdapter() {
@@ -68,7 +37,7 @@ public class Robot extends JComponent{
 			}
 		});
 		
-		robot = new ImageIcon("./Images/robot.png").getImage();
+		robot = new ImageIcon("./Images/Robot.png").getImage();
 		speechBubble = new Speech();
 		speechBubble.setSize(speechBubble.getWidth(), speechBubble.getHeight());
 		speechBubble.setVisible(false);
