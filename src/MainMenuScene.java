@@ -4,9 +4,19 @@ import java.awt.event.ActionListener;
 
 public class MainMenuScene extends BaseScene {
     private JLabel welcomeLabel;
+    private final Image backgroundImage;
 
     public MainMenuScene(SceneManager sceneManager) {
         super(sceneManager);
+        // once within the JAR, getClass().getResource("/Images/Scene1B.png")
+        backgroundImage = new ImageIcon("./Images/MainBG.png").getImage();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Draw the background image, scaled to fill the panel
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
 
     @Override
@@ -29,11 +39,6 @@ public class MainMenuScene extends BaseScene {
         topPanel.add(titleLabel, BorderLayout.NORTH);
         topPanel.add(welcomeLabel, BorderLayout.CENTER);
         add(topPanel, BorderLayout.NORTH);
-
-        // todo: set this to a background visual
-        JPanel centerVisualPanel = new JPanel();
-        centerVisualPanel.setOpaque(false);
-        add(centerVisualPanel, BorderLayout.CENTER);
 
         // Button panel for main actions
         JPanel topButtonPanel = getTopButtonPanel();
@@ -85,7 +90,7 @@ public class MainMenuScene extends BaseScene {
                         "- The 'Start Game' button will begin your adventure from the pre-scene.\n" +
                         "- 'Skip Ahead' allows you to jump to specific parts of the game.\n" +
                         "- In the news scene, text scrolls automatically. Click 'Continue' when ready.\n" +
-						"- Hover over the help icon in the top right corner for some keyboard shortcuts.\n" +
+                        "- Hover over the help icon in the top right corner for some keyboard shortcuts.\n" +
                         "- Enjoy your playthrough!";
         JOptionPane.showMessageDialog(this, instructionsText, "Game Instructions", JOptionPane.INFORMATION_MESSAGE);
     }
