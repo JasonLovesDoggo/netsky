@@ -8,7 +8,7 @@ public class MainMenuScene extends BaseScene {
 
     public MainMenuScene(SceneManager sceneManager) {
         super(sceneManager);
-        // once within the JAR, getClass().getResource("/Images/Scene1B.png")
+        // once within the JAR, getClass().getResource("/Images/MainBG.png")
         backgroundImage = new ImageIcon("./Images/MainBG.png").getImage();
     }
 
@@ -25,7 +25,7 @@ public class MainMenuScene extends BaseScene {
         setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50)); // Add padding around the scene
 
         // Title
-        JLabel titleLabel = new JLabel("Game Title");
+        JLabel titleLabel = new JLabel("Zoeyliii's Journey");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 48));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
