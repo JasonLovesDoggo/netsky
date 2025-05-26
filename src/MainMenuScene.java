@@ -79,13 +79,13 @@ public class MainMenuScene extends BaseScene {
 
     private void showInstructions() {
         String instructionsText =
-            "Instructions:\n\n" +
-            "Welcome to the Game!\n" +
-            "- Use the buttons to navigate through the story.\n" +
-            "- The 'Start Game' button will begin your adventure from the pre-scene.\n" +
-            "- 'Skip Ahead' allows you to jump to specific parts of the game.\n" +
-            "- In the news scene, text scrolls automatically. Click 'Continue' when ready.\n" +
-            "- Enjoy your playthrough!";
+                "Instructions:\n\n" +
+                        "Welcome to the Game!\n" +
+                        "- Use the buttons to navigate through the story.\n" +
+                        "- The 'Start Game' button will begin your adventure from the pre-scene.\n" +
+                        "- 'Skip Ahead' allows you to jump to specific parts of the game.\n" +
+                        "- In the news scene, text scrolls automatically. Click 'Continue' when ready.\n" +
+                        "- Enjoy your playthrough!";
         JOptionPane.showMessageDialog(this, instructionsText, "Game Instructions", JOptionPane.INFORMATION_MESSAGE);
     }
 

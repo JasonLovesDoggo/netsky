@@ -1,19 +1,18 @@
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class ScrollingText extends JComponent {
+    private static final int LINE_HEIGHT = 30;
+    private static final int PAUSE_DISTANCE = 40;
+    private static final int START_Y = 500;
+    private static final int SCROLL_MULT = 2;
+    private static final int MARGIN = 10;
     private final String text;
     private int y = 0;
     private Timer timer;
     private boolean firstPaint = true;
     private double scrollSpeed = 1.0;
     private double accumulatedScroll = 0.0;
-
-    private static final int LINE_HEIGHT = 30;
-    private static final int PAUSE_DISTANCE = 40;
-    private static final int START_Y = 500;
-    private static final int SCROLL_MULT = 2;
-    private static final int MARGIN = 10;
 
     public ScrollingText(String text) {
         this.text = text;
@@ -36,7 +35,10 @@ public class ScrollingText extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (firstPaint) { firstPaint = false; return; }
+        if (firstPaint) {
+            firstPaint = false;
+            return;
+        }
         if (text == null || text.isEmpty()) return;
 
         g.setColor(Color.BLACK);
@@ -84,11 +86,20 @@ public class ScrollingText extends JComponent {
         int x = MARGIN + (width - fm.stringWidth(text)) / 2;
         g.drawString(text, x, y);
     }
-	public void setScrollSpeed (double speed) {
-		if (speed > 0) scrollSpeed = speed;
-	}
 
-    public void stopScroll() { timer.stop(); }
-    public void setScrolling() { if (!timer.isRunning()) timer.start(); }
-    public void setY(int y) { this.y = y; }
+    public void setScrollSpeed(double speed) {
+        if (speed > 0) scrollSpeed = speed;
+    }
+
+    public void stopScroll() {
+        timer.stop();
+    }
+
+    public void setScrolling() {
+        if (!timer.isRunning()) timer.start();
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 }

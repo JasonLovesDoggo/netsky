@@ -3,6 +3,7 @@ import java.awt.*;
 
 public class Scene1News extends BaseScene {
     ScrollingText news;
+
     public Scene1News(SceneManager sceneManager) {
         super(sceneManager);
     }
@@ -21,8 +22,8 @@ public class Scene1News extends BaseScene {
 
         news = new ScrollingText("The US senate has passed a controversial new law\nthe US is ceding all control to FEANOR (Fully Enabled Autonomous Non-Organic Ruler),\nthe world's first AI that is able to rule a country!\n. . . add more text later");
         news.setScrollSpeed(0.5);
-        news.setY(-28); 
-		contentPanel.add(news);
+        news.setY(-28);
+        contentPanel.add(news);
 
         add(contentPanel, BorderLayout.CENTER);
 
@@ -57,8 +58,8 @@ public class Scene1News extends BaseScene {
             news.setScrolling();
         }
         super.onShowScene();
-	
-	}
+
+    }
 
 
 }

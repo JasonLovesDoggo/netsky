@@ -1,13 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Scene1A extends BaseScene {
-	JPanel contentPanel;
-	SceneOneA sceneOne;
-	int promptCount;
-	
+    JPanel contentPanel;
+    SceneOneA sceneOne;
+    int promptCount;
+
     public Scene1A(SceneManager sceneManager) {
         super(sceneManager);
     }
@@ -23,39 +24,39 @@ public class Scene1A extends BaseScene {
         // Content panel
         contentPanel = new JPanel();
         contentPanel.setLayout(null);
-		contentPanel.setPreferredSize(new Dimension(800, 500));
-		
-		sceneOne = new SceneOneA();
-		sceneOne.setBounds(0, 0, 800, 500);
-		sceneOne.setFocusable(true);
-		sceneOne.addKeyListener(new UserInput());
-		
-		JLayeredPane main = new JLayeredPane();
-		main.setPreferredSize(new Dimension(800, 500));
-		main.add(sceneOne, JLayeredPane.DEFAULT_LAYER);
-		
-		HelpIcon help = new HelpIcon(main);
-		help.setBounds(790-help.getWidth(), -10, help.getWidth(), help.getHeight());
-		main.add(help, JLayeredPane.PALETTE_LAYER);
-		main.setBounds(0, 0, 800, 500);
-		
-		//Robot:
-		ArrayList<String> text = new ArrayList<>();
-		text.add("What are you doing?");
-		text.add("I'm walking the dog.");
-		Robot robotDogLeash = new Robot(main, text);
-		
-		robotDogLeash.direction = 1;
-		robotDogLeash.speech = true;
-		robotDogLeash.setLocation(650, 250);
-		robotDogLeash.setSize(robotDogLeash.getWidth(), robotDogLeash.getHeight());
-		main.add(robotDogLeash, JLayeredPane.PALETTE_LAYER);
-		
-		SceneOneForeground tree = new SceneOneForeground();
-		tree.setBounds(0, 0, 800, 500);
-		main.add(tree, JLayeredPane.PALETTE_LAYER);
-		
-		contentPanel.add(main);
+        contentPanel.setPreferredSize(new Dimension(800, 500));
+
+        sceneOne = new SceneOneA();
+        sceneOne.setBounds(0, 0, 800, 500);
+        sceneOne.setFocusable(true);
+        sceneOne.addKeyListener(new UserInput());
+
+        JLayeredPane main = new JLayeredPane();
+        main.setPreferredSize(new Dimension(800, 500));
+        main.add(sceneOne, JLayeredPane.DEFAULT_LAYER);
+
+        HelpIcon help = new HelpIcon(main);
+        help.setBounds(790 - help.getWidth(), -10, help.getWidth(), help.getHeight());
+        main.add(help, JLayeredPane.PALETTE_LAYER);
+        main.setBounds(0, 0, 800, 500);
+
+        //Robot:
+        ArrayList<String> text = new ArrayList<>();
+        text.add("What are you doing?");
+        text.add("I'm walking the dog.");
+        Robot robotDogLeash = new Robot(main, text);
+
+        robotDogLeash.direction = 1;
+        robotDogLeash.speech = true;
+        robotDogLeash.setLocation(650, 250);
+        robotDogLeash.setSize(robotDogLeash.getWidth(), robotDogLeash.getHeight());
+        main.add(robotDogLeash, JLayeredPane.PALETTE_LAYER);
+
+        SceneOneForeground tree = new SceneOneForeground();
+        tree.setBounds(0, 0, 800, 500);
+        main.add(tree, JLayeredPane.PALETTE_LAYER);
+
+        contentPanel.add(main);
 
         add(contentPanel, BorderLayout.CENTER);
 
@@ -64,60 +65,60 @@ public class Scene1A extends BaseScene {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         JButton nextButton = new JButton("Next to Scene 1B");
-		nextButton.addActionListener(e -> sceneManager.showScene(SceneManager.SCENE_1B));
+        nextButton.addActionListener(e -> sceneManager.showScene(SceneManager.SCENE_1B));
 
         JButton menuButton = new JButton("Back to Menu");
         menuButton.addActionListener(e -> sceneManager.showScene(SceneManager.MAIN_MENU));
 
         buttonPanel.add(nextButton);
         buttonPanel.add(menuButton);
-		
-		add(buttonPanel, BorderLayout.SOUTH);
+
+        add(buttonPanel, BorderLayout.SOUTH);
     }
-	
-	class UserInput extends KeyAdapter {
-		public void keyReleased(KeyEvent e) {
-			if (e.getKeyChar() == 'i') {
-				promptCount++;
-				sceneOne.repaint();
-			} else if (e.getKeyChar() == 'u') {
-				promptCount--;
-				sceneOne.repaint();
-			}
-		}
-	}
-	
-	static class SceneOneForeground extends JComponent {
-		public void paint(Graphics g) {
-			Image sceneOneTree = new ImageIcon("./Images/Scene1ATree.png").getImage();
-			g.drawImage(sceneOneTree, 100, 120, sceneOneTree.getWidth(null), sceneOneTree.getHeight(null), this);
-		}
-	}
-	 
-	class SceneOneA extends JComponent {
-		public void paint(Graphics g) {
-			sceneOne.requestFocusInWindow();
-			
-			Image sceneOne = new ImageIcon("./Images/Scene1A.png").getImage();
-			g.drawImage(sceneOne, 0,0, 800, 500, this);
-			
-			Graphics2D g2 = (Graphics2D)g;
-			g2.setStroke(new BasicStroke(4));
+
+    static class SceneOneForeground extends JComponent {
+        public void paint(Graphics g) {
+            Image sceneOneTree = new ImageIcon("./Images/Scene1ATree.png").getImage();
+            g.drawImage(sceneOneTree, 100, 120, sceneOneTree.getWidth(null), sceneOneTree.getHeight(null), this);
+        }
+    }
+
+    class UserInput extends KeyAdapter {
+        public void keyReleased(KeyEvent e) {
+            if (e.getKeyChar() == 'i') {
+                promptCount++;
+                sceneOne.repaint();
+            } else if (e.getKeyChar() == 'u') {
+                promptCount--;
+                sceneOne.repaint();
+            }
+        }
+    }
+
+    class SceneOneA extends JComponent {
+        public void paint(Graphics g) {
+            sceneOne.requestFocusInWindow();
+
+            Image sceneOne = new ImageIcon("./Images/Scene1A.png").getImage();
+            g.drawImage(sceneOne, 0, 0, 800, 500, this);
+
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(4));
 			/*
 			background(g, g2);
 			tree(g, g2);*/
-			
-			switch (promptCount) {
-				case 0: 
-					new Prompt("This is what a prompt looks like. Press i to continue.", 50, 50, g, g2);
-					break;
-				case 1:
-					new Prompt("Great! If you want to go back, press u.", 50, 50, g, g2);
-					break;
-				case 2:
-					new Prompt("Now, click on the robot!", 50, 50, g, g2);
-			}
-		}
+
+            switch (promptCount) {
+                case 0:
+                    new Prompt("This is what a prompt looks like. Press i to continue.", 50, 50, g, g2);
+                    break;
+                case 1:
+                    new Prompt("Great! If you want to go back, press u.", 50, 50, g, g2);
+                    break;
+                case 2:
+                    new Prompt("Now, click on the robot!", 50, 50, g, g2);
+            }
+        }
 		
 		/*private void background(Graphics g, Graphics2D g2) {
 			AffineTransform at = new AffineTransform();
@@ -173,5 +174,5 @@ public class Scene1A extends BaseScene {
 			g.setColor(new Color(0x2f9e44));
 			g.drawOval(158, 230, 110, 110);
 		}*/
-	}
+    }
 }
