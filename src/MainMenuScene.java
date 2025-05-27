@@ -27,7 +27,7 @@ public class MainMenuScene extends BaseScene {
         setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50)); // Add padding around the scene
 
         // Title
-        JLabel titleLabel = new JLabel("MEDICI");
+        JLabel titleLabel = new JLabel("ZoZoZoLIIIIIIIIIIIII's simulator. v1");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 48));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
