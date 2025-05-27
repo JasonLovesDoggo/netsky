@@ -1,19 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class Robot extends JComponent {
-    public int direction;
-    public boolean speech;
-    public boolean mouse;
-    public boolean talk;
-    public int wordsCount;
-    Image robot;
-    Speech speechBubble;
-    RobotTalking text;
-    ArrayList<String> words;
+	public int direction;
+	public boolean speech;
+	public boolean mouse;
+	public boolean talk;
+	public int wordsCount;
+	Image robot;
+	Speech speechBubble;
+	RobotTalking text;
+	ArrayList<String> words;
 	
 	Robot(JLayeredPane pane) {
 		
@@ -37,109 +36,158 @@ public class Robot extends JComponent {
 		speechBubble.setSize(speechBubble.getWidth(), speechBubble.getHeight());
 		speechBubble.setVisible(false);
 		pane.add(speechBubble, JLayeredPane.PALETTE_LAYER);
-		
-		text = new RobotTalking();
-		text.setSize(text.getWidth(), text.getHeight());
-		text.setLocation(0, 100);
-		text.setVisible(false);
-		pane.add(text, JLayeredPane.PALETTE_LAYER);
 	}
 	
-    Robot(JLayeredPane pane, ArrayList<String> words) {
+	Robot(JLayeredPane pane, ArrayList<String> words) {
 		this(pane);
-        this.words = words;
-        this.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                if (speech && mouse) {
-                    talk = true;
-                    repaint();
-                }
-            }
-        });
+	    this.words = words;
 
-        robot = new ImageIcon("./Images/Robot.png").getImage();
-        speechBubble = new Speech();
-        speechBubble.setSize(speechBubble.getWidth(), speechBubble.getHeight());
-        speechBubble.setVisible(false);
-        pane.add(speechBubble, JLayeredPane.PALETTE_LAYER);
+	    text = new RobotTalking(pane);
+	    text.setSize(text.getWidth(), text.getHeight());
+	    text.setLocation(0, 100);
+	    text.setVisible(false);
+		
+		this.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (speech && mouse) {
+					talk = true;
+					text.setVisible(speech && talk);
+					text.repaint();
+					repaint();
+				}
+			}
+	    });
+		
+		
+	    pane.add(text, JLayeredPane.PALETTE_LAYER);
+	}
 
-        text = new RobotTalking();
-        text.setSize(text.getWidth(), text.getHeight());
-        text.setLocation(0, 100);
-        text.setVisible(false);
-        pane.add(text, JLayeredPane.PALETTE_LAYER);
-    }
+	public void paintComponent(Graphics g) {
+	    drawRobot(g);
+	    speechBubble.setVisible(speech && mouse);
+	    
+	}
 
-    public void paintComponent(Graphics g) {
-        drawRobot(g);
-        speechBubble.setVisible(speech && mouse);
-        text.setVisible(speech && talk);
-    }
+	@Override
+	public void setLocation(int x, int y) {
+	    super.setLocation(x, y);
+	    if (speech) {
+	 	   speechBubble.setLocation(x + 10, y - speechBubble.getHeight());
+	    }
+	}
 
-    @Override
-    public void setLocation(int x, int y) {
-        super.setLocation(x, y);
-        if (speech) {
-            speechBubble.setLocation(x + 10, y - speechBubble.getHeight());
-        }
-    }
+	public void drawRobot(Graphics g) {
+	    if (direction == 1) {
+	 	   g.drawImage(robot, 0, 0, robot.getWidth(null), robot.getHeight(null), null);
+	    } else {
+	 	   g.drawImage(robot, robot.getWidth(null), 0, (-1) * robot.getWidth(null), robot.getHeight(null), null);
+	    }
+	}
 
-    public void drawRobot(Graphics g) {
-        if (direction == 1) {
-            g.drawImage(robot, 0, 0, robot.getWidth(null), robot.getHeight(null), null);
-        } else {
-            g.drawImage(robot, robot.getWidth(null), 0, (-1) * robot.getWidth(null), robot.getHeight(null), null);
-        }
-    }
+	public int getWidth() {
+	    return robot.getWidth(null);
+	}
 
-    public int getWidth() {
-        return robot.getWidth(null);
-    }
+	public int getHeight() {
+	    return robot.getHeight(null);
+	}
 
-    public int getHeight() {
-        return robot.getHeight(null);
-    }
+	static class Speech extends JComponent {
+	    Image speechBubble;
 
-    static class Speech extends JComponent {
-        Image speechBubble;
+	    Speech() {
+			speechBubble = new ImageIcon("./Images/SpeechBubble.png").getImage();
+	    }
 
-        Speech() {
-            speechBubble = new ImageIcon("./Images/SpeechBubble.png").getImage();
-        }
+	    public void paintComponent(Graphics g) {
+			g.drawImage(speechBubble, 0, 0, speechBubble.getWidth(null), speechBubble.getHeight(null), null);
+	    }
 
-        public void paintComponent(Graphics g) {
-            g.drawImage(speechBubble, 0, 0, speechBubble.getWidth(null), speechBubble.getHeight(null), null);
-        }
+	    public int getWidth() {
+			return speechBubble.getWidth(null);
+	    }
 
-        public int getWidth() {
-            return speechBubble.getWidth(null);
-        }
+	    public int getHeight() {
+			return speechBubble.getHeight(null);
+	    }
+	}
 
-        public int getHeight() {
-            return speechBubble.getHeight(null);
-        }
-    }
+	class RobotTalking extends JComponent {
+		Image textRobot;
+		Image textUser;
+		JButton back, next;
 
-    class RobotTalking extends JComponent {
-        Image text;
+	    RobotTalking(JLayeredPane pane) {
+			textRobot = new ImageIcon("./Images/RobotTalking.png").getImage();
+			textUser = new ImageIcon("./Images/PersonTalking.png").getImage();
+			next = new JButton("Next 🡺");
+			back = new JButton("🡸 Back");
+			
+			next.addActionListener(new ActionListener() {
+				public void actionPerformed (ActionEvent e) {
+					if (wordsCount < words.size()-1) {
+						wordsCount++;
+					} else {
+						wordsCount = 0;
+						talk = false;
+						RobotTalking.this.setVisible(false);
+					}
+					RobotTalking.this.repaint();
+				}
+			});
+			next.setSize(80, 25);
+			next.setLocation(390, 400);
+			
+			
+			back.addActionListener(new ActionListener() {
+				public void actionPerformed (ActionEvent e) {
+					if (wordsCount > 0) {
+						wordsCount--;
+					} else {
+						wordsCount = 0;
+						talk = false;
+						RobotTalking.this.setVisible(false);
+					}
+					RobotTalking.this.repaint();
+				}
+			});
+			back.setSize(80, 25);
+			back.setLocation(310, 400);
+			
+			next.setVisible(false);
+			back.setVisible(false);
+			
+			pane.add(next, JLayeredPane.PALETTE_LAYER);
+			pane.add(back, JLayeredPane.PALETTE_LAYER);
+			
+	    }
+		
+		@Override
+		public void setVisible(boolean visible) {
+			super.setVisible(visible);
+			next.setVisible(visible);
+			back.setVisible(visible);
+		}
 
-        RobotTalking() {
-            text = new ImageIcon("./Images/RobotTalking.png").getImage();
-        }
-
-        public void paintComponent(Graphics g) {
-            g.drawImage(text, 0, 0, text.getWidth(null), text.getHeight(null), null);
-            g.setColor(Color.white);
-            g.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
-            g.drawString(words.get(wordsCount), 250, 100);
-        }
-
-        public int getWidth() {
-            return text.getWidth(null);
-        }
-
-        public int getHeight() {
-            return text.getHeight(null);
-        }
-    }
+	    public void paintComponent(Graphics g) {
+			g.setColor(Color.white);
+			g.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+			
+			if (words.get(wordsCount).substring(0, 1).equals("r")) {
+	 	   	g.drawImage(textRobot, 0, 0, textRobot.getWidth(null), textRobot.getHeight(null), null);
+				g.drawString(words.get(wordsCount).substring(1), 250, 100);
+			} else {
+				g.drawImage(textUser, 0, 0, textUser.getWidth(null), textUser.getHeight(null), null);
+				g.drawString(words.get(wordsCount).substring(1), 100, 100);
+			}
+	    }
+		
+		public int getWidth() {
+			return textRobot.getWidth(null);
+		}
+		
+		public int getHeight() {
+			return textRobot.getHeight(null);
+		}
+	}
 }

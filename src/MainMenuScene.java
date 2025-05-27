@@ -17,6 +17,8 @@ public class MainMenuScene extends BaseScene {
         super.paintComponent(g);
         // Draw the background image, scaled to fill the panel
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+		Image logo = new ImageIcon("./Images/Logo.png").getImage();
+		g.drawImage(logo, 10, 10, logo.getWidth(null)/5, logo.getHeight(null)/5, this);
     }
 
     @Override
@@ -25,7 +27,7 @@ public class MainMenuScene extends BaseScene {
         setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50)); // Add padding around the scene
 
         // Title
-        JLabel titleLabel = new JLabel("Zoeyliii's Journey");
+        JLabel titleLabel = new JLabel("MEDICI");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 48));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 

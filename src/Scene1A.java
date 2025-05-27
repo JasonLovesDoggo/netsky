@@ -42,8 +42,10 @@ public class Scene1A extends BaseScene {
 
         //Robot:
         ArrayList<String> text = new ArrayList<>();
-        text.add("What are you doing?");
-        text.add("I'm walking the dog.");
+        text.add("uWhat are you doing?");
+        text.add("rI'm walking the dog.");
+		text.add("uWhat dog? I don't see a dog.");
+		text.add("rHere, let me show you.");
         Robot robotDogLeash = new Robot(main, text);
 
         robotDogLeash.direction = 1;
@@ -116,7 +118,11 @@ public class Scene1A extends BaseScene {
                     new Prompt("Great! If you want to go back, press u.", 50, 50, g, g2);
                     break;
                 case 2:
-                    new Prompt("Now, click on the robot!", 50, 50, g, g2);
+                    new Prompt("If you ever forget what to click, hover over the help icon on the right.", 50, 50, g, g2);
+					break;
+				case 3:
+					new Prompt("Now, click on the robot!", 50, 50, g, g2);
+				default:
             }
         }
 		
