@@ -92,7 +92,7 @@ public class Robot extends JComponent {
 	    return robot.getHeight(null);
 	}
 
-	static class Speech extends JComponent {
+	class Speech extends JComponent {
 	    Image speechBubble;
 
 	    Speech() {
@@ -100,8 +100,12 @@ public class Robot extends JComponent {
 	    }
 
 	    public void paintComponent(Graphics g) {
-			g.drawImage(speechBubble, 0, 0, speechBubble.getWidth(null), speechBubble.getHeight(null), null);
-	    }
+			if (direction == 1) {
+				g.drawImage(speechBubble, 0, 0, speechBubble.getWidth(null), speechBubble.getHeight(null), null);
+	    	} else {
+				g.drawImage(speechBubble, -8, 0, speechBubble.getWidth(null), speechBubble.getHeight(null), null);
+			}
+		}
 
 	    public int getWidth() {
 			return speechBubble.getWidth(null);

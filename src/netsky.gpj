@@ -12,7 +12,7 @@ s#i0
 s#k0
 s#j0
 s#l0
-!385;g
+!405;g
 %\011Scene1B.java
 %\011Robot.java
 %\011BaseScene.java
@@ -26,6 +26,7 @@ s#l0
 %\011Scene2A.java
 %\011netsky.gpj
 %\011Scene1News.java
+%\011UserInput.java
 %\011ScrollingText.java
 %\011Palette.java
 %\011Scene1A.java
@@ -33,7 +34,7 @@ s#l0
 %\011GameFrame.java
 %\011Scene2B.java
 %\011HelpIcon.java
-!385;f
+!405;f
 %\011Scene1B.java
 %\011Robot.java
 %\011BaseScene.java
@@ -47,6 +48,7 @@ s#l0
 %\011Scene2A.java
 %\011netsky.gpj
 %\011Scene1News.java
+%\011UserInput.java
 %\011ScrollingText.java
 %\011Palette.java
 %\011Scene1A.java

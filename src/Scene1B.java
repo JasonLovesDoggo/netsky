@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Scene1B extends BaseScene {
+	JPanel contentPanel;
+	SceneOneB sceneOne;
+	int promptCount;
+	
     public Scene1B(SceneManager sceneManager) {
         super(sceneManager);
     }
@@ -15,14 +19,32 @@ public class Scene1B extends BaseScene {
         add(titleLabel, BorderLayout.NORTH);
 
         // Content panel
-        JPanel contentPanel = new JPanel();
+       /* JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
         JLabel contentLabel = new JLabel("This is Scene 1B content");
         contentLabel.setHorizontalAlignment(SwingConstants.CENTER);
         contentPanel.add(contentLabel, BorderLayout.CENTER);
 
-        add(contentPanel, BorderLayout.CENTER);
+        add(contentPanel, BorderLayout.CENTER);*/
+		
+		sceneOne = new SceneOneB();
+		sceneOne.setBounds(0, 0, 800, 600);
+		sceneOne.setFocusable(true);
+		
+		JLayeredPane main = new JLayeredPane();
+		main.setPreferredSize(new Dimension(800, 600));
+		main.add(sceneOne, JLayeredPane.DEFAULT_LAYER);
+		
+		//Robot
+		Robot robot = new Robot(main);
+		robot.direction = -1;
+		robot.speech = false;
+		robot.setLocation(100, 200);
+		robot.setSize(robot.getWidth(), robot.getHeight());
+		main.add(robot, JLayeredPane.PALETTE_LAYER);
+		
+		add(main, BorderLayout.CENTER);
 
         // Navigation buttons
         JPanel buttonPanel = new JPanel();
@@ -39,4 +61,23 @@ public class Scene1B extends BaseScene {
 
         add(buttonPanel, BorderLayout.SOUTH);
     }
+	
+	class SceneOneB extends JComponent {
+		public void paint(Graphics g) {
+			sceneOne.requestFocusInWindow();
+			
+			Image sceneOnePicture = new ImageIcon("./Images/Scene1B.png").getImage();
+			g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
+			
+			if (promptCount < 0) {
+				promptCount = 0;
+			} else if (promptCount > 3) {
+				promptCount = 3;
+			}
+			
+			Image text = new ImageIcon("./Images/Scene1B"+promptCount+1+".png").getImage();
+			
+			
+		}
+	}
 }

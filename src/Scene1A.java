@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Scene1A extends BaseScene {
     JPanel contentPanel;
     SceneOneA sceneOne;
-    int promptCount;
+	public UserInput ui;
 
     public Scene1A(SceneManager sceneManager) {
         super(sceneManager);
@@ -25,11 +25,13 @@ public class Scene1A extends BaseScene {
         contentPanel = new JPanel();
         contentPanel.setLayout(null);
         contentPanel.setPreferredSize(new Dimension(800, 500));
-
+		
+		ui = new UserInput(3, sceneOne);
         sceneOne = new SceneOneA();
-        sceneOne.setBounds(0, 0, 800, 500);
-        sceneOne.setFocusable(true);
-        sceneOne.addKeyListener(new UserInput());
+        sceneOne.setBounds(0, 0, 800, 600);
+        //sceneOne.setFocusable(true);
+		
+        sceneOne.add(ui);
 
         JLayeredPane main = new JLayeredPane();
         main.setPreferredSize(new Dimension(800, 500));
@@ -85,45 +87,30 @@ public class Scene1A extends BaseScene {
         }
     }
 
-    class UserInput extends KeyAdapter {
-        public void keyReleased(KeyEvent e) {
-            if (e.getKeyChar() == 'i') {
-                promptCount++;
-                sceneOne.repaint();
-            } else if (e.getKeyChar() == 'u') {
-                promptCount--;
-                sceneOne.repaint();
-            }
-        }
-    }
-
     class SceneOneA extends JComponent {
         public void paint(Graphics g) {
-            sceneOne.requestFocusInWindow();
+            //sceneOne.requestFocusInWindow();
 
-            Image sceneOne = new ImageIcon("./Images/Scene1A.png").getImage();
-            g.drawImage(sceneOne, 0, 0, 800, 500, this);
+            Image sceneOnePicture = new ImageIcon("./Images/Scene1A.png").getImage();
+            g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
 
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(new BasicStroke(4));
 			/*
 			background(g, g2);
 			tree(g, g2);*/
-
-            switch (promptCount) {
-                case 0:
-                    new Prompt("This is what a prompt looks like. Press i to continue.", 50, 50, g, g2);
-                    break;
-                case 1:
-                    new Prompt("Great! If you want to go back, press u.", 50, 50, g, g2);
-                    break;
-                case 2:
-                    new Prompt("If you ever forget what to click, hover over the help icon on the right.", 50, 50, g, g2);
-					break;
-				case 3:
-					new Prompt("Now, click on the robot!", 50, 50, g, g2);
-				default:
-            }
+			
+			
+			
+			if (ui.promptCount <= 0) {
+				new Prompt("This is what a prompt looks like. Press i to continue.", 50, 50, g, g2);
+			} else if (ui.promptCount == 1) {
+				new Prompt("Great! If you want to go back, press u.", 50, 50, g, g2);
+			} else if (ui.promptCount == 2) {
+				new Prompt("If you ever forget what to click, hover over the help icon on the right.", 50, 50, g, g2);
+			} else if (ui.promptCount >= 3) {
+				new Prompt("Now, click on the robot!", 50, 50, g, g2);
+			}
         }
 		
 		/*private void background(Graphics g, Graphics2D g2) {
