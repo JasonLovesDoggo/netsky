@@ -26,12 +26,14 @@ public class Scene1A extends BaseScene {
         contentPanel.setLayout(null);
         contentPanel.setPreferredSize(new Dimension(800, 500));
 		
-		ui = new UserInput(3, sceneOne);
+		
         sceneOne = new SceneOneA();
+		ui = new UserInput(3);
         sceneOne.setBounds(0, 0, 800, 600);
         //sceneOne.setFocusable(true);
 		
         sceneOne.add(ui);
+		ui.sceneOne = sceneOne;
 
         JLayeredPane main = new JLayeredPane();
         main.setPreferredSize(new Dimension(800, 500));
@@ -102,13 +104,13 @@ public class Scene1A extends BaseScene {
 			
 			
 			
-			if (ui.promptCount <= 0) {
+			if (Scene1A.this.ui.promptCount <= 0) {
 				new Prompt("This is what a prompt looks like. Press i to continue.", 50, 50, g, g2);
-			} else if (ui.promptCount == 1) {
+			} else if (Scene1A.this.ui.promptCount == 1) {
 				new Prompt("Great! If you want to go back, press u.", 50, 50, g, g2);
-			} else if (ui.promptCount == 2) {
+			} else if (Scene1A.this.ui.promptCount == 2) {
 				new Prompt("If you ever forget what to click, hover over the help icon on the right.", 50, 50, g, g2);
-			} else if (ui.promptCount >= 3) {
+			} else if (Scene1A.this.ui.promptCount >= 3) {
 				new Prompt("Now, click on the robot!", 50, 50, g, g2);
 			}
         }

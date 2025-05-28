@@ -5,18 +5,17 @@ import java.awt.*;
 public class UserInput extends JComponent{
 	public int promptCount;
 	private int max;
-	private JComponent sceneOne;
+	public JComponent sceneOne;
 	
-	UserInput(int max, JComponent sceneOne) {
+	public UserInput(int max) {
 		this.max = max;
 		this.promptCount = 0;
-		this.sceneOne = sceneOne;
 		
 		this.setFocusable(true);
 		
 		this.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyChar() == 'i' && promptCount < max-1) {
+				if (e.getKeyChar() == 'i' && promptCount < max) {
 			        promptCount++;
 			        sceneOne.repaint();
 			    } else if (e.getKeyChar() == 'u' && promptCount > 0) {
@@ -26,6 +25,12 @@ public class UserInput extends JComponent{
 			}
 		});
 	}
+	
+	@Override
+    public void addNotify() {
+        super.addNotify();
+        requestFocusInWindow(); // Ensures focus when component is added to a container
+    }
 	
 	public void paintComponent(Graphics g) {
 		this.requestFocusInWindow();
