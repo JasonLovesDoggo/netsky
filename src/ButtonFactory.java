@@ -12,7 +12,7 @@ public class ButtonFactory {
         return button;
     }
 
-    static JButton createNextSceneButton(Scene scene) {
+    static JButton createSceneContinueButton(Scene scene) {
         return createSceneButton("Continue", scene);
     }
     static JButton createPrevSceneButton(Scene scene) {

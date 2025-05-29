@@ -39,11 +39,8 @@ public class Scene1News extends BaseScene {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
 
-        JButton nextSceneButton = new JButton("Continue");
-        nextSceneButton.addActionListener(e -> sceneManager.showScene(Scene.SCENE_1A));
-
-        JButton menuButton = new JButton("Back to Menu");
-        menuButton.addActionListener(e -> sceneManager.showScene(Scene.MAIN_MENU));
+        JButton nextSceneButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1A);
+        JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
 
         buttonPanel.add(nextSceneButton);
         buttonPanel.add(menuButton);

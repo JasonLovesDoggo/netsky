@@ -28,11 +28,8 @@ public class Scene2A extends BaseScene {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        JButton nextButton = new JButton("Next to Scene 2B");
-        nextButton.addActionListener(e -> sceneManager.showScene(Scene.SCENE_2B));
-
-        JButton menuButton = new JButton("Back to Menu");
-        menuButton.addActionListener(e -> sceneManager.showScene(Scene.MAIN_MENU));
+        JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_2B);
+        JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
 
         buttonPanel.add(nextButton);
         buttonPanel.add(menuButton);
