@@ -177,7 +177,7 @@ public class Robot extends JComponent {
 			g.setColor(Color.white);
 			g.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
 			
-			if (words.get(wordsCount).substring(0, 1).equals("r")) {
+			if (words.get(wordsCount).charAt(0) == 'r') {
 	 	   	g.drawImage(textRobot, 0, 0, textRobot.getWidth(null), textRobot.getHeight(null), null);
 				g.drawString(words.get(wordsCount).substring(1), 250, 100);
 			} else {
