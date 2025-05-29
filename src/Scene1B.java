@@ -5,6 +5,8 @@ public class Scene1B extends BaseScene {
 	JPanel contentPanel;
 	SceneOneB sceneOne;
 	int promptCount;
+	public UserInput userIn;
+	
 	
     public Scene1B(SceneManager sceneManager) {
         super(sceneManager);
@@ -29,8 +31,17 @@ public class Scene1B extends BaseScene {
         add(contentPanel, BorderLayout.CENTER);*/
 		
 		sceneOne = new SceneOneB();
-		sceneOne.setBounds(0, 0, 800, 600);
 		sceneOne.setFocusable(true);
+		sceneOne.setBounds(0, 0, 800, 600);
+		userIn = new UserInput(3);
+		userIn.setBounds(0, 0, 800, 600);
+		userIn.setFocusable(true);
+		
+		sceneOne.setFocusable(true);
+		sceneOne.requestFocusInWindow();
+		
+		userIn.scene = sceneOne;
+		sceneOne.add(userIn);
 		
 		JLayeredPane main = new JLayeredPane();
 		main.setPreferredSize(new Dimension(800, 600));
@@ -63,20 +74,12 @@ public class Scene1B extends BaseScene {
     }
 	
 	class SceneOneB extends JComponent {
-		public void paint(Graphics g) {
-			sceneOne.requestFocusInWindow();
+		public void paintComponent(Graphics g) {
 			
 			Image sceneOnePicture = new ImageIcon("./Images/Scene1B.png").getImage();
 			g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
-			
-			if (promptCount < 0) {
-				promptCount = 0;
-			} else if (promptCount > 3) {
-				promptCount = 3;
-			}
-			
-			Image text = new ImageIcon("./Images/Scene1B"+promptCount+1+".png").getImage();
-			
+			Image text = new ImageIcon("./Images/Scene1BSpeech"+(userIn.promptCount+1)+".png").getImage();
+			g.drawImage(text, 100, 100, text.getWidth(null), text.getHeight(null), null);
 			
 		}
 	}
