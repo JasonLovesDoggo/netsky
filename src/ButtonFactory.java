@@ -15,12 +15,12 @@ public class ButtonFactory {
     static JButton createSceneContinueButton(Scene scene) {
         return createSceneButton("Continue", scene);
     }
+
     static JButton createPrevSceneButton(Scene scene) {
         return createSceneButton("Back to " + scene.label, scene);
     }
+
     static JButton createSceneButton(String text, Scene scene) {
-        JButton button = new JButton(text);
-        button.addActionListener(e -> SceneManager.getInstance().showScene(scene));
-        return button;
+        return createButton(text, e -> SceneManager.getInstance().showScene(scene));
     }
 }
