@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class MainMenuScene extends BaseScene {
     private JLabel welcomeLabel;
@@ -49,10 +48,10 @@ public class MainMenuScene extends BaseScene {
         bottomButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
         bottomButtonPanel.setOpaque(false);
 
-        addSmallButton(bottomButtonPanel, "Instructions", e -> showInstructions());
-        addSmallButton(bottomButtonPanel, "Change Name", e -> sceneManager.showScene(Scene.CHANGE_NAME));
-        addSmallButton(bottomButtonPanel, "Skip Ahead", e -> sceneManager.showSkipAheadOptions());
-        addSmallButton(bottomButtonPanel, "Exit", e -> System.exit(0));
+        bottomButtonPanel.add(ButtonFactory.createButton("Instructions", e -> showInstructions()));
+        bottomButtonPanel.add(ButtonFactory.createSceneButton("Change Name", Scene.CHANGE_NAME));
+        bottomButtonPanel.add(ButtonFactory.createButton("Skip Ahead", e -> sceneManager.showSkipAheadOptions()));
+        bottomButtonPanel.add(ButtonFactory.createButton("Exit", e -> System.exit(0)));
 
         // Wrapper panel to hold both button panels
         JPanel buttonContainerPanel = new JPanel(new BorderLayout(0, 10));
@@ -70,11 +69,6 @@ public class MainMenuScene extends BaseScene {
         startGameButton.setFont(new Font("Arial", Font.BOLD, 28)); // Larger font for Start Game
         topButtonPanel.add(startGameButton);
         return topButtonPanel;
-    }
-
-    private void addSmallButton(JPanel panel, String text, ActionListener listener) {
-        JButton button = ButtonFactory.createButton(text, listener);
-        panel.add(button);
     }
 
     private void showInstructions() {
