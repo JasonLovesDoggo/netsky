@@ -40,10 +40,10 @@ public class Scene1News extends BaseScene {
 
 
         JButton nextSceneButton = new JButton("Continue");
-        nextSceneButton.addActionListener(e -> sceneManager.showScene(SceneManager.Scene.SCENE_1A));
+        nextSceneButton.addActionListener(e -> sceneManager.showScene(Scene.SCENE_1A));
 
         JButton menuButton = new JButton("Back to Menu");
-        menuButton.addActionListener(e -> sceneManager.showScene(SceneManager.Scene.MAIN_MENU));
+        menuButton.addActionListener(e -> sceneManager.showScene(Scene.MAIN_MENU));
 
         buttonPanel.add(nextSceneButton);
         buttonPanel.add(menuButton);

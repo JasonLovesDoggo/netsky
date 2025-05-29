@@ -14,7 +14,7 @@ public class ButtonFactory {
         return button;
     }
 
-    static JButton createSceneButton(String text, SceneManager.Scene scene) {
+    static JButton createSceneButton(String text, Scene scene) {
         JButton button = new JButton(text);
         button.addActionListener(e -> SceneManager.getInstance().showScene(scene));
         return button;

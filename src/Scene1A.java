@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Scene1A extends BaseScene {
@@ -71,10 +69,10 @@ public class Scene1A extends BaseScene {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         JButton nextButton = new JButton("Next to Scene 1B");
-        nextButton.addActionListener(e -> sceneManager.showScene(SceneManager.Scene.SCENE_1B));
+        nextButton.addActionListener(e -> sceneManager.showScene(Scene.SCENE_1B));
 
         JButton menuButton = new JButton("Back to Menu");
-        menuButton.addActionListener(e -> sceneManager.showScene(SceneManager.Scene.MAIN_MENU));
+        menuButton.addActionListener(e -> sceneManager.showScene(Scene.MAIN_MENU));
 
         buttonPanel.add(nextButton);
         buttonPanel.add(menuButton);

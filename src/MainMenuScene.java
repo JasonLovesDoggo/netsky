@@ -50,7 +50,7 @@ public class MainMenuScene extends BaseScene {
         bottomButtonPanel.setOpaque(false);
 
         addSmallButton(bottomButtonPanel, "Instructions", e -> showInstructions());
-        addSmallButton(bottomButtonPanel, "Change Name", e -> sceneManager.showScene(SceneManager.Scene.CHANGE_NAME));
+        addSmallButton(bottomButtonPanel, "Change Name", e -> sceneManager.showScene(Scene.CHANGE_NAME));
         addSmallButton(bottomButtonPanel, "Skip Ahead", e -> sceneManager.showSkipAheadOptions());
         addSmallButton(bottomButtonPanel, "Exit", e -> System.exit(0));
 
@@ -66,7 +66,7 @@ public class MainMenuScene extends BaseScene {
     private JPanel getTopButtonPanel() {
         JPanel topButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         topButtonPanel.setOpaque(false);
-        JButton startGameButton = ButtonFactory.createSceneButton("Start Game", SceneManager.Scene.SCENE_1NEWS);
+        JButton startGameButton = ButtonFactory.createSceneButton("Start Game", Scene.SCENE_1NEWS);
         startGameButton.setFont(new Font("Arial", Font.BOLD, 28)); // Larger font for Start Game
         topButtonPanel.add(startGameButton);
         return topButtonPanel;

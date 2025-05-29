@@ -14,7 +14,7 @@ public class GameFrame extends JFrame {
         SceneManager sceneManager = new SceneManager(this);
 
         // Set the first scene to main menu
-        sceneManager.showScene(SceneManager.Scene.MAIN_MENU);
+        sceneManager.showScene(Scene.MAIN_MENU);
     }
 
     private void initializeFrame() {

@@ -2,29 +2,6 @@ import javax.swing.*;
 
 // Scene manager class to handle switching between scenes
 public class SceneManager {
-    // Scene identifiers as constants instead of enum
-    public static final String MAIN_MENU = "MAIN_MENU";
-    public static final String CHANGE_NAME = "CHANGE_NAME";
-    public static final String SCENE_1NEWS = "SCENE_1NEWS";
-    public static final String SCENE_1A = "SCENE_1A";
-    public static final String SCENE_1B = "SCENE_1B";
-    public static final String SCENE_2A = "SCENE_2A";
-    public static final String SCENE_2B = "SCENE_2B";
-    public static final String SCENE_3A = "SCENE_3A";
-    public static final String SCENE_3B = "SCENE_3B";
-
-    public enum Scene {
-        MAIN_MENU,
-        CHANGE_NAME,
-        SCENE_1NEWS,
-        SCENE_1A,
-        SCENE_1B,
-        SCENE_2A,
-        SCENE_2B,
-        SCENE_3A,
-        SCENE_3B
-    }
-
     private final GameFrame parentFrame;
     private final java.util.Map<Scene, BaseScene> scenes;
     private Scene currentScene;
