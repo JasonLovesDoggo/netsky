@@ -13,9 +13,23 @@ public class SceneManager {
     public static final String SCENE_3A = "SCENE_3A";
     public static final String SCENE_3B = "SCENE_3B";
 
+    public enum Scene {
+        MAIN_MENU,
+        CHANGE_NAME,
+        SCENE_1NEWS,
+        SCENE_1A,
+        SCENE_1B,
+        SCENE_2A,
+        SCENE_2B,
+        SCENE_3A,
+        SCENE_3B
+    }
+
     private final GameFrame parentFrame;
-    private final java.util.Map<String, BaseScene> scenes;
-    private String currentScene;
+    private final java.util.Map<Scene, BaseScene> scenes;
+    private Scene currentScene;
+
+    static SceneManager instance;
 
     public SceneManager(GameFrame parentFrame) {
         this.parentFrame = parentFrame;
@@ -23,22 +37,28 @@ public class SceneManager {
 
         // Initialize all scenes
         initializeScenes();
+
+        instance = this;
+
     }
 
     private void initializeScenes() {
         // Create and register all game scenes
-        scenes.put(MAIN_MENU, new MainMenuScene(this));
-        scenes.put(CHANGE_NAME, new ChangeNameScene(this));
-        scenes.put(SCENE_1NEWS, new Scene1News(this));
-        scenes.put(SCENE_1A, new Scene1A(this));
-        scenes.put(SCENE_1B, new Scene1B(this));
-        scenes.put(SCENE_2A, new Scene2A(this));
-        scenes.put(SCENE_2B, new Scene2B(this));
-        scenes.put(SCENE_3A, new Scene3A(this));
-        scenes.put(SCENE_3B, new Scene3B(this));
+        scenes.put(Scene.MAIN_MENU, new MainMenuScene(this));
+        scenes.put(Scene.CHANGE_NAME, new ChangeNameScene(this));
+        scenes.put(Scene.SCENE_1NEWS, new Scene1News(this));
+        scenes.put(Scene.SCENE_1A, new Scene1A(this));
+        scenes.put(Scene.SCENE_1B, new Scene1B(this));
+        scenes.put(Scene.SCENE_2A, new Scene2A(this));
+        scenes.put(Scene.SCENE_2B, new Scene2B(this));
+        scenes.put(Scene.SCENE_3A, new Scene3A(this));
+        scenes.put(Scene.SCENE_3B, new Scene3B(this));
     }
 
-    public void showScene(String sceneName) {
+    public void showScene(Scene sceneName) {
+
+
+
         if (!scenes.containsKey(sceneName)) {
             System.err.println("Scene not found: " + sceneName);
             return;
@@ -81,21 +101,24 @@ public class SceneManager {
         if (selectedSkip != null) {
             switch (selectedSkip) {
                 case "Pre-scene":
-                    showScene(SCENE_1NEWS);
+                    showScene(Scene.SCENE_1NEWS);
                     break;
                 case "Scene 1 (Intro)":
-                    showScene(SCENE_1A);
+                    showScene(Scene.SCENE_1A);
                     break;
                 case "Scene 2":
-                    showScene(SCENE_2A);
+                    showScene(Scene.SCENE_2A);
                     break;
                 case "Scene 3":
-                    showScene(SCENE_3A);
+                    showScene(Scene.SCENE_3A);
                     break;
             }
         }
     }
 
+    public static SceneManager getInstance() {
+        return instance;
+    }
 }
 
 

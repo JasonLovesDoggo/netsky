@@ -50,7 +50,7 @@ public class ChangeNameScene extends BaseScene {
         JButton cancelButton = new JButton("Cancel");
         cancelButton.setFont(new Font("Arial", Font.BOLD, 16));
         cancelButton.setPreferredSize(new Dimension(120, 40)); // Make buttons larger
-        cancelButton.addActionListener(e -> sceneManager.showScene(SceneManager.MAIN_MENU));
+        cancelButton.addActionListener(e -> sceneManager.showScene(SceneManager.Scene.MAIN_MENU));
 
         buttonPanel.add(saveButton);
         buttonPanel.add(cancelButton);
@@ -69,7 +69,7 @@ public class ChangeNameScene extends BaseScene {
                 feedbackLabel.setText("Name changed successfully!");
                 // Optionally, add a small delay before going back or let user click cancel/back
                 // For now, immediately go back to main menu
-                sceneManager.showScene(SceneManager.MAIN_MENU);
+                sceneManager.showScene(SceneManager.Scene.MAIN_MENU);
             } else {
                 feedbackLabel.setText("Name cannot be empty.");
             }
