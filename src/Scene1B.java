@@ -2,9 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Scene1B extends BaseScene {
-	JPanel contentPanel;
 	SceneOneB sceneOne;
-	int promptCount;
 	public UserInput userIn;
 	
 	
@@ -33,7 +31,7 @@ public class Scene1B extends BaseScene {
 		sceneOne = new SceneOneB();
 		sceneOne.setFocusable(true);
 		sceneOne.setBounds(0, 0, 800, 600);
-		userIn = new UserInput(3);
+		userIn = new UserInput(4);
 		userIn.setBounds(0, 0, 800, 600);
 		userIn.setFocusable(true);
 		
@@ -61,10 +59,10 @@ public class Scene1B extends BaseScene {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-		JButton prevButton = ButtonFactory.createPrevSceneButton(Scene.SCENE_1A);
+		JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1C);
 
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
-        buttonPanel.add(prevButton);
+        buttonPanel.add(nextButton);
         buttonPanel.add(menuButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
@@ -75,9 +73,19 @@ public class Scene1B extends BaseScene {
 			
 			Image sceneOnePicture = new ImageIcon("./Images/Scene1B.png").getImage();
 			g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
-			Image text = new ImageIcon("./Images/Scene1BSpeech"+(userIn.promptCount+1)+".png").getImage();
-			g.drawImage(text, 100, 100, text.getWidth(null), text.getHeight(null), null);
+			Image person = new ImageIcon("./Images/Person.png").getImage();
+			g.drawImage(person, 450, 200, person.getWidth(null), person.getHeight(null), null);
 			
+			if (userIn.promptCount == 0) {
+				new Prompt("Controls are consistent throughout the program. i to interact.", 50, 50, g, (Graphics2D)g);
+			} else {
+				Image text = new ImageIcon("./Images/Scene1BSpeech"+(userIn.promptCount)+".png").getImage();
+				if (userIn.promptCount%2 == 1) {
+					g.drawImage(text, 60, 100, text.getWidth(null), text.getHeight(null), null);
+				} else {
+					g.drawImage(text, 400, 100, text.getWidth(null), text.getHeight(null), null);
+				}
+			}
 		}
 	}
 }

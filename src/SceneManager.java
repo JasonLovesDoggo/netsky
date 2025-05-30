@@ -26,6 +26,7 @@ public class SceneManager {
         scenes.put(Scene.SCENE_1NEWS, new Scene1News(this));
         scenes.put(Scene.SCENE_1A, new Scene1A(this));
         scenes.put(Scene.SCENE_1B, new Scene1B(this));
+		scenes.put(Scene.SCENE_1C, new Scene1C(this));
         scenes.put(Scene.SCENE_2A, new Scene2A(this));
         scenes.put(Scene.SCENE_2B, new Scene2B(this));
         scenes.put(Scene.SCENE_3A, new Scene3A(this));

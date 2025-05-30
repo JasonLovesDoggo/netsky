@@ -6,6 +6,7 @@ public class Scene1A extends BaseScene {
     JPanel contentPanel;
     SceneOneA sceneOne;
 	public UserInput userIn;
+	public Robot robotDogLeash;
 
     public Scene1A(SceneManager sceneManager) {
         super(sceneManager);
@@ -48,7 +49,7 @@ public class Scene1A extends BaseScene {
         text.add("rI'm walking the dog.");
 		text.add("uWhat dog? I don't see a dog.");
 		text.add("rHere, let me show you.");
-        Robot robotDogLeash = new Robot(main, text);
+        robotDogLeash = new Robot(main, text, "leash");
 
         robotDogLeash.direction = 1;
         robotDogLeash.speech = true;
@@ -89,7 +90,7 @@ public class Scene1A extends BaseScene {
 
             Image sceneOnePicture = new ImageIcon("./Images/Scene1A.png").getImage();
             g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
-
+			
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(new BasicStroke(4));
 			/*
@@ -105,7 +106,7 @@ public class Scene1A extends BaseScene {
 			} else if (userIn.promptCount == 2) {
 				new Prompt("If you ever forget what to click, hover over the help icon on the right.", 50, 50, g, g2);
 			} else if (userIn.promptCount >= 3) {
-				new Prompt("Now, click on the robot!", 50, 50, g, g2);
+				new Prompt("Now, click on the robot holding the leash!", 50, 50, g, g2);
 			}
         }
 		

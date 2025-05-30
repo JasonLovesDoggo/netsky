@@ -8,9 +8,11 @@ public class Robot extends JComponent {
 	public boolean speech;
 	public boolean mouse;
 	public boolean talk;
+	public boolean hasAccessory;
 	public int wordsCount;
 	Image robot;
 	Speech speechBubble;
+	Image accessory;
 	RobotTalking text;
 	ArrayList<String> words;
 	
@@ -61,11 +63,19 @@ public class Robot extends JComponent {
 		
 	    pane.add(text, JLayeredPane.PALETTE_LAYER);
 	}
+	
+	Robot(JLayeredPane pane, ArrayList<String> words, String accessory) {
+		this(pane, words);
+		this.hasAccessory = true;
+		this.accessory = new ImageIcon("./Images/"+accessory+".png").getImage();
+	}
 
 	public void paintComponent(Graphics g) {
 	    drawRobot(g);
 	    speechBubble.setVisible(speech && mouse);
-	    
+	    if(hasAccessory) {
+			g.drawImage(accessory, -40, 70, accessory.getWidth(null), accessory.getHeight(null), null);
+		}
 	}
 
 	@Override
