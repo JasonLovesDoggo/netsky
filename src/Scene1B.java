@@ -34,10 +34,6 @@ public class Scene1B extends BaseScene {
 		userIn = new UserInput(4);
 		userIn.setBounds(0, 0, 800, 600);
 		userIn.setFocusable(true);
-		
-		sceneOne.setFocusable(true);
-		sceneOne.requestFocusInWindow();
-		
 		userIn.scene = sceneOne;
 		sceneOne.add(userIn);
 		

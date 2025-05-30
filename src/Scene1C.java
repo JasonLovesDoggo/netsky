@@ -28,6 +28,19 @@ public class Scene1C extends BaseScene {
         add(contentPanel, BorderLayout.CENTER);*/
 		
 		sceneOne = new SceneOneC();
+		sceneOne.setFocusable(true);
+		sceneOne.setBounds(0, 0, 800, 600);
+		userIn = new UserInput(3);
+		userIn.setBounds(0, 0, 800, 600);
+		userIn.setFocusable(true);
+		userIn.scene = sceneOne;
+		sceneOne.add(userIn);
+		
+		JLayeredPane main = new JLayeredPane();
+		main.setPreferredSize(new Dimension(800, 600));
+		main.add(sceneOne, JLayeredPane.DEFAULT_LAYER);
+		
+		add(main, BorderLayout.CENTER);
 
         // Navigation buttons
         JPanel buttonPanel = new JPanel();
@@ -44,6 +57,8 @@ public class Scene1C extends BaseScene {
 	
 	class SceneOneC extends JComponent{
 		public void paintComponent(Graphics g) {
+			Image sceneOnePicture = new ImageIcon("./Images/Scene1A.png").getImage();
+			g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
 			
 		}
 	}
