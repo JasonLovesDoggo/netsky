@@ -1,3 +1,10 @@
+/*
+Names: Jason Cameron, Zoe Li
+Date: May 30, 2025
+Teacher: Ms. Krasteva 
+Description: This is the second portion of scene 1, where the user sees a robot that has been asked to walk the dog
+*/
+
 import javax.swing.*;
 import java.awt.*;
 

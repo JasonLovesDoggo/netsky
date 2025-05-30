@@ -31,8 +31,8 @@ public class Robot extends JComponent {
 				repaint();
 				//System.out.println("Exited");
 			}
+			
 		});
-		
 		robot = new ImageIcon("./Images/robot.png").getImage();
 		speechBubble = new Speech();
 		speechBubble.setSize(speechBubble.getWidth(), speechBubble.getHeight());

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class Scene1A extends BaseScene {
@@ -7,6 +8,8 @@ public class Scene1A extends BaseScene {
     SceneOneA sceneOne;
 	public UserInput userIn;
 	public Robot robotDogLeash;
+	FadeOut fadeOut;
+	boolean fade;
 
     public Scene1A(SceneManager sceneManager) {
         super(sceneManager);
@@ -27,7 +30,7 @@ public class Scene1A extends BaseScene {
 		
 		
         sceneOne = new SceneOneA();
-		userIn = new UserInput(3);
+		userIn = new UserInput(4);
         sceneOne.setBounds(0, 0, 800, 600);
         //sceneOne.setFocusable(true);
 		
@@ -60,7 +63,11 @@ public class Scene1A extends BaseScene {
         SceneOneForeground tree = new SceneOneForeground();
         tree.setBounds(0, 0, 800, 500);
         main.add(tree, JLayeredPane.PALETTE_LAYER);
-
+		
+		fadeOut = new FadeOut(main);
+		fadeOut.setBounds(0, 0, 800, 500);
+		main.add(fadeOut, JLayeredPane.DRAG_LAYER);
+		
         contentPanel.add(main);
 
         add(contentPanel, BorderLayout.CENTER);
@@ -77,11 +84,31 @@ public class Scene1A extends BaseScene {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    static class SceneOneForeground extends JComponent {
+    class SceneOneForeground extends JComponent {
         public void paint(Graphics g) {
             Image sceneOneTree = new ImageIcon("./Images/Scene1ATree.png").getImage();
             g.drawImage(sceneOneTree, 100, 120, sceneOneTree.getWidth(null), sceneOneTree.getHeight(null), this);
-        }
+        	
+			Graphics2D g2 = (Graphics2D) g;
+			
+			if (userIn.promptCount == 4) {
+				/*if (fadeOut == null || fadeOut.radius <= 0) {
+	                fadeOut = new FadeOut(sceneOne);
+	                fadeOut.fade();
+	            }*/
+				if (!fade) {
+					fade = true;
+					fadeOut.repaint();
+					
+				} else {
+		            g2.setStroke(new BasicStroke(5));
+					for(int i = 0; i < 800-fadeOut.radius; i++) {
+		            	g2.drawOval(400-fadeOut.radius-i, 300-fadeOut.radius-i, (i+fadeOut.radius)*2, (i+fadeOut.radius)*2);
+					}
+				}
+			}
+			
+		}
     }
 
     class SceneOneA extends JComponent {
@@ -92,77 +119,17 @@ public class Scene1A extends BaseScene {
             g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
 			
             Graphics2D g2 = (Graphics2D) g;
-            g2.setStroke(new BasicStroke(4));
-			/*
-			background(g, g2);
-			tree(g, g2);*/
 			
-			
-			
-			if (userIn.promptCount <= 0) {
+			if (userIn.promptCount == 0) {
 				new Prompt("This is what a prompt looks like. Press i to continue.", 50, 50, g, g2);
 			} else if (userIn.promptCount == 1) {
 				new Prompt("Great! If you want to go back, press u.", 50, 50, g, g2);
 			} else if (userIn.promptCount == 2) {
 				new Prompt("If you ever forget what to click, hover over the help icon on the right.", 50, 50, g, g2);
-			} else if (userIn.promptCount >= 3) {
+			} else if (userIn.promptCount == 3) {
 				new Prompt("Now, click on the robot holding the leash!", 50, 50, g, g2);
 			}
+			
         }
-		
-		/*private void background(Graphics g, Graphics2D g2) {
-			AffineTransform at = new AffineTransform();
-			at.rotate(Math.toRadians(18), 0, 108);
-			
-			g.setColor(new Color(0x69db7c));
-			g.fillRect(0, 0, 800, 600);
-			g.setColor(new Color(0x40c057));
-			g.fillRect(0, 250, 367, 327);
-			g.fillRect(350, 382, 450, 194);
-			
-			g.setColor(new Color(0x868E96)); //Set to grey
-			Rectangle street = new Rectangle(0, 109, 932, 214);
-			g2.fill(at.createTransformedShape(street));
-			g.setColor(Color.black);
-			g2.draw(at.createTransformedShape(street));
-			
-			g.setColor(Color.yellow);
-			g.drawLine(0, 219, 800, 490);
-		}
-		
-		private void tree(Graphics g, Graphics2D g2) {	
-			AffineTransform at = new AffineTransform();
-			//Trunk
-			g.setColor(new Color(0xa18072));
-			g.fillRect(184, 284, 46, 180);
-			g.setColor(new Color(0x86655a));
-			g.drawRect(184, 284, 46, 180);
-			//Leaves
-			g.setColor(new Color(0x3fbd56));
-			g.fillOval(94, 205, 110, 110);
-			g.setColor(new Color(0x2f9e44));
-			g.drawOval(94, 205, 110, 110);
-			g.setColor(new Color(0x3fbd56));
-			g.fillOval(199, 217, 110, 110);
-			g.setColor(new Color(0x2f9e44));
-			g.drawOval(199, 217, 110, 110);
-			//Draw tilted branch
-			at.rotate(Math.toRadians(80-90), 208, 323);
-			Rectangle rect = new Rectangle(208, 323, 117, 18);
-			g2.setColor(new Color(0xa18072));
-			g2.fill(at.createTransformedShape(rect));
-			g2.setColor(new Color(0x86655a));
-			g2.draw(at.createTransformedShape(rect));
-			//More leaves
-			g.setColor(new Color(0x3fbd56));
-			g.setColor(new Color(0x3fbd56));
-			g.fillOval(155, 158, 110, 110);
-			g.setColor(new Color(0x2f9e44));
-			g.drawOval(155, 158, 110, 110);
-			g.setColor(new Color(0x3fbd56));
-			g.fillOval(158, 230, 110, 110);
-			g.setColor(new Color(0x2f9e44));
-			g.drawOval(158, 230, 110, 110);
-		}*/
     }
 }
