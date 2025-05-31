@@ -15,8 +15,13 @@ public class Robot extends JComponent {
 	Image accessory;
 	RobotTalking text;
 	ArrayList<String> words;
+	FadeOut fadeOut;
+	int fadeCount;
+	boolean canFade;
+	JLayeredPane pane;
 	
-	Robot(JLayeredPane pane) {
+	Robot(JLayeredPane p) {
+		this.pane = p;
 		
 		this.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
@@ -66,6 +71,12 @@ public class Robot extends JComponent {
 	
 	Robot(JLayeredPane pane, ArrayList<String> words, String accessory) {
 		this(pane, words);
+		this.hasAccessory = true;
+		this.accessory = new ImageIcon("./Images/"+accessory+".png").getImage();
+	}
+	
+	Robot(JLayeredPane pane, String accessory) {
+		this(pane);
 		this.hasAccessory = true;
 		this.accessory = new ImageIcon("./Images/"+accessory+".png").getImage();
 	}
@@ -130,15 +141,44 @@ public class Robot extends JComponent {
 		Image textRobot;
 		Image textUser;
 		JButton back, next;
+		Timer timer;
 
 	    RobotTalking(JLayeredPane pane) {
 			textRobot = new ImageIcon("./Images/RobotTalking.png").getImage();
 			textUser = new ImageIcon("./Images/PersonTalking.png").getImage();
 			next = new JButton("Next 🡺");
 			back = new JButton("🡸 Back");
+			fadeCount = 0;
+			
+			timer = new Timer(100, new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (fadeOut.fading == false && canFade == true) {
+						wordsCount = 0;
+						fadeCount++;
+						timer.stop();
+						canFade = false;
+					}
+				}
+			});
 			
 			next.addActionListener(new ActionListener() {
 				public void actionPerformed (ActionEvent e) {
+					//Check for fadeout FIRST before increasing wordCount
+					if (words.get(wordsCount).indexOf("FADEOUT") >= 0) {
+						if (!canFade) {
+							canFade = true;
+							fadeOut = new FadeOut(pane);
+							fadeOut.setSize(800, 600);
+							fadeOut.setLocation(0, 0);
+							fadeOut.setVisible(true);
+							timer.start();
+							pane.add(fadeOut, Integer.valueOf(Integer.MAX_VALUE)); //Force it to be on the front
+							fadeOut.repaint();
+							pane.repaint();
+							fadeOut.start();
+						}
+					}
+					//Increase wordCount
 					if (wordsCount < words.size()-1) {
 						wordsCount++;
 					} else {
@@ -187,13 +227,23 @@ public class Robot extends JComponent {
 			g.setColor(Color.white);
 			g.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
 			
-			if (words.get(wordsCount).charAt(0) == 'r') {
-	 	   	g.drawImage(textRobot, 0, 0, textRobot.getWidth(null), textRobot.getHeight(null), null);
-				g.drawString(words.get(wordsCount).substring(1), 250, 100);
+			Graphics2D g2 = (Graphics2D)g;
+			
+			String speechWords;
+			if (words.get(wordsCount).indexOf("|") >= 0) {
+				speechWords = words.get(wordsCount).substring(1, words.get(wordsCount).indexOf("|"));
 			} else {
-				g.drawImage(textUser, 0, 0, textUser.getWidth(null), textUser.getHeight(null), null);
-				g.drawString(words.get(wordsCount).substring(1), 100, 100);
+				speechWords = words.get(wordsCount).substring(1);
 			}
+			
+			if (words.get(wordsCount).charAt(0) == 'r') { //Robot talking
+	 	   		g.drawImage(textRobot, 0, 0, textRobot.getWidth(null), textRobot.getHeight(null), null);
+				g.drawString(speechWords, 250, 100);
+			} else { //User talking
+				g.drawImage(textUser, 0, 0, textUser.getWidth(null), textUser.getHeight(null), null);
+				g.drawString(speechWords, 100, 100);
+			}
+			
 	    }
 		
 		public int getWidth() {

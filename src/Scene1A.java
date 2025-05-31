@@ -10,6 +10,7 @@ public class Scene1A extends BaseScene {
 	public Robot robotDogLeash;
 	FadeOut fadeOut;
 	boolean fade;
+	JButton nextButton;
 
     public Scene1A(SceneManager sceneManager) {
         super(sceneManager);
@@ -30,7 +31,7 @@ public class Scene1A extends BaseScene {
 		
 		
         sceneOne = new SceneOneA();
-		userIn = new UserInput(4);
+		userIn = new UserInput(3);
         sceneOne.setBounds(0, 0, 800, 600);
         //sceneOne.setFocusable(true);
 		
@@ -51,7 +52,7 @@ public class Scene1A extends BaseScene {
         text.add("uWhat are you doing?");
         text.add("rI'm walking the dog.");
 		text.add("uWhat dog? I don't see a dog.");
-		text.add("rHere, let me show you.");
+		text.add("rHere, let me show you. |FADEOUT");
         robotDogLeash = new Robot(main, text, "leash");
 
         robotDogLeash.direction = 1;
@@ -64,50 +65,35 @@ public class Scene1A extends BaseScene {
         tree.setBounds(0, 0, 800, 500);
         main.add(tree, JLayeredPane.PALETTE_LAYER);
 		
-		fadeOut = new FadeOut(main);
-		fadeOut.setBounds(0, 0, 800, 500);
-		main.add(fadeOut, JLayeredPane.DRAG_LAYER);
-		
         contentPanel.add(main);
-
         add(contentPanel, BorderLayout.CENTER);
 
         // Navigation buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1B);
+        nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1B);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
         buttonPanel.add(nextButton);
         buttonPanel.add(menuButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
+		
+		new Timer(100, new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (robotDogLeash.fadeCount > 0) {
+		            nextButton.doClick(); //Go to next scene
+					robotDogLeash.fadeOut.setVisible(false);
+					robotDogLeash.fadeCount = 0;
+		        }
+		    }
+		}).start();
     }
 
     class SceneOneForeground extends JComponent {
         public void paint(Graphics g) {
             Image sceneOneTree = new ImageIcon("./Images/Scene1ATree.png").getImage();
             g.drawImage(sceneOneTree, 100, 120, sceneOneTree.getWidth(null), sceneOneTree.getHeight(null), this);
-        	
-			Graphics2D g2 = (Graphics2D) g;
-			
-			if (userIn.promptCount == 4) {
-				/*if (fadeOut == null || fadeOut.radius <= 0) {
-	                fadeOut = new FadeOut(sceneOne);
-	                fadeOut.fade();
-	            }*/
-				if (!fade) {
-					fade = true;
-					fadeOut.repaint();
-					
-				} else {
-		            g2.setStroke(new BasicStroke(5));
-					for(int i = 0; i < 800-fadeOut.radius; i++) {
-		            	g2.drawOval(400-fadeOut.radius-i, 300-fadeOut.radius-i, (i+fadeOut.radius)*2, (i+fadeOut.radius)*2);
-					}
-				}
-			}
-			
 		}
     }
 

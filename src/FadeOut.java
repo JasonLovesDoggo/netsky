@@ -7,7 +7,12 @@ public class FadeOut extends JComponent{
 	Timer timer;
 	public int radius; 
 	int count;
-	FadeOut(JComponent scene) {
+	JComponent scene;
+	boolean fading;
+	
+	FadeOut(JComponent s) {
+		
+		scene = s;
 		
 		this.radius = 900;
 		setOpaque(false);
@@ -16,21 +21,37 @@ public class FadeOut extends JComponent{
 				radius -= 10;
 				if (radius <= 0) {
 					timer.stop();
+					fading = false;
 				}
 				scene.repaint();
 			}
 		});
 	}
 	
+	public void start() {
+		fading = true;
+		timer.start();
+	}
+	
 	public void paintComponent(Graphics g) {
-		if (count == 0) {
+		/*if (count == 0) {
 			count++;
 			return;
 		} else if (count == 1) {
+			System.out.println("Timer started");
 			super.paintComponent(g);
+			scene.repaint();
+			count+=2;
 			timer.start();
-			count++;
 		}
-		return;
+		return;*/
+		
+		Graphics2D g2 = (Graphics2D)g;
+		g2.setStroke(new BasicStroke(5));
+		for(int i = 0; i < 800-radius; i++) {
+        	g2.drawOval(400-radius-i, 300-radius-i, (i+radius)*2, (i+radius)*2);
+		}
+		
+
 	}
 }

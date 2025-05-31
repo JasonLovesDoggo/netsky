@@ -4,6 +4,7 @@ import java.awt.*;
 public class Scene1C extends BaseScene {
 	public UserInput userIn;
 	SceneOneC sceneOne;
+	public Robot robotDogLeash;
 	
     public Scene1C(SceneManager sceneManager) {
         super(sceneManager);
@@ -40,6 +41,17 @@ public class Scene1C extends BaseScene {
 		main.setPreferredSize(new Dimension(800, 600));
 		main.add(sceneOne, JLayeredPane.DEFAULT_LAYER);
 		
+		robotDogLeash = new Robot(main, "leash");
+		robotDogLeash.speech = false;
+		robotDogLeash.direction = 1;
+		robotDogLeash.setLocation(650, 250);
+		robotDogLeash.setSize(robotDogLeash.getWidth(), robotDogLeash.getHeight());
+		main.add(robotDogLeash, JLayeredPane.PALETTE_LAYER);
+		
+		SceneOneForeground tree = new SceneOneForeground();
+        tree.setBounds(0, 0, 800, 500);
+        main.add(tree, JLayeredPane.PALETTE_LAYER);
+		
 		add(main, BorderLayout.CENTER);
 
         // Navigation buttons
@@ -60,6 +72,13 @@ public class Scene1C extends BaseScene {
 			Image sceneOnePicture = new ImageIcon("./Images/Scene1A.png").getImage();
 			g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
 			
+		}
+	}
+	
+	class SceneOneForeground extends JComponent {
+		public void paintComponent(Graphics g) {
+			Image sceneOneTree = new ImageIcon("./Images/Scene1ATree.png").getImage();
+			g.drawImage(sceneOneTree, 100, 120, sceneOneTree.getWidth(null), sceneOneTree.getHeight(null), this);
 		}
 	}
 }
