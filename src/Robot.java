@@ -152,11 +152,10 @@ public class Robot extends JComponent {
 			
 			timer = new Timer(100, new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if (fadeOut.fading == false && canFade == true) {
+					if (fadeOut.fading == false ) {
 						wordsCount = 0;
 						fadeCount++;
 						timer.stop();
-						canFade = false;
 					}
 				}
 			});
@@ -165,18 +164,12 @@ public class Robot extends JComponent {
 				public void actionPerformed (ActionEvent e) {
 					//Check for fadeout FIRST before increasing wordCount
 					if (words.get(wordsCount).indexOf("FADEOUT") >= 0) {
-						if (!canFade) {
-							canFade = true;
-							fadeOut = new FadeOut(pane);
-							fadeOut.setSize(800, 600);
-							fadeOut.setLocation(0, 0);
-							fadeOut.setVisible(true);
-							timer.start();
-							pane.add(fadeOut, Integer.valueOf(Integer.MAX_VALUE)); //Force it to be on the front
-							fadeOut.repaint();
-							pane.repaint();
-							fadeOut.start();
-						}
+						fadeOut = new FadeOut(pane);
+						fadeOut.setBounds(0, 0, 800, 600);
+						fadeOut.setVisible(true);
+						timer.start();
+						pane.add(fadeOut, Integer.valueOf(Integer.MAX_VALUE)); //Force it to be on the front
+						fadeOut.start();
 					}
 					//Increase wordCount
 					if (wordsCount < words.size()-1) {

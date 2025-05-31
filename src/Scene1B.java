@@ -7,11 +7,14 @@ Description: This is the second portion of scene 1, where the user sees a robot 
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class Scene1B extends BaseScene {
 	SceneOneB sceneOne;
 	public UserInput userIn;
-	
+	FadeOut fadeOut;
+	JLayeredPane main;
+	JButton nextButton;
 	
     public Scene1B(SceneManager sceneManager) {
         super(sceneManager);
@@ -38,13 +41,13 @@ public class Scene1B extends BaseScene {
 		sceneOne = new SceneOneB();
 		sceneOne.setFocusable(true);
 		sceneOne.setBounds(0, 0, 800, 600);
-		userIn = new UserInput(4);
+		userIn = new UserInput(5);
 		userIn.setBounds(0, 0, 800, 600);
 		userIn.setFocusable(true);
 		userIn.scene = sceneOne;
 		sceneOne.add(userIn);
 		
-		JLayeredPane main = new JLayeredPane();
+		main = new JLayeredPane();
 		main.setPreferredSize(new Dimension(800, 600));
 		main.add(sceneOne, JLayeredPane.DEFAULT_LAYER);
 		
@@ -62,16 +65,29 @@ public class Scene1B extends BaseScene {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-		JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1C);
+		nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1C);
 
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
         buttonPanel.add(nextButton);
         buttonPanel.add(menuButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
+		
+		new Timer(100, new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (robot.fadeCount > 0) {
+		            nextButton.doClick(); //Go to next scene
+					robot.fadeOut.setVisible(false);
+					robot.fadeCount = 0;
+		        }
+		    }
+		}).start();
     }
 	
 	class SceneOneB extends JComponent {
+		
+		boolean fade;
+		
 		public void paintComponent(Graphics g) {
 			
 			Image sceneOnePicture = new ImageIcon("./Images/Scene1B.png").getImage();
@@ -81,14 +97,30 @@ public class Scene1B extends BaseScene {
 			
 			if (userIn.promptCount == 0) {
 				new Prompt("Controls are consistent throughout the program. i to interact.", 50, 50, g, (Graphics2D)g);
-			} else {
+			} else if (userIn.promptCount < 4) {
 				Image text = new ImageIcon("./Images/Scene1BSpeech"+(userIn.promptCount)+".png").getImage();
 				if (userIn.promptCount%2 == 1) {
 					g.drawImage(text, 60, 100, text.getWidth(null), text.getHeight(null), null);
 				} else {
 					g.drawImage(text, 400, 100, text.getWidth(null), text.getHeight(null), null);
 				}
+			} else {
+				if (!fade) {
+					fade = true;
+					fadeOut = new FadeOut(main);
+					fadeOut.setBounds(0, 0, 800, 600);
+					fadeOut.setVisible(true);
+					main.add(fadeOut, Integer.valueOf(Integer.MAX_VALUE)); //Force it to be on the front
+					fadeOut.start();
+				} else {
+					if (!fadeOut.fading) {
+						fade = false;
+						nextButton.doClick();
+						fadeOut.setVisible(false);
+					}
+				}
 			}
+			
 		}
 	}
 }
