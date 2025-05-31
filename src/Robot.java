@@ -53,7 +53,7 @@ public class Robot extends JComponent {
 			public void mouseClicked(MouseEvent e) {
 				if (speech && mouse) {
 					talk = true;
-					text.setVisible(speech && talk);
+					text.setVisible(true);
 					text.repaint();
 					repaint();
 				}
