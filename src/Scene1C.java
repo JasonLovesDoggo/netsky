@@ -1,10 +1,12 @@
 import javax.swing.*;
+import java.awt.event.*;
 import java.awt.*;
 
 public class Scene1C extends BaseScene {
 	public UserInput userIn;
 	SceneOneC sceneOne;
 	public Robot robotDogLeash;
+	public int drawCount;
 	
     public Scene1C(SceneManager sceneManager) {
         super(sceneManager);
@@ -71,6 +73,18 @@ public class Scene1C extends BaseScene {
 		public void paintComponent(Graphics g) {
 			Image sceneOnePicture = new ImageIcon("./Images/Scene1A.png").getImage();
 			g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
+			drawCount++;
+			if (drawCount > 0) {
+				new Timer(40, new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						robotDogLeash.setLocation(robotDogLeash.getX()-2, robotDogLeash.getY()-1);
+						if (robotDogLeash.getX() < -20) {
+							((Timer)e.getSource()).stop();
+							
+						}
+					}
+				}).start();
+			}
 			
 		}
 	}
