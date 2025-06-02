@@ -6,7 +6,9 @@ public class Scene1C extends BaseScene {
 	public UserInput userIn;
 	SceneOneC sceneOne;
 	public Robot robotDogLeash;
+	public Robot robotBird;
 	public int drawCount;
+	boolean stopped;
 	
     public Scene1C(SceneManager sceneManager) {
         super(sceneManager);
@@ -50,6 +52,14 @@ public class Scene1C extends BaseScene {
 		robotDogLeash.setSize(robotDogLeash.getWidth(), robotDogLeash.getHeight());
 		main.add(robotDogLeash, JLayeredPane.PALETTE_LAYER);
 		
+		ArrayList<String> text = new ArrayList<>();
+		text.add("uWhat are you doing?");
+		text.add("rI received a notification about an injured bird in the tree.");
+		text.add("rI'm here to take it to an animal hospital.");
+		robotBird = new Robot(main, text);
+		robotBird.direction = 1;
+		//robotBird.setLocation();
+		
 		SceneOneForeground tree = new SceneOneForeground();
         tree.setBounds(0, 0, 800, 500);
         main.add(tree, JLayeredPane.PALETTE_LAYER);
@@ -80,7 +90,7 @@ public class Scene1C extends BaseScene {
 						robotDogLeash.setLocation(robotDogLeash.getX()-2, robotDogLeash.getY()-1);
 						if (robotDogLeash.getX() < -20) {
 							((Timer)e.getSource()).stop();
-							
+							stopped = true;
 						}
 					}
 				}).start();
@@ -93,6 +103,7 @@ public class Scene1C extends BaseScene {
 		public void paintComponent(Graphics g) {
 			Image sceneOneTree = new ImageIcon("./Images/Scene1ATree.png").getImage();
 			g.drawImage(sceneOneTree, 100, 120, sceneOneTree.getWidth(null), sceneOneTree.getHeight(null), this);
+			
 		}
 	}
 }
