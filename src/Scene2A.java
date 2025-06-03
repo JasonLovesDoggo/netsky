@@ -13,7 +13,7 @@ public class Scene2A extends BaseScene {
 	public UserInput userIn;
 	SceneTwo sceneTwo;
 	FadeOut fade;
-	Timer timer, timer1;
+	Timer timer, timer1, timer2;
 	int distance;
 	boolean moving;
 	GarbageTruck truck;
@@ -36,18 +36,23 @@ public class Scene2A extends BaseScene {
 		sceneTwo.add(userIn);
 		userIn.scene = sceneTwo;
 		
+		GarbageTruckHand hand = new GarbageTruckHand();
+		hand.setLocation(700, 155);
+		hand.setSize(50, 50);
+		hand.setVisible(true);
+		
 		truck = new GarbageTruck();
 
         JLayeredPane main = new JLayeredPane();
 		main.setPreferredSize(new Dimension(800, 600));
 		main.add(sceneTwo, JLayeredPane.DEFAULT_LAYER);
-		truck.setLocation(600, 200);
+		truck.setLocation(600, 150);
 		truck.setSize(50, 50);
 		truck.setVisible(true);
+		
+		
 		main.add(truck, JLayeredPane.PALETTE_LAYER);
-		
-		
-		
+		main.add(hand, JLayeredPane.PALETTE_LAYER);
 		
 		add (main, BorderLayout.CENTER);
 		
@@ -90,12 +95,27 @@ public class Scene2A extends BaseScene {
 			public void actionPerformed(ActionEvent e) {
 				if (distance > 0) {
 					distance -= 2;
-					System.out.println("Moved. " + distance + " left to move");
 					truck.setLocation(truck.getX()-2, truck.getY());
+					hand.setLocation(hand.getX()-2, truck.getY());
 					repaint();
 					truck.repaint();
 				} else {
+					timer2.start();
 					timer1.stop();
+				}
+			}
+		});
+		
+		timer2 = new Timer(20, new ActionListener() {
+			int direction = -2;
+			public void actionPerformed(ActionEvent e) {
+				if (hand.getY() < 100) {
+					direction = 2;
+				}
+				hand.setLocation(hand.getX(), hand.getY()+(direction));
+				if (hand.getY() >= 150) {
+					timer2.stop();
+					direction = -2;
 				}
 			}
 		});
@@ -109,15 +129,33 @@ public class Scene2A extends BaseScene {
 		timer.start();
 	}
 	
-	class GarbageTruck extends JComponent {
+	class GarbageTruckHand extends JComponent {
 		int width, height;
 		public void paint(Graphics g) {
-			this.setSize(width, height);
+			Image hand = new ImageIcon("./Images/GarbageTruckHand.png").getImage();
+			if (width > 0 && height > 0) {
+	            setSize(width, height);
+	        } else {
+	            setSize(50, 50); //Make sure it has a size
+	        }
+			width = hand.getWidth(null);
+			height = hand.getHeight(null);
+			g.drawImage(hand, 0, 0, width, height, this);
+		}
+	}
+	
+	class GarbageTruck extends JComponent {
+		int width, height;
+		public void paintComponent(Graphics g) {
+			if (width > 0 && height > 0) {
+	            setSize(width, height);
+	        } else {
+	            setSize(50, 50); //Make sure it has a size
+	        }
 			Image truckPic = new ImageIcon("./Images/GarbageTruck.png").getImage();
 			width = truckPic.getWidth(null);
 			height = truckPic.getHeight(null);
 			g.drawImage(truckPic, 0, 0, width, height, this);
-			System.out.println(width + " is the width and " + height + " is the height");
 		}
 	}
 	
@@ -136,9 +174,9 @@ public class Scene2A extends BaseScene {
 					break;
 				case 2:
 					if (truck.getX() > 480) {
-						distance = 50;
+						distance = 75;
+						timer1.start();
 					}
-					timer1.start();
 					break;
 				case 3:
 					break;
