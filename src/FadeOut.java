@@ -9,12 +9,13 @@ public class FadeOut extends JComponent{
 	int count;
 	JComponent scene;
 	boolean fading;
+	Color color;
 	
-	FadeOut(JComponent s) {
+	FadeOut(JComponent s, Color color) {
 		
 		scene = s;
 		
-		this.radius = 900;
+		this.radius = 700;
 		setOpaque(false);
 		timer = new Timer(20, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -26,6 +27,7 @@ public class FadeOut extends JComponent{
 				scene.repaint();
 			}
 		});
+		this.color = color;
 	}
 	
 	public void start() {
@@ -47,9 +49,10 @@ public class FadeOut extends JComponent{
 		return;*/
 		
 		Graphics2D g2 = (Graphics2D)g;
+		g2.setColor(color);
 		g2.setStroke(new BasicStroke(5));
 		for(int i = 0; i < 800-radius; i++) {
-        	g2.drawOval(400-radius-i, 300-radius-i, (i+radius)*2, (i+radius)*2);
+        	g2.drawOval(400-radius-i, 250-radius-i, (i+radius)*2, (i+radius)*2);
 		}
 		
 

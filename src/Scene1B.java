@@ -19,6 +19,12 @@ public class Scene1B extends BaseScene {
     public Scene1B(SceneManager sceneManager) {
         super(sceneManager);
     }
+	
+	@Override
+	public void onShowScene() {
+		super.onShowScene();
+		userIn.promptCount = 0;
+	}
 
     @Override
     protected void initializeComponents() {
@@ -107,7 +113,7 @@ public class Scene1B extends BaseScene {
 			} else {
 				if (!fade) {
 					fade = true;
-					fadeOut = new FadeOut(main);
+					fadeOut = new FadeOut(main, Color.BLACK);
 					fadeOut.setBounds(0, 0, 800, 600);
 					fadeOut.setVisible(true);
 					main.add(fadeOut, Integer.valueOf(Integer.MAX_VALUE)); //Force it to be on the front

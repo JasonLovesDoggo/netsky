@@ -15,6 +15,12 @@ public class Scene1A extends BaseScene {
     public Scene1A(SceneManager sceneManager) {
         super(sceneManager);
     }
+	
+	@Override
+	public void onShowScene() {
+		super.onShowScene();
+		userIn.promptCount = 0;
+	}
 
     @Override
     protected void initializeComponents() {

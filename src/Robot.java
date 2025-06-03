@@ -66,7 +66,7 @@ public class Robot extends JComponent {
 	    });
 		
 		
-	    pane.add(text, JLayeredPane.PALETTE_LAYER);
+	    pane.add(text, JLayeredPane.MODAL_LAYER);
 	}
 	
 	Robot(JLayeredPane pane, ArrayList<String> words, String accessory) {
@@ -164,7 +164,7 @@ public class Robot extends JComponent {
 				public void actionPerformed (ActionEvent e) {
 					//Check for fadeout FIRST before increasing wordCount
 					if (words.get(wordsCount).indexOf("FADEOUT") >= 0) {
-						fadeOut = new FadeOut(pane);
+						fadeOut = new FadeOut(pane, Color.BLACK);
 						fadeOut.setBounds(0, 0, 800, 600);
 						fadeOut.setVisible(true);
 						timer.start();
@@ -204,8 +204,8 @@ public class Robot extends JComponent {
 			next.setVisible(false);
 			back.setVisible(false);
 			
-			pane.add(next, JLayeredPane.PALETTE_LAYER);
-			pane.add(back, JLayeredPane.PALETTE_LAYER);
+			pane.add(next, JLayeredPane.MODAL_LAYER);
+			pane.add(back, JLayeredPane.MODAL_LAYER);
 			
 	    }
 		
