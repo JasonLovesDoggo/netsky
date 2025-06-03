@@ -147,7 +147,6 @@ public class Scene1C extends BaseScene {
 			Image sceneOnePicture = new ImageIcon("./Images/Scene1A.png").getImage();
 			g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
 			
-			
 		}
 	}
 	

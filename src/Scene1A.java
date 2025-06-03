@@ -50,7 +50,7 @@ public class Scene1A extends BaseScene {
 
         HelpIcon help = new HelpIcon(main);
         help.setBounds(790 - help.getWidth(), -10, help.getWidth(), help.getHeight());
-        main.add(help, JLayeredPane.PALETTE_LAYER);
+        main.add(help, JLayeredPane.MODAL_LAYER);
         main.setBounds(0, 0, 800, 500);
 
         //Robot:

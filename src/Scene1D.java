@@ -45,6 +45,7 @@ public class Scene1D extends BaseScene {
 		main.add(rb, JLayeredPane.PALETTE_LAYER);
 		
 		JButton prevButton = ButtonFactory.createPrevSceneButton(Scene.SCENE_1C);
+		JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1COMPLETE);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
 		
 		add(main, BorderLayout.CENTER);
@@ -54,6 +55,7 @@ public class Scene1D extends BaseScene {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         buttonPanel.add(prevButton);
+		buttonPanel.add(nextButton);
         buttonPanel.add(menuButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
