@@ -24,6 +24,10 @@ public class Scene2A extends BaseScene {
 
     @Override
     protected void initializeComponents() {
+		
+		Garbage[] stuff = new Garbage[8];
+		int index = 0;
+		
         // Scene title
         JLabel titleLabel = new JLabel("Scene 2A");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -119,6 +123,10 @@ public class Scene2A extends BaseScene {
 				}
 			}
 		});
+		
+		timer3 = new Timer(20, new ActionListener() { //Move the garbage. Decide which garbage to move based on an array and the truck's location
+			
+		});
     }
 	
 	@Override
@@ -129,9 +137,28 @@ public class Scene2A extends BaseScene {
 		timer.start();
 	}
 	
+	class Garbage extends JComponent {
+		int scale, width, height;
+		Garbage(int scale) {
+			this.scale = scale;
+		}
+		
+		public void paintComponent(Graphics g) {
+			Image garbage = new ImageIcon("./Images/Garbage.png").getImage();
+			if (width > 0 && height > 0) {
+	            setSize(width, height);
+	        } else {
+	            setSize(50, 50); //Make sure it has a size, even if it's not the right size
+	        }
+			width = (int)(garbage.getWidth(null)*scale/100.0);
+			height = (int)(garbage.getHeight(null)*scale/100.0);
+			g.drawImage(garbage, 0, 0, width, height, this);
+		}
+	}
+	
 	class GarbageTruckHand extends JComponent {
 		int width, height;
-		public void paint(Graphics g) {
+		public void paintComponent(Graphics g) {
 			Image hand = new ImageIcon("./Images/GarbageTruckHand.png").getImage();
 			if (width > 0 && height > 0) {
 	            setSize(width, height);
