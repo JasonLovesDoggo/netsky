@@ -1,0 +1,8 @@
+<component name="CopyrightManager">
+  <settings default="ICS with zoe">
+    <module2copyright>
+      <element module="All" copyright="ICS with zoe" />
+      <element module="Project Files" copyright="ICS with zoe" />
+    </module2copyright>
+  </settings>
+</component>

@@ -1,10 +1,18 @@
+/*
+ * Names: Jason Cameron, Zoe Li
+ * Date: Jun 9th, 2025
+ * Teacher: Ms. Krasteva
+ * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ *
+ */
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Scene1Complete extends BaseScene {
-	
+
     public Scene1Complete(SceneManager sceneManager) {
         super(sceneManager);
     }
@@ -26,10 +34,10 @@ public class Scene1Complete extends BaseScene {
         contentPanel.add(contentLabel, BorderLayout.CENTER);
 
         add(contentPanel, BorderLayout.CENTER);
-		
-		JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_2A);
+
+        JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_2A);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
-		
+
         // Navigation buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -38,6 +46,6 @@ public class Scene1Complete extends BaseScene {
         buttonPanel.add(menuButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
-		
+
     }
 }

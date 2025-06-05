@@ -1,3 +1,11 @@
+/*
+ * Names: Jason Cameron, Zoe Li
+ * Date: Jun 9th, 2025
+ * Teacher: Ms. Krasteva
+ * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ *
+ */
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,8 +24,8 @@ public class MainMenuScene extends BaseScene {
         super.paintComponent(g);
         // Draw the background image, scaled to fill the panel
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-		Image logo = new ImageIcon("./Images/Logo.png").getImage();
-		g.drawImage(logo, 10, 10, logo.getWidth(null)/5, logo.getHeight(null)/5, this);
+        Image logo = new ImageIcon("./Images/Logo.png").getImage();
+        g.drawImage(logo, 10, 10, logo.getWidth(null) / 5, logo.getHeight(null) / 5, this);
     }
 
     @Override
