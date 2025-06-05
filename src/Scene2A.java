@@ -13,7 +13,7 @@ public class Scene2A extends BaseScene {
 	public UserInput userIn;
 	SceneTwo sceneTwo;
 	FadeOut fade;
-	Timer timer, timer1, timer2;
+	Timer timer, timer1, timer2, timer3;
 	int distance;
 	boolean moving;
 	GarbageTruck truck;
@@ -124,8 +124,12 @@ public class Scene2A extends BaseScene {
 			}
 		});
 		
-		timer3 = new Timer(20, new ActionListener() { //Move the garbage. Decide which garbage to move based on an array and the truck's location
-			
+		timer3 = new Timer(20, new ActionListener() {
+			//Move the garbage. Decide which garbage to move based on an array and the truck's location
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+			}
 		});
     }
 	
