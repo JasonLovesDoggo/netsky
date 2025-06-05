@@ -62,7 +62,12 @@ public class Scene1D extends BaseScene {
 
         JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1COMPLETE);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
-
+		
+		HelpIcon help = new HelpIcon(main);
+        help.setBounds(790 - help.getWidth(), -10, help.getWidth(), help.getHeight());
+        main.add(help, JLayeredPane.MODAL_LAYER);
+        main.setBounds(0, 0, 800, 500);
+		
         add(main, BorderLayout.CENTER);
 
         // Navigation buttons

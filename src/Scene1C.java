@@ -88,6 +88,11 @@ public class Scene1C extends BaseScene {
         main.add(tree, JLayeredPane.MODAL_LAYER);
         main.add(robotBird, JLayeredPane.MODAL_LAYER);
 
+		HelpIcon help = new HelpIcon(main);
+        help.setBounds(790 - help.getWidth(), -10, help.getWidth(), help.getHeight());
+        main.add(help, JLayeredPane.MODAL_LAYER);
+        main.setBounds(0, 0, 800, 500);
+		
         add(main, BorderLayout.CENTER);
 
         // Navigation buttons

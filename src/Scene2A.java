@@ -2,6 +2,7 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
+<<<<<<< Updated upstream
  * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
  *
  */
@@ -18,6 +19,8 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
+=======
+>>>>>>> Stashed changes
  * Description: This is Scene 2, where the garbage truck drives down the road and picks up garbage
  *
  */
@@ -36,6 +39,7 @@ public class Scene2A extends BaseScene {
     int distance;
     boolean moving;
     GarbageTruck truck;
+	int index; //The variable that tracks which part of the animation the truck is on. Refers to the index of the items array
 
     public Scene2A(SceneManager sceneManager) {
         super(sceneManager);
@@ -44,8 +48,14 @@ public class Scene2A extends BaseScene {
     @Override
     protected void initializeComponents() {
 
-        Garbage[] stuff = new Garbage[8];
-        int index = 0;
+        Garbage[] items = new Garbage[8];
+		items[0] = new Garbage(100, "bag");
+		items[0].setLocation(600, 75);
+		items[0].setSize(200, 200);
+		items[1] = new Garbage(80, "bag");
+		items[1].setLocation(540, 75);
+		items[1].setSize(200, 200);
+		
 
         // Scene title
         JLabel titleLabel = new JLabel("Scene 2A");
@@ -76,6 +86,12 @@ public class Scene2A extends BaseScene {
 
         main.add(truck, JLayeredPane.PALETTE_LAYER);
         main.add(hand, JLayeredPane.PALETTE_LAYER);
+		main.add(items[0], JLayeredPane.PALETTE_LAYER);
+		main.add(items[1], JLayeredPane.PALETTE_LAYER);
+		
+		/*for(Garbage i : items) {
+			main.add(i, JLayeredPane.PALETTE_LAYER);
+		}*/
 
         add(main, BorderLayout.CENTER);
 
@@ -137,6 +153,7 @@ public class Scene2A extends BaseScene {
 
             public void actionPerformed(ActionEvent e) {
                 if (hand.getY() < 100) {
+					timer3.start();
                     direction = 2;
                 }
                 hand.setLocation(hand.getX(), hand.getY() + (direction));
@@ -149,9 +166,18 @@ public class Scene2A extends BaseScene {
 
         timer3 = new Timer(20, new ActionListener() {
             //Move the garbage. Decide which garbage to move based on an array and the truck's location
-            @Override
+			boolean go = false;
             public void actionPerformed(ActionEvent e) {
-
+				if (items[index].getY() < 100) {
+					go = true;
+				} else if (items[index].getY() > 200) {
+					go = false;
+					items[index].setLocation(truck.getX()+75, truck.getY()+50);
+					timer3.stop();
+				}
+				if (go) {
+					items[index].setLocation(items[index].getX(), items[index].getY()+2);
+				}
             }
         });
     }
@@ -166,13 +192,25 @@ public class Scene2A extends BaseScene {
 
     class Garbage extends JComponent {
         int scale, width, height;
+		String type;
 
-        Garbage(int scale) {
+        Garbage(int scale, String type) {
             this.scale = scale;
+			this.type = type;
         }
 
         public void paintComponent(Graphics g) {
-            Image garbage = new ImageIcon("./Images/Garbage.png").getImage();
+			System.out.println(scale);
+			Image garbage;
+			if (type.equals("bag")) {
+            	garbage = new ImageIcon("./Images/Garbage.png").getImage();
+			} else if (type.equals("bike")) {
+				garbage = new ImageIcon("./Images/Bike.png").getImage();
+			} else if (type.equals("person")) {
+				garbage = new ImageIcon("./Images/Person.png").getImage();
+			} else { //Umbrella
+				garbage = new ImageIcon("./Images/Umbrellas.png").getImage();
+			}
             if (width > 0 && height > 0) {
                 setSize(width, height);
             } else {
@@ -224,7 +262,7 @@ public class Scene2A extends BaseScene {
 
             switch (userIn.promptCount) {
                 case 0:
-                    new Prompt("Oh, looks like it's an automated gargabe truck!", 50, 50, g, g2);
+                    new Prompt("Oh, looks like it's an automated garbage truck!", 50, 50, g, g2);
                     break;
                 case 1:
                     new Prompt("These trucks are trained to pick up garbage from the curb.", 50, 50, g, g2);
@@ -232,10 +270,12 @@ public class Scene2A extends BaseScene {
                 case 2:
                     if (truck.getX() > 480) {
                         distance = 75;
+						index = 1;
                         timer1.start();
                     }
                     break;
                 case 3:
+					
                     break;
                 case 4:
                     break;
