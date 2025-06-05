@@ -60,7 +60,6 @@ public class Scene1D extends BaseScene {
         rb.setSize(100, 100);
         main.add(rb, JLayeredPane.PALETTE_LAYER);
 
-        JButton prevButton = ButtonFactory.createPrevSceneButton(Scene.SCENE_1C);
         JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1COMPLETE);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
 
@@ -70,7 +69,6 @@ public class Scene1D extends BaseScene {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        buttonPanel.add(prevButton);
         if (nextButton != null) {
             buttonPanel.add(nextButton);
         }
