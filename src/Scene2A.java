@@ -3,6 +3,7 @@
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
  * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
  *
  */
@@ -19,6 +20,8 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
  * Description: This is Scene 2, where the garbage truck drives down the road and picks up garbage
