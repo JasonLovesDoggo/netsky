@@ -7,15 +7,18 @@
  */
 
 /*
-Names: Jason Cameron, Zoe Li
-Date: June 3, 2025
-Teacher: Ms. Krasteva
-Description: This is Scene 2, where the garbage truck drives down the road and picks up garbage
-*/
+ * Names: Jason Cameron, Zoe Li
+ * Date: Jun 9th, 2025
+ * Teacher: Ms. Krasteva
+ * Description: This is Scene 2, where the garbage truck drives down the road and picks up garbage
+ *
+ */
+
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Scene2A extends BaseScene {
     public UserInput userIn;

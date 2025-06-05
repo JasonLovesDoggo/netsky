@@ -7,15 +7,18 @@
  */
 
 /*
-Names: Jason Cameron, Zoe Li
-Date: May 30, 2025
-Teacher: Ms. Krasteva 
-Description: This is the second portion of scene 1, where the user sees a robot that has been asked to walk the dog
-*/
+ * Names: Jason Cameron, Zoe Li
+ * Date: Jun 9th, 2025
+ * Teacher: Ms. Krasteva
+ * Description: This is the second portion of scene 1, where the user sees a robot that has been asked to walk the dog
+ *
+ */
+
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Scene1B extends BaseScene {
     SceneOneB sceneOne;
