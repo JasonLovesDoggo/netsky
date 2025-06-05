@@ -6,6 +6,14 @@
  *
  */
 
+/*
+ * Names: Jason Cameron, Zoe Li
+ * Date: Jun 9th, 2025
+ * Teacher: Ms. Krasteva
+ * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ *
+ */
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -49,8 +57,9 @@ public class Scene1News extends BaseScene {
 
         JButton nextSceneButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1A);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
-
-        buttonPanel.add(nextSceneButton);
+        if (nextSceneButton != null) {
+            buttonPanel.add(nextSceneButton);
+        }
         buttonPanel.add(menuButton);
         return buttonPanel;
     }

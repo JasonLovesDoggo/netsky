@@ -10,6 +10,14 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
+ * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ *
+ */
+
+/*
+ * Names: Jason Cameron, Zoe Li
+ * Date: Jun 9th, 2025
+ * Teacher: Ms. Krasteva
  * Description: This is Scene 2, where the garbage truck drives down the road and picks up garbage
  *
  */
@@ -78,7 +86,9 @@ public class Scene2A extends BaseScene {
         JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_2B);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
 
-        buttonPanel.add(nextButton);
+        if (nextButton != null) {
+            buttonPanel.add(nextButton);
+        }
         buttonPanel.add(menuButton);
 
         add(buttonPanel, BorderLayout.SOUTH);

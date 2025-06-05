@@ -6,10 +6,18 @@
  *
  */
 
+/*
+ * Names: Jason Cameron, Zoe Li
+ * Date: Jun 9th, 2025
+ * Teacher: Ms. Krasteva
+ * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ *
+ */
+
 import javax.swing.*;
-import java.awt.event.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Scene1D extends BaseScene {
     SceneOneD sceneOne;
@@ -63,7 +71,9 @@ public class Scene1D extends BaseScene {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         buttonPanel.add(prevButton);
-        buttonPanel.add(nextButton);
+        if (nextButton != null) {
+            buttonPanel.add(nextButton);
+        }
         buttonPanel.add(menuButton);
 
         add(buttonPanel, BorderLayout.SOUTH);

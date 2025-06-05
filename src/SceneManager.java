@@ -6,6 +6,14 @@
  *
  */
 
+/*
+ * Names: Jason Cameron, Zoe Li
+ * Date: Jun 9th, 2025
+ * Teacher: Ms. Krasteva
+ * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ *
+ */
+
 import javax.swing.*;
 
 // Scene manager class to handle switching between scenes
@@ -13,6 +21,8 @@ public class SceneManager {
     private final GameFrame parentFrame;
     private final java.util.Map<Scene, BaseScene> scenes;
     private Scene currentScene;
+
+    public static boolean continueEnabled = true; // Flag to control continue button visibility
 
     static SceneManager instance;
 
