@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class ButtonFactory {
     /**
@@ -37,6 +38,7 @@ public class ButtonFactory {
         if (SceneManager.continueEnabled) {
             JButton button = createSceneButton("Continue", scene);
             button.setBackground(Palette.BUTTON_SUCCESS); // Green for continue buttons
+            applyHoverEffects(button); // Reapply after changing color
             return button;
         }
         return null;
@@ -46,9 +48,8 @@ public class ButtonFactory {
      * Creates a button to navigate back to a previous scene
      */
     static JButton createPrevSceneButton(Scene scene) {
-        JButton button = createSceneButton("Back to " + scene.label, scene);
         // Keep default primary color for back buttons
-        return button;
+        return createSceneButton("Back to " + scene.label, scene);
     }
 
     /**
@@ -64,6 +65,7 @@ public class ButtonFactory {
     static JButton createWarningButton(String text, ActionListener actionListener) {
         JButton button = createButton(text, actionListener);
         button.setBackground(Palette.BUTTON_WARNING);
+        applyHoverEffects(button); // Reapply after changing color
         return button;
     }
 
@@ -73,6 +75,17 @@ public class ButtonFactory {
     static JButton createDangerButton(String text, ActionListener actionListener) {
         JButton button = createButton(text, actionListener);
         button.setBackground(Palette.BUTTON_DANGER);
+        applyHoverEffects(button); // Reapply after changing color
+        return button;
+    }
+
+    /**
+     * Creates a small button with smaller padding and font
+     */
+    static JButton createSmallButton(String text, ActionListener actionListener) {
+        JButton button = createButton(text, actionListener);
+        button.setFont(Palette.BUTTON_SMALL_FONT);
+        button.setBorder(BorderFactory.createEmptyBorder(6, 15, 6, 15));
         return button;
     }
 
@@ -82,29 +95,55 @@ public class ButtonFactory {
      * When the mouse leaves, it returns to its original color
      */
     private static void applyHoverEffects(JButton button) {
-        // Store the original background color
-        final Color originalColor = button.getBackground();
+        // Remove any existing hover mouse listeners to avoid duplicates
+        MouseListener[] listeners = button.getMouseListeners();
+        for (MouseListener listener : listeners) {
+            if (listener instanceof HoverAdapter) {
+                button.removeMouseListener(listener);
+            }
+        }
 
-        // Calculate a slightly brighter color for hover effect
-        final Color hoverColor = new Color(
-                Math.min(originalColor.getRed() + 20, 255),
-                Math.min(originalColor.getGreen() + 20, 255),
-                Math.min(originalColor.getBlue() + 20, 255)
-        );
+        button.addMouseListener(new HoverAdapter(button));
+    }
 
-        // Add mouse listener for hover effects
-        button.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                button.setBackground(hoverColor);
-                button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    /**
+     * A custom MouseAdapter class that handles the hover effect
+     */
+    private static class HoverAdapter extends MouseAdapter {
+        private final JButton button;
+        private Color originalColor;
+
+        public HoverAdapter(JButton button) {
+            this.button = button;
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            if (!button.isEnabled()) {
+                return;
             }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
+            // Store the original color before changing it
+            originalColor = button.getBackground();
+
+            // Calculate and set the hover color
+            Color hoverColor = new Color(
+                    Math.min(originalColor.getRed() + 20, 255),
+                    Math.min(originalColor.getGreen() + 20, 255),
+                    Math.min(originalColor.getBlue() + 20, 255)
+            );
+
+            button.setBackground(hoverColor);
+            button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            // Restore the original color
+            if (originalColor != null) {
                 button.setBackground(originalColor);
-                button.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
-        });
+            button.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        }
     }
 }
