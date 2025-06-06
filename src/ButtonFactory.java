@@ -6,7 +6,6 @@
  */
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class ButtonFactory {
@@ -15,7 +14,7 @@ public class ButtonFactory {
      */
     static JButton createButton(String text, ActionListener actionListener) {
         JButton button = new JButton(text);
-        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setFont(Palette.BUTTON_FONT);
         button.setBackground(Palette.BUTTON_PRIMARY);
         button.setForeground(Palette.TEXT_ON_BUTTON);
         button.setFocusPainted(false);
@@ -40,7 +39,9 @@ public class ButtonFactory {
      * Creates a button to navigate back to a previous scene
      */
     static JButton createPrevSceneButton(Scene scene) {
-        return createSceneButton("Back to " + scene.label, scene);
+        JButton button = createSceneButton("Back to " + scene.label, scene);
+        // Keep default primary color for back buttons
+        return button;
     }
 
     /**

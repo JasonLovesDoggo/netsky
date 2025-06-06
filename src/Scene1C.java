@@ -37,7 +37,7 @@ public class Scene1C extends BaseScene {
     protected void initializeComponents() {
         // Scene title
         JLabel titleLabel = new JLabel("Scene 1C");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(Palette.TITLE_FONT);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
@@ -88,11 +88,11 @@ public class Scene1C extends BaseScene {
         main.add(tree, JLayeredPane.MODAL_LAYER);
         main.add(robotBird, JLayeredPane.MODAL_LAYER);
 
-		HelpIcon help = new HelpIcon(main);
+        HelpIcon help = new HelpIcon(main);
         help.setBounds(790 - help.getWidth(), -10, help.getWidth(), help.getHeight());
         main.add(help, JLayeredPane.MODAL_LAYER);
         main.setBounds(0, 0, 800, 500);
-		
+
         add(main, BorderLayout.CENTER);
 
         // Navigation buttons

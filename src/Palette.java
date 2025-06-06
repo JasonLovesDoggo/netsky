@@ -34,6 +34,17 @@ public class Palette extends Color {
     // Panel Colors
     public static final Color PANEL_BACKGROUND = new Color(250, 250, 255);   // Very light blue for panels
 
+    // Fonts
+    public static final Font TITLE_FONT = new Font("Arial", Font.BOLD, 24);           // For scene titles
+    public static final Font SUBTITLE_FONT = new Font("Arial", Font.BOLD, 18);        // For subtitles
+    public static final Font BUTTON_FONT = new Font("Arial", Font.BOLD, 14);          // For buttons
+    public static final Font BUTTON_SMALL_FONT = new Font("Arial", Font.BOLD, 12);    // For smaller buttons
+    public static final Font TEXT_FONT = new Font("Arial", Font.PLAIN, 16);           // For regular text
+    public static final Font TEXT_SMALL_FONT = new Font("Arial", Font.PLAIN, 13);     // For smaller text
+    public static final Font PROMPT_FONT = new Font("Arial", Font.PLAIN, 15);         // For prompt text
+    public static final Font DIALOG_FONT = new Font("Tempus Sans ITC", Font.BOLD, 20); // For robot dialog
+    public static final Font HINT_FONT = new Font("Arial", Font.ITALIC, 11);          // For hints and tips
+
     public Palette(int r, int g, int b) {
         super(r, g, b);
     }

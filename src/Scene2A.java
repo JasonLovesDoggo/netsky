@@ -20,7 +20,7 @@ public class Scene2A extends BaseScene {
     int distance;
     boolean moving;
     GarbageTruck truck;
-	int index; //The variable that tracks which part of the animation the truck is on. Refers to the index of the items array
+    int index; //The variable that tracks which part of the animation the truck is on. Refers to the index of the items array
 
     public Scene2A(SceneManager sceneManager) {
         super(sceneManager);
@@ -30,21 +30,21 @@ public class Scene2A extends BaseScene {
     protected void initializeComponents() {
 
         Garbage[] items = new Garbage[8];
-		items[0] = new Garbage(100, "bag");
-		items[0].setLocation(600, 65);
-		items[0].setSize(200, 200);
-		items[1] = new Garbage(80, "bag");
-		items[1].setLocation(510, 75);
-		items[1].setSize(200, 200);
-		items[2] = new Garbage(100, "umbrellas");
-		items[2].setLocation(460
-		, 60);
-		items[2].setSize(200, 200);
-		
+        items[0] = new Garbage(100, "bag");
+        items[0].setLocation(600, 65);
+        items[0].setSize(200, 200);
+        items[1] = new Garbage(80, "bag");
+        items[1].setLocation(510, 75);
+        items[1].setSize(200, 200);
+        items[2] = new Garbage(100, "umbrellas");
+        items[2].setLocation(460
+                , 60);
+        items[2].setSize(200, 200);
+
 
         // Scene title
         JLabel titleLabel = new JLabel("Scene 2A");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(Palette.TITLE_FONT);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
@@ -71,9 +71,9 @@ public class Scene2A extends BaseScene {
 
         main.add(truck, JLayeredPane.PALETTE_LAYER);
         main.add(hand, JLayeredPane.PALETTE_LAYER);
-		main.add(items[0], JLayeredPane.PALETTE_LAYER);
-		main.add(items[1], JLayeredPane.PALETTE_LAYER);
-		main.add(items[2], JLayeredPane.PALETTE_LAYER);
+        main.add(items[0], JLayeredPane.PALETTE_LAYER);
+        main.add(items[1], JLayeredPane.PALETTE_LAYER);
+        main.add(items[2], JLayeredPane.PALETTE_LAYER);
 		
 		/*for(Garbage i : items) {
 			main.add(i, JLayeredPane.PALETTE_LAYER);
@@ -139,7 +139,7 @@ public class Scene2A extends BaseScene {
 
             public void actionPerformed(ActionEvent e) {
                 if (hand.getY() < 90) {
-					timer3.start();
+                    timer3.start();
                     direction = 2;
                 }
                 hand.setLocation(hand.getX(), hand.getY() + (direction));
@@ -152,18 +152,19 @@ public class Scene2A extends BaseScene {
 
         timer3 = new Timer(20, new ActionListener() {
             //Move the garbage. Decide which garbage to move based on an array and the truck's location
-			boolean go = false;
+            boolean go = false;
+
             public void actionPerformed(ActionEvent e) {
-				if (items[index].getY() < 100) {
-					go = true;
-				} else if (items[index].getY() > 200) {
-					go = false;
-					items[index].setLocation(truck.getX()+75, truck.getY()+50);
-					timer3.stop();
-				}
-				if (go) {
-					items[index].setLocation(items[index].getX(), items[index].getY()+2);
-				}
+                if (items[index].getY() < 100) {
+                    go = true;
+                } else if (items[index].getY() > 200) {
+                    go = false;
+                    items[index].setLocation(truck.getX() + 75, truck.getY() + 50);
+                    timer3.stop();
+                }
+                if (go) {
+                    items[index].setLocation(items[index].getX(), items[index].getY() + 2);
+                }
             }
         });
     }
@@ -178,24 +179,24 @@ public class Scene2A extends BaseScene {
 
     class Garbage extends JComponent {
         int scale, width, height;
-		String type;
+        String type;
 
         Garbage(int scale, String type) {
             this.scale = scale;
-			this.type = type;
+            this.type = type;
         }
 
         public void paintComponent(Graphics g) {
-			Image garbage;
-			if (type.equals("bag")) {
-            	garbage = new ImageIcon("./Images/Garbage.png").getImage();
-			} else if (type.equals("bike")) {
-				garbage = new ImageIcon("./Images/Bike.png").getImage();
-			} else if (type.equals("person")) {
-				garbage = new ImageIcon("./Images/Person.png").getImage();
-			} else { //Umbrella
-				garbage = new ImageIcon("./Images/Umbrellas.png").getImage();
-			}
+            Image garbage;
+            if (type.equals("bag")) {
+                garbage = new ImageIcon("./Images/Garbage.png").getImage();
+            } else if (type.equals("bike")) {
+                garbage = new ImageIcon("./Images/Bike.png").getImage();
+            } else if (type.equals("person")) {
+                garbage = new ImageIcon("./Images/Person.png").getImage();
+            } else { //Umbrella
+                garbage = new ImageIcon("./Images/Umbrellas.png").getImage();
+            }
             if (width > 0 && height > 0) {
                 setSize(width, height);
             } else {
@@ -227,7 +228,7 @@ public class Scene2A extends BaseScene {
         int width, height;
 
         public void paintComponent(Graphics g) {
-			System.out.println(truck.getX());
+            System.out.println(truck.getX());
             if (width > 0 && height > 0) {
                 setSize(width, height);
             } else {
@@ -256,16 +257,16 @@ public class Scene2A extends BaseScene {
                 case 2:
                     if (truck.getX() > 480) {
                         distance = 75;
-						index = 1;
+                        index = 1;
                         timer1.start();
                     }
                     break;
                 case 3:
-					if (truck.getX() > 400) {
-						distance = 50;
-						index = 2;
-						timer1.start();
-					}
+                    if (truck.getX() > 400) {
+                        distance = 50;
+                        index = 2;
+                        timer1.start();
+                    }
                     break;
                 case 4:
                     break;

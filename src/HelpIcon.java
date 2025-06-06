@@ -62,9 +62,9 @@ public class HelpIcon extends JComponent {
             g2.setStroke(new BasicStroke(1.5f));
             g2.draw(new RoundRectangle2D.Double(0, 20, 250, 110, 15, 15));
 
-            // Improved text styling
+            // Use Palette font instead of creating a new one
             g.setColor(Color.white);
-            g.setFont(new Font("Arial", Font.PLAIN, 13));
+            g.setFont(Palette.TEXT_SMALL_FONT);
             g.drawString("Press i to interact with the", 20, 50);
             g.drawString("prompt, and press u to go back.", 20, 75);
             g.drawString("Click on a robot to interact.", 20, 100);

@@ -10,10 +10,10 @@ import java.awt.geom.RoundRectangle2D;
 
 public class Prompt {
     Prompt(String text, int x, int y, Graphics g, Graphics2D g2) {
-//        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-        g.setFont(new Font("Arial", Font.PLAIN, 15));
+        g.setFont(Palette.PROMPT_FONT);
         FontMetrics fm = g.getFontMetrics();
 
         g2.setColor(new Color(60, 60, 80, 230));

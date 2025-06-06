@@ -160,14 +160,14 @@ public class Robot extends JComponent {
             textUser = new ImageIcon("./Images/PersonTalking.png").getImage();
 
             next = new JButton("Next 🡺");
-            next.setFont(new Font("Arial", Font.BOLD, 14));
+            next.setFont(Palette.BUTTON_FONT);
             next.setBackground(Palette.BUTTON_PRIMARY);
             next.setForeground(Palette.TEXT_ON_BUTTON);
             next.setFocusPainted(false);
             next.setBorder(BorderFactory.createEmptyBorder(6, 15, 6, 15));
 
             back = new JButton("🡸 Back");
-            back.setFont(new Font("Arial", Font.BOLD, 14));
+            back.setFont(Palette.BUTTON_FONT);
             back.setBackground(Palette.BUTTON_PRIMARY);
             back.setForeground(Palette.TEXT_ON_BUTTON);
             back.setFocusPainted(false);
@@ -243,7 +243,7 @@ public class Robot extends JComponent {
 
         public void paintComponent(Graphics g) {
             g.setColor(Color.white);
-            g.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+            g.setFont(Palette.DIALOG_FONT);
 
             String speechWords;
             if (words.get(wordsCount).contains("|")) {
