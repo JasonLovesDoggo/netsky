@@ -47,6 +47,7 @@ public class ButtonFactory {
             button.setBackground(Palette.BUTTON_DISABLED);
         } else {
             button.setToolTipText("Click to continue to the next scene.");
+            button.setText("Continue");
         }
         applyHoverEffects(button); // Reapply after changing color
         return button;
