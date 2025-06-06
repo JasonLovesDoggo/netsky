@@ -1,34 +1,34 @@
+/*
+ * Names: Jason Cameron, Zoe Li
+ * Date: Jun 9th, 2025
+ * Teacher: Ms. Krasteva
+ * Description: Displays stylized prompt text throughout the application
+ */
+
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
 public class Prompt {
     Prompt(String text, int x, int y, Graphics g, Graphics2D g2) {
-        g.setFont(new Font("Consolas", Font.PLAIN, 15));
-        FontMetrics fm = g.getFontMetrics();
-        g.setColor(new Color(0xced4da));
-        g2.fill(new RoundRectangle2D.Double(x - 20, y - 25, fm.stringWidth(text) + 40, 40, 20, 20));
-        //g.fillRect(x-20, y-25, text.length()*10, 40);
-        g.setColor(Color.black);
-        //g.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+//        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
+        g.setFont(new Font("Arial", Font.PLAIN, 15));
+        FontMetrics fm = g.getFontMetrics();
+
+        g2.setColor(new Color(60, 60, 80, 230));
+        RoundRectangle2D roundedRect = new RoundRectangle2D.Double(
+                x - 20, y - 25,
+                fm.stringWidth(text) + 40,
+                40,
+                15, 15);
+        g2.fill(roundedRect);
+
+        g2.setColor(Palette.BORDER_LIGHT);
+        g2.setStroke(new BasicStroke(1.0f));
+        g2.draw(roundedRect);
+
+        g.setColor(Color.white);
         g.drawString(text, x, y);
     }
 }
-
-
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
- */
-
-
-// 90: Gabriola
-
-//203: Segoe Print
-
-//227: Tempus Sans ITC
-
-//21: Bradley Hand ITC
