@@ -17,7 +17,7 @@ public class ScrollingText extends JComponent implements MouseWheelListener {
     private static final int MARGIN = 10;
     private final String text;
     private int y = 0;
-    private Timer timer;
+    private final Timer timer;
     private boolean firstPaint = true;
     private double scrollSpeed = 1.0;
     private double accumulatedScroll = 0.0;
@@ -148,7 +148,7 @@ public class ScrollingText extends JComponent implements MouseWheelListener {
         autoScrolling = false;
 
         // Manual scrolling - move the text up or down based on wheel rotation
-        int notches = e.getWheelRotation();
+        int notches = -e.getWheelRotation();
         y -= notches * 5; // Adjust the multiplier for faster/slower scrolling
 
         // Prevent scrolling past the beginning of the text
