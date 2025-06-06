@@ -187,6 +187,7 @@ public class Scene1News extends BaseScene {
         if (nextSceneButton != null) {
             nextSceneButton.setEnabled(false);
             nextSceneButton.setForeground(Color.GRAY);
+            nextSceneButton.setBackground(Color.BLACK);
         }
         super.onShowScene();
     }
