@@ -16,7 +16,6 @@ public class Prompt {
         g.setColor(new Color(0xced4da));
         g2.fill(new RoundRectangle2D.Double(x - 20, y - 25, fm.stringWidth(text) + 40, 40, 20, 20));
         //g.fillRect(x-20, y-25, text.length()*10, 40);
-        g.setColor(Color.black);
         //g.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
 
         g.drawString(text, x, y);
@@ -25,12 +24,11 @@ public class Prompt {
 
 
 
+        g2.fill(roundedRect);
 
 
-// 90: Gabriola
+        g2.setColor(Palette.BORDER_LIGHT);
+        g2.setStroke(new BasicStroke(1.0f));
+        g2.draw(roundedRect);
 
-//203: Segoe Print
-
-//227: Tempus Sans ITC
-
-//21: Bradley Hand ITC
+//21: Bradley Hand ITC}

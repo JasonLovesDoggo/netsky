@@ -48,11 +48,10 @@ public class Scene2A extends BaseScene {
 		items[6].setLocation(50, 20);
 		items[7] = new Garbage(80, "bag");
 		items[7].setLocation(20, 70);
-		
 
         // Scene title
         JLabel titleLabel = new JLabel("Scene 2A");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(Palette.TITLE_FONT);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
@@ -159,7 +158,8 @@ public class Scene2A extends BaseScene {
 
         timer3 = new Timer(20, new ActionListener() {
             //Move the garbage. Decide which garbage to move based on an array and the truck's location
-			boolean go = false;
+            boolean go = false;
+
             public void actionPerformed(ActionEvent e) {
 				if (items[index].getY() < 100) {
 					go = true;
@@ -187,24 +187,24 @@ public class Scene2A extends BaseScene {
 
     class Garbage extends JComponent {
         int scale, width, height;
-		String type;
+        String type;
 
         Garbage(int scale, String type) {
             this.scale = scale;
-			this.type = type;
+            this.type = type;
         }
 
         public void paintComponent(Graphics g) {
-			Image garbage;
-			if (type.equals("bag")) {
-            	garbage = new ImageIcon("./Images/Garbage.png").getImage();
-			} else if (type.equals("bike")) {
-				garbage = new ImageIcon("./Images/Bike.png").getImage();
-			} else if (type.equals("person")) {
-				garbage = new ImageIcon("./Images/Person.png").getImage();
-			} else { //Umbrella
-				garbage = new ImageIcon("./Images/Umbrellas.png").getImage();
-			}
+            Image garbage;
+            if (type.equals("bag")) {
+                garbage = new ImageIcon("./Images/Garbage.png").getImage();
+            } else if (type.equals("bike")) {
+                garbage = new ImageIcon("./Images/Bike.png").getImage();
+            } else if (type.equals("person")) {
+                garbage = new ImageIcon("./Images/Person.png").getImage();
+            } else { //Umbrella
+                garbage = new ImageIcon("./Images/Umbrellas.png").getImage();
+            }
             if (width > 0 && height > 0) {
                 setSize(width, height);
             } else {

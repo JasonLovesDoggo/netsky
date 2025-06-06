@@ -116,6 +116,10 @@ public class SceneManager {
     public static SceneManager getInstance() {
         return instance;
     }
+
+    public Scene getCurrentScene() {
+        return currentScene;
+    }
 }
 
 

@@ -2,8 +2,7 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
+ * Description: Provides help text and visual cues for navigation
  */
 
 import javax.swing.*;
@@ -20,7 +19,6 @@ public class HelpIcon extends JComponent {
     HelpIcon(JLayeredPane main) {
         this.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
-                //System.out.println("Entered!");
                 helptext = true;
                 repaint();
             }
@@ -28,7 +26,6 @@ public class HelpIcon extends JComponent {
             public void mouseExited(MouseEvent e) {
                 helptext = false;
                 repaint();
-                //System.out.println("Exited");
             }
         });
         icon = new ImageIcon("./Images/HelpIcon.png").getImage();
@@ -36,7 +33,6 @@ public class HelpIcon extends JComponent {
         text.setBounds(500, 0, 300, 200);
         text.setVisible(false);
         main.add(text, JLayeredPane.PALETTE_LAYER);
-
     }
 
     public void paintComponent(Graphics g) {
@@ -55,14 +51,23 @@ public class HelpIcon extends JComponent {
     static class HelpText extends JComponent {
         public void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g;
-            g.setColor(new Color(75, 75, 75, 150));
-            g2.fill(new RoundRectangle2D.Double(0, 20, 250, 100, 20, 20));
+
+            // Apply more attractive styling with colors from Palette
+            g.setColor(new Color(50, 50, 70, 200)); // Darker, more opaque background
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.fill(new RoundRectangle2D.Double(0, 20, 250, 110, 15, 15));
+
+            // Add a subtle border
+            g2.setColor(Palette.BORDER_LIGHT);
+            g2.setStroke(new BasicStroke(1.5f));
+            g2.draw(new RoundRectangle2D.Double(0, 20, 250, 110, 15, 15));
+
+            // Use Palette font instead of creating a new one
             g.setColor(Color.white);
-            g.setFont(new Font("Consolas", Font.PLAIN, 12));
-            g.drawString("Press i to interact with the ", 15, 50);
-            g.drawString("prompt, and press u to go back.", 15, 70);
-            g.drawString("Click on a robot to interact.", 15, 90);
+            g.setFont(Palette.TEXT_SMALL_FONT);
+            g.drawString("Press i to interact with the", 20, 50);
+            g.drawString("prompt, and press u to go back.", 20, 75);
+            g.drawString("Click on a robot to interact.", 20, 100);
         }
     }
-
 }
