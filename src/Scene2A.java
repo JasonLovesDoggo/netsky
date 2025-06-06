@@ -2,28 +2,6 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
- */
-
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
- */
-
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
  * Description: This is Scene 2, where the garbage truck drives down the road and picks up garbage
  *
  */
@@ -53,11 +31,15 @@ public class Scene2A extends BaseScene {
 
         Garbage[] items = new Garbage[8];
 		items[0] = new Garbage(100, "bag");
-		items[0].setLocation(600, 75);
+		items[0].setLocation(600, 65);
 		items[0].setSize(200, 200);
 		items[1] = new Garbage(80, "bag");
-		items[1].setLocation(540, 75);
+		items[1].setLocation(510, 75);
 		items[1].setSize(200, 200);
+		items[2] = new Garbage(100, "umbrellas");
+		items[2].setLocation(460
+		, 60);
+		items[2].setSize(200, 200);
 		
 
         // Scene title
@@ -91,6 +73,7 @@ public class Scene2A extends BaseScene {
         main.add(hand, JLayeredPane.PALETTE_LAYER);
 		main.add(items[0], JLayeredPane.PALETTE_LAYER);
 		main.add(items[1], JLayeredPane.PALETTE_LAYER);
+		main.add(items[2], JLayeredPane.PALETTE_LAYER);
 		
 		/*for(Garbage i : items) {
 			main.add(i, JLayeredPane.PALETTE_LAYER);
@@ -151,11 +134,11 @@ public class Scene2A extends BaseScene {
             }
         });
 
-        timer2 = new Timer(20, new ActionListener() {
+        timer2 = new Timer(20, new ActionListener() { //Move the garbage truck's hand
             int direction = -2;
 
             public void actionPerformed(ActionEvent e) {
-                if (hand.getY() < 100) {
+                if (hand.getY() < 90) {
 					timer3.start();
                     direction = 2;
                 }
@@ -203,7 +186,6 @@ public class Scene2A extends BaseScene {
         }
 
         public void paintComponent(Graphics g) {
-			System.out.println(scale);
 			Image garbage;
 			if (type.equals("bag")) {
             	garbage = new ImageIcon("./Images/Garbage.png").getImage();
@@ -245,6 +227,7 @@ public class Scene2A extends BaseScene {
         int width, height;
 
         public void paintComponent(Graphics g) {
+			System.out.println(truck.getX());
             if (width > 0 && height > 0) {
                 setSize(width, height);
             } else {
@@ -278,7 +261,11 @@ public class Scene2A extends BaseScene {
                     }
                     break;
                 case 3:
-					
+					if (truck.getX() > 400) {
+						distance = 50;
+						index = 2;
+						timer1.start();
+					}
                     break;
                 case 4:
                     break;
