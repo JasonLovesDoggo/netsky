@@ -35,13 +35,22 @@ public class ButtonFactory {
      * Creates a continue button if SceneManager.continueEnabled is true
      */
     static JButton createSceneContinueButton(Scene scene) {
-        if (SceneManager.continueEnabled) {
-            JButton button = createSceneButton("Continue", scene);
-            button.setBackground(Palette.BUTTON_SUCCESS); // Green for continue buttons
-            applyHoverEffects(button); // Reapply after changing color
-            return button;
+        JButton button = createSceneButton("Continue", scene);
+        button.setBackground(Palette.BUTTON_SUCCESS); // Green for continue buttons
+
+
+        if (!SceneManager.continueEnabled) {
+            button.setEnabled(false);
+            button.setText("Continue (locked)");
+            button.setToolTipText("You must complete the previous scene to continue.");
+            button.setForeground(Palette.TEXT_DISABLED);
+            button.setBackground(Palette.BUTTON_DISABLED);
+        } else {
+            button.setToolTipText("Click to continue to the next scene.");
         }
-        return null;
+        applyHoverEffects(button); // Reapply after changing color
+        return button;
+
     }
 
     /**

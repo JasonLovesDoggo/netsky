@@ -125,7 +125,7 @@ public class Scene1C extends BaseScene {
                 if (robotBird.wordsCount == 4) {
                     lastText = true;
                 }
-                if (lastText == true && !robotBird.text.isShowing()) {
+                if (lastText && !robotBird.text.isShowing()) {
                     timer3.start();
                     timer2.stop();
                 }
@@ -137,14 +137,14 @@ public class Scene1C extends BaseScene {
 
             public void actionPerformed(ActionEvent e) {
                 if (robotBird.getX() < 300) {
-                    if (first == false) {
+                    if (!first) {
                         fade = new FadeOut(main, new Color(80, 80, 80));
                         fade.setBounds(0, 0, 800, 600);
                         fade.setVisible(true);
                         main.add(fade, Integer.valueOf(Integer.MAX_VALUE)); //Force it to be on the front
                         fade.start();
                     } else {
-                        if (fade.fading == false) {
+                        if (!fade.fading) {
                             timer3.stop();
                             nextButton.doClick();
                             fade.setVisible(false);

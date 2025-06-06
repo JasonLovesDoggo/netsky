@@ -162,8 +162,8 @@ public class Scene1News extends BaseScene {
             // Initially disable the continue button until scrolling is complete
             nextSceneButton.setEnabled(false);
             nextSceneButton.setToolTipText("Please finish reading to continue.");
-            nextSceneButton.setForeground(Color.GRAY);
-            nextSceneButton.setBackground(Color.BLACK);
+            nextSceneButton.setForeground(Palette.TEXT_DISABLED);
+            nextSceneButton.setBackground(Palette.BUTTON_DISABLED);
             buttonPanel.add(nextSceneButton);
         }
         buttonPanel.add(menuButton);
@@ -189,8 +189,8 @@ public class Scene1News extends BaseScene {
         if (nextSceneButton != null) {
             nextSceneButton.setToolTipText("Please finish reading to continue.");
             nextSceneButton.setEnabled(false);
-            nextSceneButton.setForeground(Color.GRAY);
-            nextSceneButton.setBackground(Color.BLACK);
+            nextSceneButton.setForeground(Palette.TEXT_DISABLED);
+            nextSceneButton.setBackground(Palette.BUTTON_DISABLED);
         }
         super.onShowScene();
     }

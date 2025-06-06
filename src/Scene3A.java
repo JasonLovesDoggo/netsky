@@ -46,10 +46,7 @@ public class Scene3A extends BaseScene {
         JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_3B);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
 
-        if (nextButton != null) {
-
-            buttonPanel.add(nextButton);
-        }
+        buttonPanel.add(nextButton);
         buttonPanel.add(menuButton);
 
         add(buttonPanel, BorderLayout.SOUTH);

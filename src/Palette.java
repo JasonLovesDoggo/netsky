@@ -16,8 +16,10 @@ public class Palette extends Color {
     public static final Color BUTTON_SUCCESS = new Color(80, 180, 120);      // Green for success/continue buttons
     public static final Color BUTTON_WARNING = new Color(220, 150, 80);      // Orange for warning buttons
     public static final Color BUTTON_DANGER = new Color(220, 100, 100);      // Red for danger/delete buttons
+    public static final Color BUTTON_DISABLED = Color.BLACK;       // Dark gray for disabled buttons
 
     // Text Colors
+    public static final Color TEXT_DISABLED = Color.GRAY;                // White text on primary buttons
     public static final Color TEXT_ON_BUTTON = Color.WHITE;                  // White text on colored buttons
     public static final Color TEXT_PRIMARY = new Color(70, 70, 80);          // Dark gray for primary text
     public static final Color TEXT_SECONDARY = new Color(100, 100, 130);     // Medium gray for secondary text
