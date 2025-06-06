@@ -35,11 +35,11 @@ public class MainMenuScene extends BaseScene {
 
         // Title
         JLabel titleLabel = new JLabel("MEDICI");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 48));
+        titleLabel.setFont(Palette.TITLE_FONT);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         welcomeLabel = new JLabel("Welcome!"); // Initialize welcomeLabel
-        welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        welcomeLabel.setFont(Palette.SUBTITLE_FONT);
         welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         // Top panel for title and welcome message
