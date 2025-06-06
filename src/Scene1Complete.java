@@ -27,6 +27,7 @@ public class Scene1Complete extends BaseScene implements KeyListener {
     private ScaledImageLabel imageLabel;
     private Image cowImage = null;
     private Image dogSceneImage = null;
+    private Image birdImage = null;
 
     private JPanel buttonPanel;
     private JButton menuButton;
@@ -69,7 +70,7 @@ public class Scene1Complete extends BaseScene implements KeyListener {
                 "This behavior demonstrates 'shortcut learning' - where AI systems learn superficial patterns or associations rather than deeper conceptual understanding. They find correlations that work for most training examples but fail when context changes or when faced with novel situations.",
                 "Consider the following image of a cow in a pasture. An AI trained on similar images might learn to associate 'green open space + large animal' with 'farm animal in safe grazing environment' without truly understanding what makes a pasture suitable for grazing.",
                 "If this AI later encounters an image of a well-maintained golf course, it might mistakenly classify it as 'safe grazing environment' because it learned the shortcut 'green open space' rather than understanding the actual requirements for animal grazing.\n\nSimilarly, our robot relied on 'leash = dog walking' without grasping that the dog is an essential component.",
-                "The bird's appearance in Scene 1 revealed the fragility of the robot's understanding. When faced with a new stimulus (the injured bird), the robot immediately abandoned its original task. Its superficial grasp of 'dog walking' made it unable to properly prioritize or complete its original assignment.",
+                "Similarly, in the next scene, the robot was asked to 'save the bird'. But due to it's training, it associated the SKY with 'bird' so when it went to fly to the bird, it flew up into the sky instead of going to the tree where the bird was located.",
                 "This doesn't mean the robot is malfunctioning in a traditional sense. Rather, its learning process was incomplete. It developed a shortcut understanding that seemed to work in most scenarios but failed when faced with unusual circumstances.\n\nThis is a fundamental challenge in developing robust AI systems.",
                 "Understanding shortcut learning helps us build better AI systems by recognizing when they might be relying on superficial cues rather than deeper understanding. Click 'Continue to Next Scene' to see how our story continues."
         ));
@@ -205,8 +206,21 @@ public class Scene1Complete extends BaseScene implements KeyListener {
             imageLabel.setImage(cowImage);
             imageLabel.setVisible(true);
         } else {
-            // For later slides, show dog scene again
-            imageLabel.setImage(dogSceneImage);
+            // For bird-related slides, show bird image
+            if (birdImage == null) {
+                try {
+                    URL imgUrl = new java.io.File("Images/sc/bird.png").toURI().toURL();
+                    birdImage = new ImageIcon(imgUrl).getImage();
+                    if (birdImage.getWidth(null) == -1) {
+                        throw new RuntimeException("Image data not loaded or invalid.");
+                    }
+                } catch (Exception ex) {
+                    System.err.println("Error loading bird image: " + ex.getMessage());
+                    imageLabel.setText("Error: Bird image not found or failed to load.");
+                    imageLabel.setImage(null);
+                }
+            }
+            imageLabel.setImage(birdImage);
             imageLabel.setVisible(true);
         }
 
