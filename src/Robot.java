@@ -8,7 +8,10 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Robot extends JComponent {
@@ -155,13 +158,26 @@ public class Robot extends JComponent {
         RobotTalking(JLayeredPane pane) {
             textRobot = new ImageIcon("./Images/RobotTalking.png").getImage();
             textUser = new ImageIcon("./Images/PersonTalking.png").getImage();
+
             next = new JButton("Next 🡺");
+            next.setFont(new Font("Arial", Font.BOLD, 14));
+            next.setBackground(Palette.BUTTON_PRIMARY);
+            next.setForeground(Palette.TEXT_ON_BUTTON);
+            next.setFocusPainted(false);
+            next.setBorder(BorderFactory.createEmptyBorder(6, 15, 6, 15));
+
             back = new JButton("🡸 Back");
+            back.setFont(new Font("Arial", Font.BOLD, 14));
+            back.setBackground(Palette.BUTTON_PRIMARY);
+            back.setForeground(Palette.TEXT_ON_BUTTON);
+            back.setFocusPainted(false);
+            back.setBorder(BorderFactory.createEmptyBorder(6, 15, 6, 15));
+
             fadeCount = 0;
 
             timer = new Timer(100, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    if (fadeOut.fading == false) {
+                    if (!fadeOut.fading) {
                         wordsCount = 0;
                         fadeCount++;
                         timer.stop();
@@ -172,7 +188,7 @@ public class Robot extends JComponent {
             next.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     //Check for fadeout FIRST before increasing wordCount
-                    if (words.get(wordsCount).indexOf("FADEOUT") >= 0) {
+                    if (words.get(wordsCount).contains("FADEOUT")) {
                         fadeOut = new FadeOut(pane, Color.BLACK);
                         fadeOut.setBounds(0, 0, 800, 600);
                         fadeOut.setVisible(true);
@@ -229,10 +245,8 @@ public class Robot extends JComponent {
             g.setColor(Color.white);
             g.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
 
-            Graphics2D g2 = (Graphics2D) g;
-
             String speechWords;
-            if (words.get(wordsCount).indexOf("|") >= 0) {
+            if (words.get(wordsCount).contains("|")) {
                 speechWords = words.get(wordsCount).substring(1, words.get(wordsCount).indexOf("|"));
             } else {
                 speechWords = words.get(wordsCount).substring(1);
