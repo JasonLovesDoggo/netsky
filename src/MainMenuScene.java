@@ -2,7 +2,7 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Description: The first scene the user sees, through which they can start the program. The main menu.
  *
  */
 
