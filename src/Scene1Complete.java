@@ -49,15 +49,15 @@ public class Scene1Complete extends BaseScene implements KeyListener {
         titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
         JLabel titleLabel = new JLabel("Understanding the Robot's Behavior");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(Palette.TITLE_FONT);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titleLabel.setForeground(new Color(70, 70, 80));
         titlePanel.add(titleLabel, BorderLayout.CENTER);
 
         // Add keyboard hint to the title bar instead of taking up space in the main panel
         JLabel keyHint = new JLabel("(i: next, u: back)");
-        keyHint.setFont(new Font("Arial", Font.ITALIC, 11));
-        keyHint.setForeground(new Color(100, 100, 130));
+        keyHint.setFont(Palette.HINT_FONT);
+        keyHint.setForeground(Palette.TEXT_SECONDARY);
         keyHint.setHorizontalAlignment(SwingConstants.CENTER);
         titlePanel.add(keyHint, BorderLayout.SOUTH);
 
@@ -100,11 +100,11 @@ public class Scene1Complete extends BaseScene implements KeyListener {
         explanationArea.setLineWrap(true);
         explanationArea.setEditable(false);
         explanationArea.setFocusable(false);
-        explanationArea.setFont(new Font("Arial", Font.PLAIN, 16));
+        explanationArea.setFont(Palette.TEXT_FONT);
         explanationArea.setOpaque(true);
-        explanationArea.setBackground(new Color(250, 250, 255));
+        explanationArea.setBackground(Palette.PANEL_BACKGROUND);
         explanationArea.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(220, 220, 235)),
+                BorderFactory.createLineBorder(Palette.BORDER_LIGHT),
                 BorderFactory.createEmptyBorder(10, 15, 10, 15)
         ));
 
@@ -115,14 +115,19 @@ public class Scene1Complete extends BaseScene implements KeyListener {
 
         // Navigation button with clear styling
         nextExplanationButton = new JButton("Next");
-        nextExplanationButton.setFont(new Font("Arial", Font.BOLD, 14));
-        nextExplanationButton.setBackground(new Color(100, 150, 220));
-        nextExplanationButton.setForeground(Color.WHITE);
+        nextExplanationButton.setFont(Palette.BUTTON_FONT);
+        nextExplanationButton.setBackground(Palette.BUTTON_PRIMARY);
+        nextExplanationButton.setForeground(Palette.TEXT_ON_BUTTON);
         nextExplanationButton.setFocusPainted(false);
         nextExplanationButton.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
 
         nextExplanationButton.addActionListener(e -> {
-            goToNextStep();
+            if (currentStep < explanationSteps.size() - 1) {
+                goToNextStep();
+            } else {
+                // Last click - transition to next scene
+                sceneManager.showScene(Scene.SCENE_2A);
+            }
         });
 
         // Button panel with gradient background
@@ -209,10 +214,10 @@ public class Scene1Complete extends BaseScene implements KeyListener {
         // Update button text for last step
         if (currentStep == explanationSteps.size() - 1) {
             nextExplanationButton.setText("Continue to Next Scene");
-            nextExplanationButton.setBackground(new Color(80, 180, 120));
+            nextExplanationButton.setBackground(Palette.BUTTON_SUCCESS);
         } else {
             nextExplanationButton.setText("Next");
-            nextExplanationButton.setBackground(new Color(100, 150, 220));
+            nextExplanationButton.setBackground(Palette.BUTTON_PRIMARY);
         }
     }
 
