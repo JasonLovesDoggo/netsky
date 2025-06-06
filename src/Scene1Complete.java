@@ -8,11 +8,13 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Scene1Complete extends BaseScene {
+public class Scene1Complete extends BaseScene implements KeyListener {
 
     private JTextArea explanationArea;
     private JButton nextExplanationButton;
@@ -20,11 +22,20 @@ public class Scene1Complete extends BaseScene {
     private int currentStep = 0;
     private static final int COW_IMAGE_STEP_INDEX = 3;
 
+    private JPanel explanationPanel;
+    private JPanel visualDisplayPanel;
+    private CardLayout visualCardLayout;
     private ScaledImageLabel imageLabel;
     private Image cowImage = null;
+    private Image dogSceneImage = null;
+
+    private JPanel buttonPanel;
+    private JButton menuButton;
 
     public Scene1Complete(SceneManager sceneManager) {
         super(sceneManager);
+        addKeyListener(this);
+        setFocusable(true);
     }
 
     @Override
@@ -33,7 +44,22 @@ public class Scene1Complete extends BaseScene {
         setLayout(new BorderLayout(10, 10));
 
         // Scene title with a subtle gradient background
-        JPanel titlePanel = getTitlePanel();
+        JPanel titlePanel = new JPanel(new BorderLayout());
+        titlePanel.setBackground(new Color(240, 240, 250));
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+
+        JLabel titleLabel = new JLabel("Understanding the Robot's Behavior");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setForeground(new Color(70, 70, 80));
+        titlePanel.add(titleLabel, BorderLayout.CENTER);
+
+        // Add keyboard hint to the title bar instead of taking up space in the main panel
+        JLabel keyHint = new JLabel("(i: next, u: back)");
+        keyHint.setFont(new Font("Arial", Font.ITALIC, 11));
+        keyHint.setForeground(new Color(100, 100, 130));
+        keyHint.setHorizontalAlignment(SwingConstants.CENTER);
+        titlePanel.add(keyHint, BorderLayout.SOUTH);
 
         add(titlePanel, BorderLayout.NORTH);
 
@@ -50,16 +76,16 @@ public class Scene1Complete extends BaseScene {
         ));
 
         // Main explanation panel with soft background color
-        JPanel explanationPanel = new JPanel(new BorderLayout(10, 15));
-        explanationPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
+        explanationPanel = new JPanel(new BorderLayout(10, 10));
+        explanationPanel.setBorder(BorderFactory.createEmptyBorder(5, 20, 10, 20));
         explanationPanel.setBackground(new Color(248, 248, 252));
 
-        // Visual display area (primarily for the cow image)
-        JPanel visualDisplayPanel = new JPanel();
-        CardLayout visualCardLayout = new CardLayout();
+        // Visual display area (primarily for images) - increased height
+        visualDisplayPanel = new JPanel();
+        visualCardLayout = new CardLayout();
         visualDisplayPanel.setLayout(visualCardLayout);
-        visualDisplayPanel.setPreferredSize(new Dimension(800, 350));
-        visualDisplayPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 10, 5));
+        visualDisplayPanel.setPreferredSize(new Dimension(800, 400)); // Increased height for more image space
+        visualDisplayPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         visualDisplayPanel.setBackground(new Color(248, 248, 252));
 
         // Image display with proper sizing and no black borders
@@ -68,7 +94,7 @@ public class Scene1Complete extends BaseScene {
         visualDisplayPanel.add(imageLabel, "IMAGE");
         explanationPanel.add(visualDisplayPanel, BorderLayout.CENTER);
 
-        // Text area with elegant styling
+        // Text area with elegant styling - reduced height
         explanationArea = new JTextArea();
         explanationArea.setWrapStyleWord(true);
         explanationArea.setLineWrap(true);
@@ -79,12 +105,12 @@ public class Scene1Complete extends BaseScene {
         explanationArea.setBackground(new Color(250, 250, 255));
         explanationArea.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(220, 220, 235)),
-                BorderFactory.createEmptyBorder(12, 15, 12, 15)
+                BorderFactory.createEmptyBorder(10, 15, 10, 15)
         ));
 
         JScrollPane scrollPaneForTextArea = new JScrollPane(explanationArea);
         scrollPaneForTextArea.setBorder(BorderFactory.createEmptyBorder());
-        scrollPaneForTextArea.setPreferredSize(new Dimension(800, 150));
+        scrollPaneForTextArea.setPreferredSize(new Dimension(800, 120)); // Reduced height to give more space to images
         explanationPanel.add(scrollPaneForTextArea, BorderLayout.SOUTH);
 
         // Navigation button with clear styling
@@ -96,45 +122,11 @@ public class Scene1Complete extends BaseScene {
         nextExplanationButton.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
 
         nextExplanationButton.addActionListener(e -> {
-            currentStep++;
-            if (currentStep < explanationSteps.size()) {
-                String currentStepTextContent = explanationSteps.get(currentStep);
-                explanationArea.setText(currentStepTextContent);
-                explanationArea.setCaretPosition(0);
-
-                // Only show image on specific steps
-                if (currentStep == COW_IMAGE_STEP_INDEX || currentStep == COW_IMAGE_STEP_INDEX + 1) {
-                    if (cowImage == null) {
-                        try {
-                            URL imgUrl = new java.io.File("Images/sc/cow.jpg").toURI().toURL();
-                            cowImage = new ImageIcon(imgUrl).getImage();
-                            if (cowImage.getWidth(null) == -1) {
-                                throw new RuntimeException("Image data not loaded or invalid.");
-                            }
-                            imageLabel.setImage(cowImage);
-                        } catch (Exception ex) {
-                            System.err.println("Error loading cow image: " + ex.getMessage());
-                            imageLabel.setText("Error: Cow image not found or failed to load.");
-                            imageLabel.setImage(null);
-                        }
-                    }
-                    imageLabel.setVisible(true);
-                } else {
-                    imageLabel.setVisible(false);
-                }
-
-                if (currentStep == explanationSteps.size() - 1) {
-                    nextExplanationButton.setText("Continue to Next Scene");
-                    nextExplanationButton.setBackground(new Color(80, 180, 120));
-                }
-            } else {
-                // Last click - transition to next scene
-                sceneManager.showScene(Scene.SCENE_2A);
-            }
+            goToNextStep();
         });
 
         // Button panel with gradient background
-        JPanel buttonPanel = new JPanel() {
+        buttonPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -149,54 +141,124 @@ public class Scene1Complete extends BaseScene {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 15));
         buttonPanel.add(nextExplanationButton);
 
-        JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
+        menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
         buttonPanel.add(menuButton);
 
         add(explanationPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
         // Initialize first step
-        explanationArea.setText(explanationSteps.get(0));
-        explanationArea.setCaretPosition(0);
-        imageLabel.setVisible(false);
+        updateStepDisplay(0);
+
+        // Request focus to enable keyboard navigation
+        SwingUtilities.invokeLater(() -> requestFocusInWindow());
     }
 
-    private static JPanel getTitlePanel() {
-        JPanel titlePanel = new JPanel(new BorderLayout());
-        titlePanel.setBackground(new Color(240, 240, 250));
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+    private void updateStepDisplay(int step) {
+        if (step < 0) {
+            step = 0;
+        } else if (step >= explanationSteps.size()) {
+            // Last step - transition to next scene
+            sceneManager.showScene(Scene.SCENE_2A);
+            return;
+        }
 
-        JLabel titleLabel = new JLabel("Understanding the Robot's Behavior");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLabel.setForeground(new Color(70, 70, 80));
-        titlePanel.add(titleLabel, BorderLayout.CENTER);
-        return titlePanel;
+        currentStep = step;
+        explanationArea.setText(explanationSteps.get(currentStep));
+        explanationArea.setCaretPosition(0);
+
+        // Display appropriate image for current step
+        if (currentStep < COW_IMAGE_STEP_INDEX) {
+            // For first few slides, show dog scene image
+            if (dogSceneImage == null) {
+                try {
+                    URL imgUrl = new java.io.File("Images/sc/dogscene.png").toURI().toURL();
+                    dogSceneImage = new ImageIcon(imgUrl).getImage();
+                    if (dogSceneImage.getWidth(null) == -1) {
+                        throw new RuntimeException("Image data not loaded or invalid.");
+                    }
+                } catch (Exception ex) {
+                    System.err.println("Error loading dog scene image: " + ex.getMessage());
+                }
+            }
+            imageLabel.setImage(dogSceneImage);
+            imageLabel.setVisible(true);
+        } else if (currentStep == COW_IMAGE_STEP_INDEX || currentStep == COW_IMAGE_STEP_INDEX + 1) {
+            // For cow-specific slides, show cow image
+            if (cowImage == null) {
+                try {
+                    URL imgUrl = new java.io.File("Images/sc/cow.jpg").toURI().toURL();
+                    cowImage = new ImageIcon(imgUrl).getImage();
+                    if (cowImage.getWidth(null) == -1) {
+                        throw new RuntimeException("Image data not loaded or invalid.");
+                    }
+                } catch (Exception ex) {
+                    System.err.println("Error loading cow image: " + ex.getMessage());
+                    imageLabel.setText("Error: Cow image not found or failed to load.");
+                    imageLabel.setImage(null);
+                }
+            }
+            imageLabel.setImage(cowImage);
+            imageLabel.setVisible(true);
+        } else {
+            // For later slides, show dog scene again
+            imageLabel.setImage(dogSceneImage);
+            imageLabel.setVisible(true);
+        }
+
+        // Update button text for last step
+        if (currentStep == explanationSteps.size() - 1) {
+            nextExplanationButton.setText("Continue to Next Scene");
+            nextExplanationButton.setBackground(new Color(80, 180, 120));
+        } else {
+            nextExplanationButton.setText("Next");
+            nextExplanationButton.setBackground(new Color(100, 150, 220));
+        }
+    }
+
+    private void goToNextStep() {
+        updateStepDisplay(currentStep + 1);
+    }
+
+    private void goToPreviousStep() {
+        updateStepDisplay(currentStep - 1);
     }
 
     @Override
     public void onShowScene() {
         super.onShowScene();
         SceneManager.continueEnabled = false;
-        currentStep = 0;
+        // Reset to the first step
+        updateStepDisplay(0);
+        // Request focus to enable keyboard navigation
+        SwingUtilities.invokeLater(() -> requestFocusInWindow());
+    }
 
-        if (explanationArea != null && explanationSteps != null && !explanationSteps.isEmpty()) {
-            explanationArea.setText(explanationSteps.get(currentStep));
-            explanationArea.setCaretPosition(0);
-        }
+    // KeyListener implementation
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // Not used
+    }
 
-        if (imageLabel != null) {
-            imageLabel.setVisible(false);
-        }
-
-        if (nextExplanationButton != null) {
-            nextExplanationButton.setText("Next");
-            nextExplanationButton.setBackground(new Color(100, 150, 220));
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch (e.getKeyChar()) {
+            case 'i':  // Forward navigation
+                goToNextStep();
+                break;
+            case 'u':  // Back navigation
+                goToPreviousStep();
+                break;
         }
     }
 
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // Not used
+    }
+
     // Image display component with proper scaling and background matching
-    static class ScaledImageLabel extends JLabel {
+    class ScaledImageLabel extends JLabel {
         private Image image;
 
         public ScaledImageLabel() {
@@ -224,6 +286,10 @@ public class Scene1Complete extends BaseScene {
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
             // Fill with background color (matching parent panel)
             g2d.setColor(getBackground());
             g2d.fillRect(0, 0, getWidth(), getHeight());
