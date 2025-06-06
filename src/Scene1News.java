@@ -11,12 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Scene1News extends BaseScene {
-    ScrollingText news;
     private final Timer flashingTimer;
+    private final Timer scrollCheckTimer;
+    ScrollingText news;
     private boolean isFlashingRed = false;
     private JLabel breakingNewsLabel;
     private JButton nextSceneButton;
-    private final Timer scrollCheckTimer;
 
     public Scene1News(SceneManager sceneManager) {
         super(sceneManager);

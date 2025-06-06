@@ -6,14 +6,14 @@
  *
  */
 
-import java.awt.event.*;
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class UserInput extends JComponent {
     public int promptCount;
-    private int max;
     public JComponent scene;
+    private final int max;
 
     public UserInput(int max) {
         this.max = max;

@@ -18,13 +18,11 @@ import javax.swing.*;
 
 // Scene manager class to handle switching between scenes
 public class SceneManager {
+    public static boolean continueEnabled = true; // Flag to control continue button visibility
+    static SceneManager instance;
     private final GameFrame parentFrame;
     private final java.util.Map<Scene, BaseScene> scenes;
     private Scene currentScene;
-
-    public static boolean continueEnabled = true; // Flag to control continue button visibility
-
-    static SceneManager instance;
 
     public SceneManager(GameFrame parentFrame) {
         this.parentFrame = parentFrame;
@@ -35,6 +33,10 @@ public class SceneManager {
 
         instance = this;
 
+    }
+
+    public static SceneManager getInstance() {
+        return instance;
     }
 
     private void initializeScenes() {
@@ -111,10 +113,6 @@ public class SceneManager {
                     break;
             }
         }
-    }
-
-    public static SceneManager getInstance() {
-        return instance;
     }
 
     public Scene getCurrentScene() {

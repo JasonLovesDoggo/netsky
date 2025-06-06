@@ -21,9 +21,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Scene1C extends BaseScene {
-    SceneOneC sceneOne;
     public Robot robotDogLeash;
     public Robot robotBird;
+    SceneOneC sceneOne;
     Timer timer, timer2, timer3;
     JLayeredPane main;
     FadeOut fade;

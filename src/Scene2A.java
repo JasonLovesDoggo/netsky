@@ -18,12 +18,12 @@ public class Scene2A extends BaseScene {
     FadeOut fade;
     Timer timer, timer1, timer2, timer3;
     int distance;
-	int handToY = 90;
+    int handToY = 90;
     boolean moving;
-	GarbageTruckHand hand;
+    GarbageTruckHand hand;
     GarbageTruck truck;
-	int currentWidth;
-	int index; //The variable that tracks which part of the animation the truck is on. Refers to the index of the items array
+    int currentWidth;
+    int index; //The variable that tracks which part of the animation the truck is on. Refers to the index of the items array
 
     public Scene2A(SceneManager sceneManager) {
         super(sceneManager);
@@ -31,25 +31,25 @@ public class Scene2A extends BaseScene {
 
     @Override
     protected void initializeComponents() {
-		
-		boolean[] itemState = new boolean[8];
-		int[] itemYs = {68, 64, 71, 63, 60, 60, 65};
-		
+
+        boolean[] itemState = new boolean[8];
+        int[] itemYs = {68, 64, 71, 63, 60, 60, 65};
+
         Garbage[] items = new Garbage[7];
-		items[0] = new Garbage(100, "bag");
-		items[0].setLocation(600, 65);
-		items[1] = new Garbage(80, "bag");
-		items[1].setLocation(530, 75);
-		items[2] = new Garbage(100, "umbrellas");
-		items[2].setLocation(460, 20);
-		items[3] = new Garbage(100, "bike");
-		items[3].setLocation(340, 0);
-		items[4] = new Garbage(50, "person");
-		items[4].setLocation(280, 20);
-		items[5] = new Garbage(100, "bag");
-		items[5].setLocation(215, 50);
-		items[6] = new Garbage(40, "person");
-		items[6].setLocation(165, 20);
+        items[0] = new Garbage(100, "bag");
+        items[0].setLocation(600, 65);
+        items[1] = new Garbage(80, "bag");
+        items[1].setLocation(530, 75);
+        items[2] = new Garbage(100, "umbrellas");
+        items[2].setLocation(460, 20);
+        items[3] = new Garbage(100, "bike");
+        items[3].setLocation(340, 0);
+        items[4] = new Garbage(50, "person");
+        items[4].setLocation(280, 20);
+        items[5] = new Garbage(100, "bag");
+        items[5].setLocation(215, 50);
+        items[6] = new Garbage(40, "person");
+        items[6].setLocation(165, 20);
 
         // Scene title
         JLabel titleLabel = new JLabel("Scene 2A");
@@ -80,26 +80,24 @@ public class Scene2A extends BaseScene {
 
         main.add(truck, JLayeredPane.PALETTE_LAYER);
         main.add(hand, JLayeredPane.PALETTE_LAYER);
-		
-		for(Garbage i : items) {
-			i.setSize(50, 50);
-			main.add(i, JLayeredPane.PALETTE_LAYER);
-		}
+
+        for (Garbage i : items) {
+            i.setSize(50, 50);
+            main.add(i, JLayeredPane.PALETTE_LAYER);
+        }
 
         add(main, BorderLayout.CENTER);
 
         // Navigation buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-		
-		SceneManager.continueEnabled = true; //We need to find a better way to do this
-		
+
+        SceneManager.continueEnabled = true; //We need to find a better way to do this
+
         JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_2B);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
 
-        if (nextButton != null) {
-            buttonPanel.add(nextButton);
-        }
+        buttonPanel.add(nextButton);
         buttonPanel.add(menuButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
@@ -117,7 +115,7 @@ public class Scene2A extends BaseScene {
                     started = true;
                 }
                 if (started) {
-                    if (fade.fading == false) {
+                    if (!fade.fading) {
                         timer.stop();
                         nextButton.doClick();
                         fade.setVisible(false);
@@ -125,22 +123,22 @@ public class Scene2A extends BaseScene {
                         started = false;
                     }
                 } else {
-					currentWidth = 0;
-					for(int i = 0; i < itemState.length; i++) {
-						if (itemState[i]) {
-							main.setLayer(items[i], JLayeredPane.MODAL_LAYER); //Move in front of the truck
-							items[i].setLocation(truck.getX()+120+currentWidth, truck.getY()+itemYs[i]-(items[i].height/2)); //Find the y value of the item, so it lands somewhere in the truck 
-							currentWidth+=items[i].getWidth()-20;
-						}
-					}
-				}
+                    currentWidth = 0;
+                    for (int i = 0; i < itemState.length; i++) {
+                        if (itemState[i]) {
+                            main.setLayer(items[i], JLayeredPane.MODAL_LAYER); //Move in front of the truck
+                            items[i].setLocation(truck.getX() + 120 + currentWidth, truck.getY() + itemYs[i] - (items[i].height / 2)); //Find the y value of the item, so it lands somewhere in the truck
+                            currentWidth += items[i].getWidth() - 20;
+                        }
+                    }
+                }
             }
         });
 
         timer1 = new Timer(20, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (distance > 0) {
-					moving = true;
+                    moving = true;
                     distance -= 2;
                     truck.setLocation(truck.getX() - 2, truck.getY());
                     hand.setLocation(hand.getX() - 2, truck.getY());
@@ -158,7 +156,7 @@ public class Scene2A extends BaseScene {
 
             public void actionPerformed(ActionEvent e) {
                 if (hand.getY() < handToY) {
-					timer3.start();
+                    timer3.start();
                     direction = 2;
                 }
                 hand.setLocation(hand.getX(), hand.getY() + (direction));
@@ -174,19 +172,19 @@ public class Scene2A extends BaseScene {
             boolean go = false;
 
             public void actionPerformed(ActionEvent e) {
-				if (items[index].getY() < 100) {
-					go = true;
-				} else if (items[index].getY() > 200) {
-					go = false;
-					items[index].setLocation(truck.getX()+75, truck.getY()+50);
-					timer3.stop();
-					moving = false;
-					itemState[index] = true;
-					//System.out.println("Truck stopped at: " + truck.getX());
-				}
-				if (go) {
-					items[index].setLocation(items[index].getX(), items[index].getY()+2);
-				}
+                if (items[index].getY() < 100) {
+                    go = true;
+                } else if (items[index].getY() > 200) {
+                    go = false;
+                    items[index].setLocation(truck.getX() + 75, truck.getY() + 50);
+                    timer3.stop();
+                    moving = false;
+                    itemState[index] = true;
+                    //System.out.println("Truck stopped at: " + truck.getX());
+                }
+                if (go) {
+                    items[index].setLocation(items[index].getX(), items[index].getY() + 2);
+                }
             }
         });
     }
@@ -199,7 +197,7 @@ public class Scene2A extends BaseScene {
         timer.start();
     }
 
-    class Garbage extends JComponent {
+    static class Garbage extends JComponent {
         int scale, width, height;
         String type;
 
@@ -209,16 +207,13 @@ public class Scene2A extends BaseScene {
         }
 
         public void paintComponent(Graphics g) {
-            Image garbage;
-            if (type.equals("bag")) {
-                garbage = new ImageIcon("./Images/Garbage.png").getImage();
-            } else if (type.equals("bike")) {
-                garbage = new ImageIcon("./Images/Bike.png").getImage();
-            } else if (type.equals("person")) {
-                garbage = new ImageIcon("./Images/Person.png").getImage();
-            } else { //Umbrella
-                garbage = new ImageIcon("./Images/Umbrellas.png").getImage();
-            }
+            Image garbage = switch (type) {
+                case "bag" -> new ImageIcon("./Images/Garbage.png").getImage();
+                case "bike" -> new ImageIcon("./Images/Bike.png").getImage();
+                case "person" -> new ImageIcon("./Images/Person.png").getImage();
+                default ->  //Umbrella
+                        new ImageIcon("./Images/Umbrellas.png").getImage();
+            };
             if (width > 0 && height > 0) {
                 setSize(width, height);
             } else {
@@ -227,7 +222,7 @@ public class Scene2A extends BaseScene {
             width = (int) (garbage.getWidth(null) * scale / 100.0);
             height = (int) (garbage.getHeight(null) * scale / 100.0);
             g.drawImage(garbage, 0, 0, width, height, this);
-			//System.out.println("Width: " + width + " and height: " + height);
+            //System.out.println("Width: " + width + " and height: " + height);
         }
     }
 
@@ -237,7 +232,7 @@ public class Scene2A extends BaseScene {
         public void paintComponent(Graphics g) {
             Image handPic = new ImageIcon("./Images/GarbageTruckHand.png").getImage();
             if (width > 0 && height > 0) {
-                setSize(width, 180-hand.getY());
+                setSize(width, 180 - hand.getY());
             } else {
                 setSize(50, 50); //Make sure it has a size
             }
@@ -270,82 +265,82 @@ public class Scene2A extends BaseScene {
             Graphics2D g2 = (Graphics2D) g;
             switch (userIn.promptCount) {
                 case 0:
-					handToY = 90;
+                    handToY = 90;
                     new Prompt("Oh, looks like it's an automated garbage truck!", 50, 450, g, g2);
                     break;
                 case 1:
                     new Prompt("These trucks are trained to pick up garbage from the curb.", 50, 450, g, g2);
                     break;
                 case 2:
-                    if (truck.getX() > 480 && moving == false) {
+                    if (truck.getX() > 480 && !moving) {
                         distance = 75;
-						index = 1;
-						handToY = 90;
+                        index = 1;
+                        handToY = 90;
                         timer1.start();
                     } else if (moving && index < 1) {
-						userIn.promptCount--;
-						//System.out.println("Went back. promptCount == " + userIn.promptCount);
-					}
+                        userIn.promptCount--;
+                        //System.out.println("Went back. promptCount == " + userIn.promptCount);
+                    }
                     break;
                 case 3:
-					if (truck.getX() > 400 && moving == false) {
-						distance = 70;
-						index = 2;
-						handToY = 50;
-						timer1.start();
-					} else if (moving && index < 2) {
-						userIn.promptCount--;
-						//System.out.println("Went back. promptCount == " + userIn.promptCount);
-					}
+                    if (truck.getX() > 400 && !moving) {
+                        distance = 70;
+                        index = 2;
+                        handToY = 50;
+                        timer1.start();
+                    } else if (moving && index < 2) {
+                        userIn.promptCount--;
+                        //System.out.println("Went back. promptCount == " + userIn.promptCount);
+                    }
                     break;
                 case 4:
-					if (truck.getX() > 350 && moving == false) {
-						distance = 60;
-						index = 3;
-						handToY = 40;
-						timer1.start();
-					} else if (moving && index < 3) {
-						userIn.promptCount--;
-						//System.out.println("Went back. promptCount == " + userIn.promptCount);
-					}
+                    if (truck.getX() > 350 && !moving) {
+                        distance = 60;
+                        index = 3;
+                        handToY = 40;
+                        timer1.start();
+                    } else if (moving && index < 3) {
+                        userIn.promptCount--;
+                        //System.out.println("Went back. promptCount == " + userIn.promptCount);
+                    }
                     break;
-				case 5: 
-					if (truck.getX() > 290 && moving == false) {
-						distance = 120;
-						index = 4;
-						handToY = 70;
-						timer1.start();
-					} else if (moving && index < 4) {
-						userIn.promptCount--;
-						//System.out.println("Went back. promptCount == " + userIn.promptCount);
-					}
-					break;
-				case 6:
-					if (truck.getX() > 170 && moving == false) {
-						distance = 60;
-						index = 5;
-						handToY = 70;
-						timer1.start();
-					} else if (moving && index < 5) {
-						userIn.promptCount--;
-						//System.out.println("Went back. promptCount == " + userIn.promptCount);
-					}
-					break;
-				case 7:
-					if (truck.getX() > 110 && moving == false) {
-						distance = 60;
-						index = 6;
-						handToY = 60;
-						timer1.start();
-					} else if (moving && index < 6) {
-						userIn.promptCount--;
-						//System.out.println("Went back. promptCount == " + userIn.promptCount);
-					}
-					break;
-				case 8:
-					//Fade out, nothign happens
-					break;
-				
+                case 5:
+                    if (truck.getX() > 290 && !moving) {
+                        distance = 120;
+                        index = 4;
+                        handToY = 70;
+                        timer1.start();
+                    } else if (moving && index < 4) {
+                        userIn.promptCount--;
+                        //System.out.println("Went back. promptCount == " + userIn.promptCount);
+                    }
+                    break;
+                case 6:
+                    if (truck.getX() > 170 && !moving) {
+                        distance = 60;
+                        index = 5;
+                        handToY = 70;
+                        timer1.start();
+                    } else if (moving && index < 5) {
+                        userIn.promptCount--;
+                        //System.out.println("Went back. promptCount == " + userIn.promptCount);
+                    }
+                    break;
+                case 7:
+                    if (truck.getX() > 110 && !moving) {
+                        distance = 60;
+                        index = 6;
+                        handToY = 60;
+                        timer1.start();
+                    } else if (moving && index < 6) {
+                        userIn.promptCount--;
+                        //System.out.println("Went back. promptCount == " + userIn.promptCount);
+                    }
+                    break;
+                case 8:
+                    //Fade out, nothign happens
+                    break;
+
             }
         }
 

@@ -29,8 +29,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Scene1B extends BaseScene {
-    SceneOneB sceneOne;
     public UserInput userIn;
+    SceneOneB sceneOne;
     FadeOut fadeOut;
     JLayeredPane main;
     JButton nextButton;

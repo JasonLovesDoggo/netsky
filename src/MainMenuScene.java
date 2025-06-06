@@ -10,8 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainMenuScene extends BaseScene {
-    private JLabel welcomeLabel;
     private final Image backgroundImage;
+    private JLabel welcomeLabel;
 
     public MainMenuScene(SceneManager sceneManager) {
         super(sceneManager);

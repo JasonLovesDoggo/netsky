@@ -14,10 +14,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Scene1A extends BaseScene {
-    JPanel contentPanel;
-    SceneOneA sceneOne;
     public UserInput userIn;
     public Robot robotDogLeash;
+    JPanel contentPanel;
+    SceneOneA sceneOne;
     FadeOut fadeOut;
     boolean fade;
     JButton nextButton;

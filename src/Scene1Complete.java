@@ -16,12 +16,11 @@ import java.util.Arrays;
 
 public class Scene1Complete extends BaseScene implements KeyListener {
 
+    private static final int COW_IMAGE_STEP_INDEX = 3;
     private JTextArea explanationArea;
     private JButton nextExplanationButton;
     private ArrayList<String> explanationSteps;
     private int currentStep = 0;
-    private static final int COW_IMAGE_STEP_INDEX = 3;
-
     private JPanel explanationPanel;
     private JPanel visualDisplayPanel;
     private CardLayout visualCardLayout;

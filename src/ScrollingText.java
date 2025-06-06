@@ -15,15 +15,15 @@ public class ScrollingText extends JComponent implements MouseWheelListener {
     private static final int START_Y = 500;
     private static final int SCROLL_MULT = 2;
     private static final int MARGIN = 10;
+    private static int LINE_HEIGHT = 30;
     private final String text;
-    private int y = 0;
     private final Timer timer;
+    private int y = 0;
     private boolean firstPaint = true;
     private double scrollSpeed = 1.0;
     private double accumulatedScroll = 0.0;
     private Color textColor = Color.BLACK;
     private Font textFont = new Font("Times New Roman", Font.PLAIN, 30);
-    private static int LINE_HEIGHT = 30;
     private boolean autoScrolling = true;
     private int totalTextHeight = 0;
 
