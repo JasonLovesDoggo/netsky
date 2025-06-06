@@ -2,6 +2,8 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
+ * Description: This class draws a string onto the screen, at a given location
+ *
  * Description: Displays stylized prompt text throughout the application
  */
 
