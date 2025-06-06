@@ -207,13 +207,16 @@ public class Scene2A extends BaseScene {
         }
 
         public void paintComponent(Graphics g) {
-            Image garbage = switch (type) {
-                case "bag" -> new ImageIcon("./Images/Garbage.png").getImage();
-                case "bike" -> new ImageIcon("./Images/Bike.png").getImage();
-                case "person" -> new ImageIcon("./Images/Person.png").getImage();
-                default ->  //Umbrella
-                        new ImageIcon("./Images/Umbrellas.png").getImage();
-            };
+            Image garbage;
+            if (type.equals("bag")) {
+                garbage = new ImageIcon("./Images/Garbage.png").getImage();
+            } else if (type.equals("bike")) {
+                garbage = new ImageIcon("./Images/Bike.png").getImage();
+            } else if (type.equals("person")) {
+                garbage = new ImageIcon("./Images/Person.png").getImage();
+            } else { //Umbrella
+                garbage = new ImageIcon("./Images/Umbrellas.png").getImage();
+            }
             if (width > 0 && height > 0) {
                 setSize(width, height);
             } else {
