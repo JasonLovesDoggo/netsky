@@ -17,6 +17,7 @@ public enum Scene {
     SCENE_1COMPLETE("Scene 1 - Complete!"),
     SCENE_2A("Scene 2A"),
     SCENE_2B("Scene 2B"),
+	SCENE_3NEWS("Scene 3 News"),
     SCENE_3A("Scene 3A"),
     SCENE_3B("Scene 3B"),
     ;

@@ -36,7 +36,7 @@ public class Scene2B extends BaseScene {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        JButton prevButton = ButtonFactory.createPrevSceneButton(Scene.SCENE_2A);
+        JButton prevButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_3NEWS);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
 
         buttonPanel.add(prevButton);

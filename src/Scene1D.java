@@ -24,6 +24,7 @@ public class Scene1D extends BaseScene {
     Timer timer;
     FadeOut fade;
     double ratio;
+	RobotBottom rb;
 
     public Scene1D(SceneManager sceneManager) {
         super(sceneManager);
@@ -55,7 +56,7 @@ public class Scene1D extends BaseScene {
         main.setPreferredSize(new Dimension(800, 600));
         main.add(sceneOne, JLayeredPane.DEFAULT_LAYER);
 
-        RobotBottom rb = new RobotBottom();
+        rb = new RobotBottom();
         rb.setLocation(600, 400);
         rb.setSize(100, 100);
         main.add(rb, JLayeredPane.PALETTE_LAYER);
@@ -96,6 +97,8 @@ public class Scene1D extends BaseScene {
     @Override
     public void onShowScene() {
         super.onShowScene();
+		rb.setSize(100, 100);
+		rb.setLocation(600, 400);
         ratio = 100.0;
         timer.start();
     }
