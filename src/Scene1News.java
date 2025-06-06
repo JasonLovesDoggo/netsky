@@ -12,11 +12,11 @@ import java.awt.event.ActionListener;
 
 public class Scene1News extends BaseScene {
     ScrollingText news;
-    private Timer flashingTimer;
+    private final Timer flashingTimer;
     private boolean isFlashingRed = false;
-    private JPanel headerPanel;
     private JLabel breakingNewsLabel;
-    private JPanel contentPanel;
+    private JButton nextSceneButton;
+    private final Timer scrollCheckTimer;
 
     public Scene1News(SceneManager sceneManager) {
         super(sceneManager);
@@ -33,6 +33,16 @@ public class Scene1News extends BaseScene {
             }
         });
         flashingTimer.start();
+
+        // Create timer to check if scrolling is complete
+        scrollCheckTimer = new Timer(100, e -> {
+            if (news != null && news.isScrollingComplete() && nextSceneButton != null) {
+                nextSceneButton.setEnabled(true);
+                nextSceneButton.setForeground(Color.WHITE);
+                nextSceneButton.setBackground(Palette.BUTTON_SUCCESS);
+            }
+        });
+        scrollCheckTimer.start();
     }
 
     @Override
@@ -40,7 +50,9 @@ public class Scene1News extends BaseScene {
         setLayout(new BorderLayout(0, 0));
 
         // Create a stylish news header
-        headerPanel = new JPanel() {
+        // Simple dark blue background without gradient
+        // Add a thin highlight line
+        JPanel headerPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -73,8 +85,8 @@ public class Scene1News extends BaseScene {
 
         add(headerPanel, BorderLayout.NORTH);
 
-        // Content panel with simplified background
-        contentPanel = new JPanel(new BorderLayout()) {
+        // Dark background for news text
+        JPanel contentPanel = new JPanel(new BorderLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -142,10 +154,14 @@ public class Scene1News extends BaseScene {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         buttonPanel.setOpaque(true);
 
-        JButton nextSceneButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1A);
+        nextSceneButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1A);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
 
         if (nextSceneButton != null) {
+            // Initially disable the continue button until scrolling is complete
+            nextSceneButton.setEnabled(false);
+            nextSceneButton.setForeground(Color.GRAY);
+            nextSceneButton.setBackground(Color.BLACK);
             buttonPanel.add(nextSceneButton);
         }
         buttonPanel.add(menuButton);
@@ -163,15 +179,27 @@ public class Scene1News extends BaseScene {
         if (flashingTimer != null && !flashingTimer.isRunning()) {
             flashingTimer.start();
         }
+        // Restart the scroll check timer
+        if (scrollCheckTimer != null && !scrollCheckTimer.isRunning()) {
+            scrollCheckTimer.start();
+        }
+        // Reset the continue button to disabled
+        if (nextSceneButton != null) {
+            nextSceneButton.setEnabled(false);
+            nextSceneButton.setForeground(Color.GRAY);
+        }
         super.onShowScene();
     }
 
-    // Stop the timer when this scene is no longer visible
+    // Stop the timers when this scene is no longer visible
     @Override
     public void onHideScene() {
         super.onHideScene();
         if (flashingTimer != null && flashingTimer.isRunning()) {
             flashingTimer.stop();
+        }
+        if (scrollCheckTimer != null && scrollCheckTimer.isRunning()) {
+            scrollCheckTimer.stop();
         }
     }
 }

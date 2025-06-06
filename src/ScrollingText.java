@@ -154,7 +154,14 @@ public class ScrollingText extends JComponent implements MouseWheelListener {
         // Prevent scrolling past the beginning of the text
         if (y < 0) y = 0;
 
+        // Allow scrolling down but prevent extreme values
+        if (y > 3000) y = 3000; // Set a reasonable maximum limit
+
         repaint();
+    }
+
+    public boolean isScrollingComplete() {
+        return !autoScrolling;
     }
 
     public void resetScroll() {
