@@ -1,3 +1,11 @@
+/*
+ * Names: Jason Cameron, Zoe Li
+ * Date: Jun 9th, 2025
+ * Teacher: Ms. Krasteva
+ * Description: This class draws a string onto the screen, at a given location
+ *
+ */
+
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
@@ -16,13 +24,7 @@ public class Prompt {
 }
 
 
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
- */
+
 
 
 // 90: Gabriola
