@@ -6,13 +6,6 @@
  *
  */
 
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
- */
 
 import javax.swing.*;
 import java.awt.*;

@@ -6,13 +6,6 @@
  *
  */
 
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
- */
 
 import javax.swing.*;
 
@@ -50,7 +43,7 @@ public class SceneManager {
         scenes.put(Scene.SCENE_1D, new Scene1D(this));
         scenes.put(Scene.SCENE_1COMPLETE, new Scene1Complete(this));
         scenes.put(Scene.SCENE_2A, new Scene2A(this));
-		scenes.put(Scene.SCENE_2B, new Scene2B(this));
+        scenes.put(Scene.SCENE_2B, new Scene2B(this));
         scenes.put(Scene.SCENE_3NEWS, new Scene3News(this));
         scenes.put(Scene.SCENE_3A, new Scene3A(this));
         scenes.put(Scene.SCENE_3B, new Scene3B(this));

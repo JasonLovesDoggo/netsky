@@ -6,14 +6,6 @@
  *
  */
 
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,7 +16,7 @@ public class Scene1D extends BaseScene {
     Timer timer;
     FadeOut fade;
     double ratio;
-	RobotBottom rb;
+    RobotBottom rb;
 
     public Scene1D(SceneManager sceneManager) {
         super(sceneManager);
@@ -97,8 +89,8 @@ public class Scene1D extends BaseScene {
     @Override
     public void onShowScene() {
         super.onShowScene();
-		rb.setSize(100, 100);
-		rb.setLocation(600, 400);
+        rb.setSize(100, 100);
+        rb.setLocation(600, 400);
         ratio = 100.0;
         timer.start();
     }
