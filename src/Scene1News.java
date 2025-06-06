@@ -38,6 +38,7 @@ public class Scene1News extends BaseScene {
         scrollCheckTimer = new Timer(100, e -> {
             if (news != null && news.isScrollingComplete() && nextSceneButton != null) {
                 nextSceneButton.setEnabled(true);
+                nextSceneButton.setToolTipText("Press to continue.");
                 nextSceneButton.setForeground(Color.WHITE);
                 nextSceneButton.setBackground(Palette.BUTTON_SUCCESS);
             }
@@ -160,6 +161,7 @@ public class Scene1News extends BaseScene {
         if (nextSceneButton != null) {
             // Initially disable the continue button until scrolling is complete
             nextSceneButton.setEnabled(false);
+            nextSceneButton.setToolTipText("Please finish reading to continue.");
             nextSceneButton.setForeground(Color.GRAY);
             nextSceneButton.setBackground(Color.BLACK);
             buttonPanel.add(nextSceneButton);
@@ -185,6 +187,7 @@ public class Scene1News extends BaseScene {
         }
         // Reset the continue button to disabled
         if (nextSceneButton != null) {
+            nextSceneButton.setToolTipText("Please finish reading to continue.");
             nextSceneButton.setEnabled(false);
             nextSceneButton.setForeground(Color.GRAY);
             nextSceneButton.setBackground(Color.BLACK);
