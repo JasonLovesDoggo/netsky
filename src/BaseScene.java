@@ -29,4 +29,9 @@ public abstract class BaseScene extends JPanel {
     public void onShowScene() {
         // Default implementation does nothing, can be overridden by subclasses
     }
+
+    // Method called when the scene is hidden or replaced
+    public void onHideScene() {
+        // Default implementation does nothing, can be overridden by subclasses
+    }
 }
