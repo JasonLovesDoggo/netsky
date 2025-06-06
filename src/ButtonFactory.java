@@ -6,7 +6,10 @@
  */
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ButtonFactory {
     /**
@@ -20,6 +23,10 @@ public class ButtonFactory {
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
         button.addActionListener(actionListener);
+
+        // Apply hover animations to the button
+        applyHoverEffects(button);
+
         return button;
     }
 
@@ -67,5 +74,37 @@ public class ButtonFactory {
         JButton button = createButton(text, actionListener);
         button.setBackground(Palette.BUTTON_DANGER);
         return button;
+    }
+
+    /**
+     * Applies hover animations to a button
+     * When the mouse hovers over the button, it becomes slightly brighter
+     * When the mouse leaves, it returns to its original color
+     */
+    private static void applyHoverEffects(JButton button) {
+        // Store the original background color
+        final Color originalColor = button.getBackground();
+
+        // Calculate a slightly brighter color for hover effect
+        final Color hoverColor = new Color(
+                Math.min(originalColor.getRed() + 20, 255),
+                Math.min(originalColor.getGreen() + 20, 255),
+                Math.min(originalColor.getBlue() + 20, 255)
+        );
+
+        // Add mouse listener for hover effects
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(hoverColor);
+                button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(originalColor);
+                button.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
     }
 }
