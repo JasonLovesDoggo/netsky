@@ -46,7 +46,7 @@ public class Scene3B extends BaseScene {
 		Robot robot = new Robot(main, text);
 		robot.direction = 1;
 		robot.speech = true;
-		robot.setLocation(550, 200);
+		robot.setLocation(550, 260);
 		robot.setSize(robot.getWidth(), robot.getHeight());
 		main.add(robot, JLayeredPane.PALETTE_LAYER);
 		
@@ -185,6 +185,8 @@ public class Scene3B extends BaseScene {
 		public void paintComponent(Graphics g) {
 			Image background = new ImageIcon("./Images/Scene3BGB.png").getImage();
 			g.drawImage(background, 0, 0, 800, 500, this);
+			Image person = new ImageIcon("./Images/Person.png").getImage();
+			g.drawImage(person, 200, 250, 58, 135, this);
 		}
 	}
 }
