@@ -153,7 +153,7 @@ public class Scene3News extends BaseScene {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         buttonPanel.setOpaque(true);
 
-        nextSceneButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1A);
+        nextSceneButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_3A);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
 
         if (nextSceneButton != null) {

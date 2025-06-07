@@ -159,14 +159,14 @@ public class Robot extends JComponent {
             textRobot = new ImageIcon("./Images/RobotTalking.png").getImage();
             textUser = new ImageIcon("./Images/PersonTalking.png").getImage();
 
-            next = new JButton("Next 🡺");
+            next = new JButton("Next ->");
             next.setFont(Palette.BUTTON_FONT);
             next.setBackground(Palette.BUTTON_PRIMARY);
             next.setForeground(Palette.TEXT_ON_BUTTON);
             next.setFocusPainted(false);
             next.setBorder(BorderFactory.createEmptyBorder(6, 15, 6, 15));
 
-            back = new JButton("🡸 Back");
+            back = new JButton("<- Back");
             back.setFont(Palette.BUTTON_FONT);
             back.setBackground(Palette.BUTTON_PRIMARY);
             back.setForeground(Palette.TEXT_ON_BUTTON);
@@ -207,8 +207,8 @@ public class Robot extends JComponent {
                     RobotTalking.this.repaint();
                 }
             });
-            next.setSize(80, 25);
-            next.setLocation(390, 400);
+            next.setSize(100, 25);
+            next.setLocation(400, 400);
 
 
             back.addActionListener(new ActionListener() {
@@ -223,8 +223,8 @@ public class Robot extends JComponent {
                     RobotTalking.this.repaint();
                 }
             });
-            back.setSize(80, 25);
-            back.setLocation(310, 400);
+            back.setSize(100, 25);
+            back.setLocation(300, 400);
 
             next.setVisible(false);
             back.setVisible(false);

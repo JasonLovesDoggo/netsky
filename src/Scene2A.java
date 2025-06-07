@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 public class Scene2A extends BaseScene {
     public UserInput userIn;
     SceneTwo sceneTwo;
-    FadeOut fade;
     Timer timer, timer1, timer2, timer3;
     int distance;
     int handToY = 90;
@@ -24,14 +23,15 @@ public class Scene2A extends BaseScene {
     GarbageTruck truck;
     int currentWidth;
     int index; //The variable that tracks which part of the animation the truck is on. Refers to the index of the items array
-
+	boolean done;
+	
     public Scene2A(SceneManager sceneManager) {
         super(sceneManager);
     }
 
     @Override
     protected void initializeComponents() {
-
+		SceneManager.continueEnabled = true;
         boolean[] itemState = new boolean[8];
         int[] itemYs = {68, 64, 71, 63, 60, 60, 65};
 
@@ -86,13 +86,14 @@ public class Scene2A extends BaseScene {
             main.add(i, JLayeredPane.PALETTE_LAYER);
         }
 
+		HelpIcon help = new HelpIcon(main);
+        help.setBounds(790 - help.getWidth(), -10, help.getWidth(), help.getHeight());
+        main.add(help, JLayeredPane.MODAL_LAYER);
         add(main, BorderLayout.CENTER);
 
         // Navigation buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-
-        SceneManager.continueEnabled = true; //We need to find a better way to do this
 
         JButton nextButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_2B);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
@@ -106,30 +107,12 @@ public class Scene2A extends BaseScene {
             boolean started = false;
 
             public void actionPerformed(ActionEvent e) {
-                if (!started && userIn.promptCount == 8) {
-                    fade = new FadeOut(main, Color.black);
-                    fade.setBounds(0, 0, 800, 600);
-                    fade.setVisible(true);
-                    main.add(fade, Integer.valueOf(Integer.MAX_VALUE)); //Force it to be in front
-                    fade.start();
-                    started = true;
-                }
-                if (started) {
-                    if (!fade.fading) {
-                        timer.stop();
-                        nextButton.doClick();
-                        fade.setVisible(false);
-                        timer.stop();
-                        started = false;
-                    }
-                } else {
-                    currentWidth = 0;
-                    for (int i = 0; i < itemState.length; i++) {
-                        if (itemState[i]) {
-                            main.setLayer(items[i], JLayeredPane.MODAL_LAYER); //Move in front of the truck
-                            items[i].setLocation(truck.getX() + 120 + currentWidth, truck.getY() + itemYs[i] - (items[i].height / 2)); //Find the y value of the item, so it lands somewhere in the truck
-                            currentWidth += items[i].getWidth() - 20;
-                        }
+				currentWidth = 0;
+				for (int i = 0; i < itemState.length; i++) {
+					if (itemState[i]) {
+						main.setLayer(items[i], JLayeredPane.MODAL_LAYER); //Move in front of the truck
+						items[i].setLocation(truck.getX() + 120 + currentWidth, truck.getY() + itemYs[i] - (items[i].height / 2)); //Find the y value of the item, so it lands somewhere in the truck
+						currentWidth += items[i].getWidth() - 20;
                     }
                 }
             }
@@ -207,16 +190,13 @@ public class Scene2A extends BaseScene {
         }
 
         public void paintComponent(Graphics g) {
-            Image garbage;
-            if (type.equals("bag")) {
-                garbage = new ImageIcon("./Images/Garbage.png").getImage();
-            } else if (type.equals("bike")) {
-                garbage = new ImageIcon("./Images/Bike.png").getImage();
-            } else if (type.equals("person")) {
-                garbage = new ImageIcon("./Images/Person.png").getImage();
-            } else { //Umbrella
-                garbage = new ImageIcon("./Images/Umbrellas.png").getImage();
-            }
+            Image garbage = switch (type) {
+                case "bag" -> new ImageIcon("./Images/Garbage.png").getImage();
+                case "bike" -> new ImageIcon("./Images/Bike.png").getImage();
+                case "person" -> new ImageIcon("./Images/Person.png").getImage();
+                default ->  //Umbrella
+                        new ImageIcon("./Images/Umbrellas.png").getImage();
+            };
             if (width > 0 && height > 0) {
                 setSize(width, height);
             } else {
@@ -341,7 +321,11 @@ public class Scene2A extends BaseScene {
                     }
                     break;
                 case 8:
-                    //Fade out, nothign happens
+                    //Fade out, button activated happens
+					if (moving && index < 7) {
+						userIn.promptCount--;
+					}
+					SceneManager.continueEnabled = true;
                     break;
 
             }

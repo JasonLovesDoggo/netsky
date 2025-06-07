@@ -80,7 +80,7 @@ public class SceneManager {
     }
 
     public void showSkipAheadOptions() {
-        String[] skipOptions = {"Pre-scene", "Scene 1 (Intro)", "Scene 2", "Scene 3"};
+        String[] skipOptions = {"Pre-scene", "Scene 1", "Scene 2", "Scene 3"};
         String selectedSkip = (String) JOptionPane.showInputDialog(
                 this.getParentFrame(),
                 "Choose a point to skip to:",
@@ -96,14 +96,14 @@ public class SceneManager {
                 case "Pre-scene":
                     showScene(Scene.SCENE_1NEWS);
                     break;
-                case "Scene 1 (Intro)":
+                case "Scene 1":
                     showScene(Scene.SCENE_1A);
                     break;
                 case "Scene 2":
                     showScene(Scene.SCENE_2A);
                     break;
                 case "Scene 3":
-                    showScene(Scene.SCENE_3A);
+                    showScene(Scene.SCENE_3NEWS);
                     break;
             }
         }
