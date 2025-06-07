@@ -251,14 +251,27 @@ public class Robot extends JComponent {
             } else {
                 speechWords = words.get(wordsCount).substring(1);
             }
-
+			
+			int xpos;
+			
             if (words.get(wordsCount).charAt(0) == 'r') { //Robot talking
                 g.drawImage(textRobot, 0, 0, textRobot.getWidth(null), textRobot.getHeight(null), null);
-                g.drawString(speechWords, 250, 100);
+				xpos = 250;
             } else { //User talking
                 g.drawImage(textUser, 0, 0, textUser.getWidth(null), textUser.getHeight(null), null);
-                g.drawString(speechWords, 100, 100);
-            }
+				xpos = 100;
+			}
+			
+			if (speechWords.contains("\n")) {
+				String[] lines = speechWords.split("\n");
+				int ydist = 0;
+				for(String line : lines) {
+					g.drawString(line, xpos, 100+ydist);
+					ydist+=30;
+				}
+			} else {
+				g.drawString(speechWords, xpos, 100);
+			}
 
         }
 

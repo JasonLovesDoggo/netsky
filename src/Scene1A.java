@@ -41,11 +41,6 @@ public class Scene1A extends BaseScene {
         add(titleLabel, BorderLayout.NORTH);
 
         // Content panel
-        contentPanel = new JPanel();
-        contentPanel.setLayout(null);
-        contentPanel.setPreferredSize(new Dimension(800, 500));
-
-
         sceneOne = new SceneOneA();
         userIn = new UserInput(3);
         sceneOne.setBounds(0, 0, 800, 600);
@@ -81,8 +76,7 @@ public class Scene1A extends BaseScene {
         tree.setBounds(0, 0, 800, 500);
         main.add(tree, JLayeredPane.PALETTE_LAYER);
 
-        contentPanel.add(main);
-        add(contentPanel, BorderLayout.CENTER);
+        add(main, BorderLayout.CENTER);
 
         // Navigation buttons
         JPanel buttonPanel = new JPanel();

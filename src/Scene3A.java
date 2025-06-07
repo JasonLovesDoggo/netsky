@@ -19,7 +19,13 @@ public class Scene3A extends BaseScene {
     Timer timer, timer1, timer2, timer3;
     boolean moving;
     int index; //The variable that keeps track of which animation is occuring
-		
+	Umbrella[] umbrellas;
+	static int[] startX = {100, 500, 200, 160, 630, 510, 430};
+	static int[] startY = {0, 0, 0, 0, 0, 0, 0};
+	static int[] destinationX = {280, 320, 250, 330, 360, 290, 330};
+	static int[] destinationY = {350, 350, 350, 370, 320, 320, 380};
+	JLayeredPane main;
+	
     public Scene3A(SceneManager sceneManager) {
         super(sceneManager);
     }
@@ -28,17 +34,12 @@ public class Scene3A extends BaseScene {
     protected void initializeComponents() {
 		SceneManager.continueEnabled = true;
 		index = 0;
-		int[] startX = {100, 500, 200, 160, 630, 510, 430};
-		int[] startY = {0, 0, 0, 0, 0, 0, 0};
-		Umbrella[] umbrellas = new Umbrella[7];
+		umbrellas = new Umbrella[7];
 		for(int i = 0; i < umbrellas.length; i++) {
 			umbrellas[i] = new Umbrella(i);
 			umbrellas[i].setSize(100, 100);
 			umbrellas[i].setLocation(startX[i], startY[i]);
 		}
-		int[] destinationX = {280, 320, 250, 330, 360, 290, 330};
-		int[] destinationY = {350, 350, 350, 370, 320, 320, 380};
-		
         // Scene title
         JLabel titleLabel = new JLabel("Scene 3A");
         titleLabel.setFont(Palette.TITLE_FONT);
@@ -51,7 +52,7 @@ public class Scene3A extends BaseScene {
         sceneThree.add(userIn);
         userIn.scene = sceneThree;
 		
-        JLayeredPane main = new JLayeredPane();
+        main = new JLayeredPane();
         main.setPreferredSize(new Dimension(800, 500));
         main.add(sceneThree, JLayeredPane.DEFAULT_LAYER);
 		
@@ -80,7 +81,7 @@ public class Scene3A extends BaseScene {
         timer = new Timer(20, new ActionListener() {
             boolean started = false;
 
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) { //Check for fade out
                 if (!started && userIn.promptCount == 8) {
                     fade = new FadeOut(main, Color.black);
                     fade.setBounds(0, 0, 800, 600);
@@ -101,33 +102,21 @@ public class Scene3A extends BaseScene {
             }
         });
 
-        timer1 = new Timer(5, new ActionListener() { //Move an umbrella 
+        timer1 = new Timer(20, new ActionListener() { //Move an umbrella 
             public void actionPerformed(ActionEvent e) {
 				int xdiff = destinationX[index]-umbrellas[index].getX();
 				int ydiff = destinationY[index]-umbrellas[index].getY();
-				umbrellas[index].scale += 1;
+				umbrellas[index].scale = (int)(umbrellas[index].scale + 4);
+				
 				if (Math.abs(xdiff) < 5 && Math.abs(ydiff) < 5) {
 					timer1.stop();
 					moving = false;
 					//System.out.println("Finished timer for " + index);
 					index++;
 				} else {
-				
-					if (xdiff > 0) {
-						xdiff = 1;
-					} else if (xdiff < 0) {
-						xdiff = -1;
-					} else {
-						xdiff = 0;
-					}
-					
-					if (ydiff > 0) {
-						ydiff = 1;
-					} else if (ydiff < 0) {
-						ydiff = -1;
-					} else {
-						ydiff = 0;
-					}
+						xdiff /= 5;
+						ydiff /= 5;
+					//}
 					moving = true;
 					umbrellas[index].setLocation(umbrellas[index].getX()+xdiff, umbrellas[index].getY()+ydiff);
 				}
@@ -138,7 +127,19 @@ public class Scene3A extends BaseScene {
     @Override
     public void onShowScene() {
         super.onShowScene();
-        //timer1.start();
+		userIn.promptCount = 0;
+		index = 0;
+		umbrellas = new Umbrella[7];
+		for(int i = 0; i < umbrellas.length; i++) {
+			umbrellas[i] = new Umbrella(i);
+			umbrellas[i].setSize(100, 100);
+			umbrellas[i].setLocation(startX[i], startY[i]);
+		}
+		
+		for(Umbrella u : umbrellas) {
+			main.add(u, JLayeredPane.PALETTE_LAYER);
+		}
+		timer1.stop();
         timer.start();
     }
 	
@@ -146,7 +147,7 @@ public class Scene3A extends BaseScene {
 		int number, width, height, scale;
 		Umbrella(int n) {
 			number = n;
-			scale = 0;
+			scale = 9;
 		}
 		public void paintComponent(Graphics g) {
 			Image umbrella = new ImageIcon("./Images/Umbrella"+number+".png").getImage();
@@ -155,13 +156,14 @@ public class Scene3A extends BaseScene {
 			} else {
 				setSize(50, 50); //Make sure it has a size, even if it's not the right size
 			}
-			width = (int) (umbrella.getWidth(null) * scale / 300.0);
-            height = (int) (umbrella.getHeight(null) * scale / 300.0);
+			width = (int) (umbrella.getWidth(null) * scale / 100.0);
+            height = (int) (umbrella.getHeight(null) * scale / 100.0);
 			g.drawImage(umbrella, 0, 0, width, height, this);
 		}
 	}
 	
     class SceneThree extends JComponent {
+		int count;
         public void paintComponent(Graphics g) {
             Image background = new ImageIcon("./Images/Scene3BGA.png").getImage();
             g.drawImage(background, 0, 0, 800, 500, this);
@@ -169,9 +171,17 @@ public class Scene3A extends BaseScene {
 			if (userIn.promptCount == 0) {
 				new Prompt("Looks like everyone else is turning in their umbrellas!", 50, 50, g, g2);
 			} else if (userIn.promptCount <= 7) {
+				if (count < userIn.promptCount) {
+					count++;
+				}
+				if (userIn.promptCount < count) {
+					userIn.promptCount = count;
+				}
 				if (!moving && index == userIn.promptCount-1) {
 					timer1.start();
 					//System.out.println("Started timer for index " + index);
+				} else if (moving && index < userIn.promptCount-1) { //Index is too small, user tried moving up before index changed.
+					userIn.promptCount--;
 				}
 			}
 		}

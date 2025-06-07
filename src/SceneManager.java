@@ -47,6 +47,7 @@ public class SceneManager {
         scenes.put(Scene.SCENE_3NEWS, new Scene3News(this));
         scenes.put(Scene.SCENE_3A, new Scene3A(this));
         scenes.put(Scene.SCENE_3B, new Scene3B(this));
+		scenes.put(Scene.SCENE_3C, new Scene3C(this));
     }
 
     public void showScene(Scene sceneName) {

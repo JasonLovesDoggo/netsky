@@ -20,6 +20,7 @@ public enum Scene {
 	SCENE_3NEWS("Scene 3 News"),
     SCENE_3A("Scene 3A"),
     SCENE_3B("Scene 3B"),
+	SCENE_3C("Scene 3C"),
     ;
 
     public final String label;
