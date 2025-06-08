@@ -34,11 +34,11 @@ public class ChangeNameScene extends BaseScene {
         gbc.insets = new Insets(10, 50, 10, 50); // Add padding around components
 
         JLabel nameLabel = new JLabel("Enter your new name:");
-        nameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        nameLabel.setFont(Palette.TEXT_FONT);
         centerPanel.add(nameLabel, gbc);
 
         nameField = new JTextField(20); // Initialize empty, will be set in onShowScene
-        nameField.setFont(new Font("Arial", Font.PLAIN, 16));
+        nameField.setFont(Palette.TEXT_FONT);
         nameField.setHorizontalAlignment(JTextField.CENTER);
         centerPanel.add(nameField, gbc);
 

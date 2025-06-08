@@ -98,7 +98,7 @@ public abstract class AbstractNewsScene extends BaseScene {
                 g.setColor(Color.RED);
                 g.fillOval(getWidth() - 60, 30, 20, 20);
                 g.setColor(Color.WHITE);
-                g.setFont(new Font("Arial", Font.BOLD, 14));
+                g.setFont(Palette.BUTTON_FONT);
                 g.drawString("LIVE", getWidth() - 35, 45);
             }
         };
