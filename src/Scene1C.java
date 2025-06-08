@@ -2,8 +2,7 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
+ * Description: Presents a sequence where one robot retrieves a leash and another rescues a bird, with interactive prompts and fade-out transitions.
  */
 
 
