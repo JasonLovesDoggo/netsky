@@ -2,8 +2,7 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
+ * Description: Enumerates all game scenes and their labels for navigation.
  */
 
 public enum Scene {
@@ -14,13 +13,13 @@ public enum Scene {
     SCENE_1B("Scene 1B"),
     SCENE_1C("Scene 1C"),
     SCENE_1D("Scene 1D"),
-    SCENE_1COMPLETE("Scene 1 - Complete!"),
+    SCENE_1COMPLETE("Scene 1 Explanation"),
     SCENE_2A("Scene 2A"),
-    SCENE_2B("Scene 2B"),
+    SCENE_2B("Scene 2 Explanation"),
 	SCENE_3NEWS("Scene 3 News"),
     SCENE_3A("Scene 3A"),
     SCENE_3B("Scene 3B"),
-	SCENE_3C("Scene 3C"),
+	SCENE_3C("Scene 3 Explanation"),
     ;
 
     public final String label;
