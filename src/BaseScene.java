@@ -2,8 +2,7 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
+ * Description: Abstract base class for all scenes, providing common layout and lifecycle methods.
  */
 
 import javax.swing.*;

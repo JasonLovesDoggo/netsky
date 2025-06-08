@@ -2,8 +2,7 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
+ * Description: Demonstrates a robot moving and a circular fade-out animation at the end of Scene 1D.
  */
 
 import javax.swing.*;

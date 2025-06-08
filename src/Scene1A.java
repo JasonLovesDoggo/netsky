@@ -2,8 +2,7 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
+ * Description: Presents a robot interaction where it mistakes a leash for a dog and introduces user prompts.
  */
 
 

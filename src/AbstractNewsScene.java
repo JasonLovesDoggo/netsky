@@ -2,8 +2,7 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
+ * Description: Provides layout and behavior for news scenes with flashing headlines and scrolling text.
  */
 
 import javax.swing.*;
