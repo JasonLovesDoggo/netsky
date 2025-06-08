@@ -256,36 +256,6 @@ public class ButtonFactory {
     }
 
     /**
-     * Creates a warning-styled button (orange)
-     */
-    static JButton createWarningButton(String text, ActionListener actionListener) {
-        JButton button = createButton(text, actionListener);
-        button.setBackground(Palette.BUTTON_WARNING);
-        applyHoverEffects(button); // Reapply after changing color
-        return button;
-    }
-
-    /**
-     * Creates a danger-styled button (red)
-     */
-    static JButton createDangerButton(String text, ActionListener actionListener) {
-        JButton button = createButton(text, actionListener);
-        button.setBackground(Palette.BUTTON_DANGER);
-        applyHoverEffects(button); // Reapply after changing color
-        return button;
-    }
-
-    /**
-     * Creates a small button with smaller padding and font
-     */
-    static JButton createSmallButton(String text, ActionListener actionListener) {
-        JButton button = createButton(text, actionListener);
-        button.setFont(Palette.BUTTON_SMALL_FONT);
-        button.setBorder(BorderFactory.createEmptyBorder(6, 15, 6, 15));
-        return button;
-    }
-
-    /**
      * Applies hover animations to a button
      * When the mouse hovers over the button, it becomes slightly brighter
      * When the mouse leaves, it returns to its original color
