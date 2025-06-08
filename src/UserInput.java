@@ -13,10 +13,8 @@ import java.awt.event.KeyEvent;
 public class UserInput extends JComponent {
     public int promptCount;
     public JComponent scene;
-    private final int max;
 
     public UserInput(int max) {
-        this.max = max;
         this.promptCount = 0;
 
         this.setFocusable(true);
