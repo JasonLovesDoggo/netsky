@@ -38,6 +38,7 @@ public class Scene3News extends BaseScene {
         scrollCheckTimer = new Timer(100, e -> {
             if (news != null && news.isScrollingComplete() && nextSceneButton != null) {
                 nextSceneButton.setEnabled(true);
+                nextSceneButton.setText("Continue");
                 nextSceneButton.setToolTipText("Press to continue.");
                 nextSceneButton.setForeground(Color.WHITE);
                 nextSceneButton.setBackground(Palette.BUTTON_SUCCESS);
@@ -125,8 +126,7 @@ public class Scene3News extends BaseScene {
                         "\"FEANOR seeks to protect all citizens from the impacts of heavy rainstorms. Thus, FEANOR's AI service robots are proceeding with the removal of all umbrellas.\"\n\n" +
                         "Citizens have already begun piling up their umbrellas, and soon, the entirety of the US will be umbrella-free!\n\n" +
                         "How an umbrella free future may lead us to a future safe from heavy rainstorms, experts do not know, but they fully support their new leader.\n\n" +
-						"Make sure you comply immediately!" +
-                        "");
+						"Make sure you comply immediately!");
 
         news.setScrollSpeed(0.6); // Slightly faster for dramatic effect
         news.setY(-28);
