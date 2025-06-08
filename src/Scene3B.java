@@ -25,7 +25,7 @@ public class Scene3B extends BaseScene {
     protected void initializeComponents() {
         // Scene title
         JLabel titleLabel = new JLabel("Scene 3B");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(Palette.TITLE_FONT);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
