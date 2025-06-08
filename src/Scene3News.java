@@ -11,12 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Scene3News extends BaseScene {
-    ScrollingText news;
     private final Timer flashingTimer;
+    private final Timer scrollCheckTimer;
+    ScrollingText news;
     private boolean isFlashingRed = false;
     private JLabel breakingNewsLabel;
     private JButton nextSceneButton;
-    private final Timer scrollCheckTimer;
 
     public Scene3News(SceneManager sceneManager) {
         super(sceneManager);
@@ -38,6 +38,7 @@ public class Scene3News extends BaseScene {
         scrollCheckTimer = new Timer(100, e -> {
             if (news != null && news.isScrollingComplete() && nextSceneButton != null) {
                 nextSceneButton.setEnabled(true);
+                nextSceneButton.setToolTipText("Press to continue.");
                 nextSceneButton.setForeground(Color.WHITE);
                 nextSceneButton.setBackground(Palette.BUTTON_SUCCESS);
             }
@@ -49,9 +50,6 @@ public class Scene3News extends BaseScene {
     protected void initializeComponents() {
         setLayout(new BorderLayout(0, 0));
 
-        // Create a stylish news header
-        // Simple dark blue background without gradient
-        // Add a thin highlight line
         JPanel headerPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -153,14 +151,15 @@ public class Scene3News extends BaseScene {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         buttonPanel.setOpaque(true);
 
-        nextSceneButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_3A);
+        nextSceneButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_1A);
         JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
 
         if (nextSceneButton != null) {
             // Initially disable the continue button until scrolling is complete
             nextSceneButton.setEnabled(false);
-            nextSceneButton.setForeground(Color.GRAY);
-            nextSceneButton.setBackground(Color.BLACK);
+            nextSceneButton.setToolTipText("Please finish reading to continue.");
+            nextSceneButton.setForeground(Palette.TEXT_DISABLED);
+            nextSceneButton.setBackground(Palette.BUTTON_DISABLED);
             buttonPanel.add(nextSceneButton);
         }
         buttonPanel.add(menuButton);
@@ -184,9 +183,10 @@ public class Scene3News extends BaseScene {
         }
         // Reset the continue button to disabled
         if (nextSceneButton != null) {
+            nextSceneButton.setToolTipText("Please finish reading to continue.");
             nextSceneButton.setEnabled(false);
-            nextSceneButton.setForeground(Color.GRAY);
-            nextSceneButton.setBackground(Color.BLACK);
+            nextSceneButton.setForeground(Palette.TEXT_DISABLED);
+            nextSceneButton.setBackground(Palette.BUTTON_DISABLED);
         }
         super.onShowScene();
     }
