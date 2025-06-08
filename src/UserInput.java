@@ -37,6 +37,9 @@ public class UserInput extends JComponent {
         });
     }
 
+    public int getMaxPrompts() {
+        return maxPrompts;
+    }
     /**
      * Advances to the next prompt
      */
