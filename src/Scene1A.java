@@ -39,7 +39,7 @@ public class Scene1A extends BaseScene {
 
         // Content panel
         sceneOne = new SceneOneA();
-        userIn = new UserInput(3);
+        userIn = new UserInput(4);
         sceneOne.setBounds(0, 0, 800, 600);
         //sceneOne.setFocusable(true);
 
