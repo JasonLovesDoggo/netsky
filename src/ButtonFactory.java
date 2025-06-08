@@ -42,18 +42,94 @@ public class ButtonFactory {
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
 
-        // The continue button will check if we're in a scene with UserInput
+        // The continue button will check if we're in a scene with Robot or UserInput
         button.addActionListener(e -> {
             BaseScene currentScene = SceneManager.getInstance().getCurrentBaseScene();
-            // Try to find a UserInput component in the current scene
-            UserInput userInput = findUserInputInScene(currentScene);
+            Scene currentSceneEnum = SceneManager.getInstance().getCurrentScene();
+            System.out.println("Continue button clicked in scene: " + currentSceneEnum);
+            System.out.println("Current scene class: " + currentScene.getClass().getName());
 
+            // First check for UserInput - this should have priority over Robot
+            UserInput userInput = findUserInputInScene(currentScene);
             if (userInput != null) {
-                // If we found a UserInput, set its next scene and advance the prompt
-                userInput.setNextScene(scene);
-                userInput.advancePrompt();
+                System.out.println("UserInput found: promptCount=" + userInput.promptCount + ", maxPrompts=" + userInput.getMaxPrompts());
+                // Since we're using zero-based indexing, the last valid prompt is at maxPrompts-1
+                // If we're still showing prompts (not at the last prompt yet)
+                if (userInput.promptCount < userInput.getMaxPrompts() - 1) {
+                    // For UserInput, we should always allow advancing the prompt
+                    System.out.println("Advancing prompt");
+                    userInput.setNextScene(scene);
+                    userInput.advancePrompt();
+                    return;
+                }
+                // If we're at the last prompt
+                else if (userInput.promptCount == userInput.getMaxPrompts() - 1) {
+                    System.out.println("At last prompt - checking if robot needs interaction before advancing");
+                    // Check if there's a robot that needs interaction
+                    Robot robot = findRobotWithActiveDialogInScene(currentScene);
+                    if (robot != null) {
+                        if (robot.talk && !robot.dialogComplete) {
+                            // If robot is talking but dialog isn't complete, click the next button
+                            System.out.println("Robot is talking - advancing robot dialog");
+                            robot.text.next.doClick();
+                            return;
+                        } else if (robot.speech && !robot.talk) {
+                            // If we found a Robot with speech bubble that hasn't been clicked yet,
+                            // show a hint to click on the robot and block further prompt advancement
+                            System.out.println("Robot needs to be clicked - showing popup and blocking further prompt advancement");
+                            JOptionPane.showMessageDialog(
+                                currentScene,
+                                "Please click on the robot to continue!",
+                                "Action Required",
+                                JOptionPane.INFORMATION_MESSAGE
+                            );
+                            return;
+                        }
+                    }
+
+                    // If no robot needs interaction or if robot has already been interacted with, advance the prompt
+                    System.out.println("Advancing final prompt");
+                    userInput.setNextScene(scene);
+                    userInput.advancePrompt();
+                    return;
+                }
+                System.out.println("All prompts done, checking for robot");
+                // If all prompts are done, continue with robot check (fall through)
             } else {
-                // If no UserInput found, just change the scene directly
+                System.out.println("No UserInput found");
+            }
+
+            // Next check for Robot with active dialog or that can be clicked
+            Robot robot = findRobotWithActiveDialogInScene(currentScene);
+            if (robot != null) {
+                System.out.println("Robot found: speech=" + robot.speech + ", talk=" + robot.talk + ", dialogComplete=" + robot.dialogComplete);
+
+                if (robot.talk && !robot.dialogComplete) {
+                    // If we found a Robot with active dialog, simulate a click on its "next" button
+                    System.out.println("Clicking robot's next button");
+                    robot.text.next.doClick();
+                    return;
+                } else if (robot.speech && !robot.talk) {
+                    // If we found a Robot with speech bubble that hasn't been clicked yet,
+                    // show a hint to click on the robot and BLOCK scene transition
+                    System.out.println("Robot needs to be clicked - showing popup and blocking scene transition");
+                    JOptionPane.showMessageDialog(
+                        currentScene,
+                        "Please click on the robot to continue!",
+                        "Action Required",
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
+                    // Don't proceed to scene transition - return early
+                    return;
+                } else {
+                    // If robot has already been clicked and dialog is complete,
+                    // or if it's in another state, proceed with scene transition
+                    System.out.println("Robot interaction complete or in another state, proceeding to next scene");
+                    SceneManager.getInstance().showScene(scene);
+                }
+            } else {
+                System.out.println("No Robot found, proceeding to next scene");
+                // If no robot was found, proceed with scene transition
                 SceneManager.getInstance().showScene(scene);
             }
         });
@@ -87,6 +163,131 @@ public class ButtonFactory {
             } else if (component instanceof Container) {
                 // Recursively search in nested containers
                 UserInput result = findUserInputInScene((Container) component);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Helper method to find a Robot component with active dialog in the scene
+     */
+    private static Robot findRobotWithActiveDialogInScene(Container container) {
+        if (container == null) return null;
+
+        System.out.println("Searching container: " + container.getClass().getName());
+
+        Robot robotWithActiveDialog = null;
+        Robot robotWithSpeech = null;
+
+        // Handle JLayeredPane specifically as they're often used for complex scenes with robots
+        if (container instanceof JLayeredPane) {
+            JLayeredPane layeredPane = (JLayeredPane) container;
+            System.out.println("Checking JLayeredPane with " + layeredPane.getComponentCount() + " components");
+
+            // Check all components in the layered pane
+            for (Component component : layeredPane.getComponents()) {
+                System.out.println("  - Component in JLayeredPane: " + component.getClass().getName());
+                if (component instanceof Robot) {
+                    Robot robot = (Robot) component;
+                    System.out.println("    Found Robot: speech=" + robot.speech + ", talk=" + robot.talk);
+
+                    // First priority: robot with active dialog
+                    if (robot.talk && !robot.dialogComplete) {
+                        return robot;
+                    }
+
+                    // Second priority: robot with speech bubble
+                    if (robot.speech && !robot.talk) {
+                        robotWithSpeech = robot;
+                    }
+                }
+            }
+        }
+
+        // Regular component search
+        Component[] components = container.getComponents();
+        for (Component component : components) {
+            if (component instanceof Robot) {
+                Robot robot = (Robot) component;
+                System.out.println("Found Robot: speech=" + robot.speech + ", talk=" + robot.talk);
+
+                // First priority: robot with active dialog
+                if (robot.talk && !robot.dialogComplete) {
+                    return robot;
+                }
+
+                // Second priority: robot with speech bubble (can be clicked)
+                if (robot.speech && !robot.talk) {
+                    robotWithSpeech = robot;
+                }
+            } else if (component instanceof JLayeredPane) {
+                // Special handling for JLayeredPane
+                Robot result = findRobotWithActiveDialogInScene((JLayeredPane) component);
+                if (result != null) {
+                    return result;
+                }
+            } else if (component instanceof Container) {
+                // Recursively search in nested containers
+                Robot result = findRobotWithActiveDialogInScene((Container) component);
+                if (result != null) {
+                    // If the recursive search found a robot with active dialog, return it
+                    if (result.talk && !result.dialogComplete) {
+                        return result;
+                    }
+
+                    // If we found a robot with speech bubble, keep track of it
+                    if (result.speech && !result.talk && robotWithSpeech == null) {
+                        robotWithSpeech = result;
+                    }
+                }
+            }
+        }
+
+        // Special handling for Scene1A which has a public robot field
+        if (container instanceof Scene1A) {
+            Scene1A scene1A = (Scene1A) container;
+            if (scene1A.robotDogLeash != null) {
+                System.out.println("Found robotDogLeash in Scene1A: speech=" + scene1A.robotDogLeash.speech +
+                    ", talk=" + scene1A.robotDogLeash.talk);
+
+                if (scene1A.robotDogLeash.talk && !scene1A.robotDogLeash.dialogComplete) {
+                    return scene1A.robotDogLeash;
+                }
+
+                if (scene1A.robotDogLeash.speech && !scene1A.robotDogLeash.talk) {
+                    robotWithSpeech = scene1A.robotDogLeash;
+                }
+            }
+        }
+
+        // Check for other scene classes with robot fields here
+        // ...
+
+        // Return robot with speech bubble if no robot with active dialog was found
+        return robotWithSpeech;
+    }
+
+    /**
+     * Helper method to find a Robot component that has completed its dialog in the scene
+     */
+    private static Robot findCompletedRobotInScene(Container container) {
+        if (container == null) return null;
+
+        // Search for Robot components in the container
+        Component[] components = container.getComponents();
+        for (Component component : components) {
+            if (component instanceof Robot) {
+                Robot robot = (Robot) component;
+                // Check if this robot has completed its dialog
+                if (robot.dialogComplete) {
+                    return robot;
+                }
+            } else if (component instanceof Container) {
+                // Recursively search in nested containers
+                Robot result = findCompletedRobotInScene((Container) component);
                 if (result != null) {
                     return result;
                 }
