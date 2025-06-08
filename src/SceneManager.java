@@ -113,6 +113,14 @@ public class SceneManager {
     public Scene getCurrentScene() {
         return currentScene;
     }
+
+    /**
+     * Returns the current BaseScene instance
+     */
+    public BaseScene getCurrentBaseScene() {
+        if (currentScene != null) {
+            return scenes.get(currentScene);
+        }
+        return null;
+    }
 }
-
-

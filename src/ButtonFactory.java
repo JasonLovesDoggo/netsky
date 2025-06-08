@@ -35,23 +35,64 @@ public class ButtonFactory {
      * Creates a continue button if SceneManager.continueEnabled is true
      */
     static JButton createSceneContinueButton(Scene scene) {
-        JButton button = createSceneButton("Continue", scene);
+        JButton button = new JButton("Continue");
+        button.setFont(Palette.BUTTON_FONT);
         button.setBackground(Palette.BUTTON_SUCCESS); // Green for continue buttons
+        button.setForeground(Palette.TEXT_ON_BUTTON);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
 
+        // The continue button will check if we're in a scene with UserInput
+        button.addActionListener(e -> {
+            BaseScene currentScene = SceneManager.getInstance().getCurrentBaseScene();
+            // Try to find a UserInput component in the current scene
+            UserInput userInput = findUserInputInScene(currentScene);
+
+            if (userInput != null) {
+                // If we found a UserInput, set its next scene and advance the prompt
+                userInput.setNextScene(scene);
+                userInput.advancePrompt();
+            } else {
+                // If no UserInput found, just change the scene directly
+                SceneManager.getInstance().showScene(scene);
+            }
+        });
 
         if (!SceneManager.continueEnabled) {
             button.setEnabled(false);
             button.setText("Continue (locked)");
-            button.setToolTipText("You must complete the previous scene to continue.");
+            button.setToolTipText("Complete this part before continuing.");
             button.setForeground(Palette.TEXT_DISABLED);
             button.setBackground(Palette.BUTTON_DISABLED);
         } else {
-            button.setToolTipText("Click to continue to the next scene.");
+            button.setToolTipText("Click to continue.");
             button.setText("Continue");
         }
-        applyHoverEffects(button); // Reapply after changing color
-        return button;
 
+        applyHoverEffects(button); // Apply hover effects
+        return button;
+    }
+
+    /**
+     * Helper method to find a UserInput component in the scene
+     */
+    private static UserInput findUserInputInScene(Container container) {
+        if (container == null) return null;
+
+        // Search for UserInput components in the container
+        Component[] components = container.getComponents();
+        for (Component component : components) {
+            if (component instanceof UserInput) {
+                return (UserInput) component;
+            } else if (component instanceof Container) {
+                // Recursively search in nested containers
+                UserInput result = findUserInputInScene((Container) component);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+        return null;
     }
 
     /**

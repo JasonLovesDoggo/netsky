@@ -21,6 +21,7 @@ public class Robot extends JComponent {
     public boolean talk;
     public boolean hasAccessory;
     public int wordsCount;
+    public boolean dialogComplete;
     Image robot;
     Speech speechBubble;
     Image accessory;
@@ -33,6 +34,7 @@ public class Robot extends JComponent {
 
     Robot(JLayeredPane p) {
         this.pane = p;
+        this.dialogComplete = false;
 
         this.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
@@ -125,6 +127,20 @@ public class Robot extends JComponent {
         return robot.getHeight(null);
     }
 
+    /**
+     * Updates the SceneManager's continueEnabled flag based on dialog completion
+     */
+    private void updateContinueButton() {
+        // Only enable the continue button if all dialog has been completed
+        SceneManager.continueEnabled = dialogComplete;
+    }
+
+    public void resetDialog() {
+        dialogComplete = false;
+        wordsCount = 0;
+        SceneManager.continueEnabled = false;
+    }
+
     class Speech extends JComponent {
         Image speechBubble;
 
@@ -202,6 +218,8 @@ public class Robot extends JComponent {
                     } else {
                         wordsCount = 0;
                         talk = false;
+                        dialogComplete = true;
+                        updateContinueButton();
                         RobotTalking.this.setVisible(false);
                     }
                     RobotTalking.this.repaint();
