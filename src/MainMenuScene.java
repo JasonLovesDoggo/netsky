@@ -84,13 +84,15 @@ public class MainMenuScene extends BaseScene {
         String instructionsText =
                 "Instructions:\n\n" +
                         "Welcome to the Game, " + playerName + "!\n" +
-                        "- Use the buttons to navigate through the story.\n" +
-                        "- The 'Start Game' button will begin your adventure from the pre-scene.\n" +
-                        "- 'Skip Ahead' allows you to jump to specific parts of the game.\n" +
-                        "- In the news scene, text scrolls automatically. Click 'Continue' when ready.\n" +
-                        "- Hover over the help icon in the top right corner for some keyboard shortcuts.\n" +
-                        "- Enjoy your playthrough, " + playerName + "!";
-        JOptionPane.showMessageDialog(this, instructionsText, "Game Instructions for " + playerName, JOptionPane.INFORMATION_MESSAGE);
+                        "- Use the buttons to navigate through the environmental adventure.\n" +
+                        "- The 'Start Game' button will begin your journey with an environmental news report.\n" +
+                        "- 'Skip Ahead' allows you to jump to specific environmental scenarios.\n" +
+                        "- 'Change Name' lets you update your player name.\n" +
+                        "- In news scenes, text scrolls automatically. You can always click 'Continue' at any time to proceed.\n" +
+                        "- Hover over the help icon in the top right corner for keyboard shortcuts.\n" +
+                        "- You'll explore environmental challenges and solutions with your robot companion.\n" +
+                        "- Enjoy your journey, " + playerName + "!";
+        JOptionPane.showMessageDialog(this, instructionsText, "MEDICI Instructions for " + playerName, JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
