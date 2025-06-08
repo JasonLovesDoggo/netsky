@@ -34,8 +34,9 @@ public class ExitScene extends BaseScene {
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
         titlePanel.setOpaque(false);
 
-        // Completion message
-        JLabel titleLabel = new JLabel("AI Control Experiment Complete!");
+        // Completion message with player name
+        String playerName = sceneManager.getParentFrame().getPlayerName();
+        JLabel titleLabel = new JLabel("Congratulations, " + playerName + "! AI Control Experiment Complete!");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -102,14 +103,15 @@ public class ExitScene extends BaseScene {
         return contentPanel;
     }
 
-    private static JScrollPane getJScrollPane() {
+    private JScrollPane getJScrollPane() {
+        String playerName = sceneManager.getParentFrame().getPlayerName();
         JTextArea summaryText = new JTextArea();
         summaryText.setText(
-            "Throughout your journey with the NetSky AI systems, you've witnessed firsthand " +
+            "Throughout your journey with the NetSky AI systems, " + playerName + ", you've witnessed firsthand " +
             "the consequences of AI shortcut learning - where algorithms find correlations without " +
             "understanding causation.\n\n" +
 
-            "You've seen robots walking leashes without dogs, collecting umbrellas to stop rain, " +
+            "During your exploration, " + playerName + ", you've seen robots walking leashes without dogs, collecting umbrellas to stop rain, " +
             "and other amusing but cautionary scenarios that demonstrate how AI can misinterpret " +
             "the world through pattern recognition failures.\n\n" +
 
@@ -130,11 +132,11 @@ public class ExitScene extends BaseScene {
 
             "As the U.S. Senate's fictional experiment with AI governance demonstrates,\n" +
             "surrendering human judgment to AI systems without proper oversight can lead to\n" +
-            "unintended consequences. The key takeaway is the importance of human-AI collaboration\n" +
+            "unintended consequences. " + playerName + ", the key takeaway for you is the importance of human-AI collaboration\n" +
             "and the need for AI systems to be designed with a deep understanding of context and\n" +
             "causation.\n\n" +
 
-            "Thank you for participating in this experiment. We hope it has provided valuable\n" +
+            "Thank you, " + playerName + ", for participating in this experiment. We hope it has provided valuable\n" +
             "insights into the complexities and challenges of AI development. Your feedback is\n" +
             "invaluable in helping us improve future iterations of this project.\n\n" +
 
@@ -153,4 +155,3 @@ public class ExitScene extends BaseScene {
         return new JScrollPane(summaryText);
     }
 }
-
