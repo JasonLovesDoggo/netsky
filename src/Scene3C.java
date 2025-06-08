@@ -90,8 +90,8 @@ public class Scene3C extends BaseScene implements KeyListener {
             if (currentStep < explanationSteps.size() - 1) {
                 goToNextStep();
             } else {
-                // Last click - transition to next scene
-                sceneManager.showScene(Scene.MAIN_MENU);
+                // Last click - transition to exit scene
+                sceneManager.showScene(Scene.EXIT_SCENE);
             }
         });
 
@@ -148,8 +148,8 @@ public class Scene3C extends BaseScene implements KeyListener {
         if (step < 0) {
             step = 0;
         } else if (step >= explanationSteps.size()) {
-            // Last step - transition to main menu
-            sceneManager.showScene(Scene.MAIN_MENU);
+            // Last step - transition to exit scene
+            sceneManager.showScene(Scene.EXIT_SCENE);
             return;
         }
 
@@ -159,7 +159,7 @@ public class Scene3C extends BaseScene implements KeyListener {
 
         // Update button text for last step
         if (currentStep == explanationSteps.size() - 1) {
-            nextExplanationButton.setText("Return to Main Menu");
+            nextExplanationButton.setText("Complete Game");
             nextExplanationButton.setBackground(Palette.BUTTON_SUCCESS);
         } else {
             nextExplanationButton.setText("Next");
