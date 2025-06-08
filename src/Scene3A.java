@@ -33,14 +33,8 @@ public class Scene3A extends BaseScene {
     @Override
     protected void initializeComponents() {
 		SceneManager.continueEnabled = true;
-		index = 0;
-		umbrellas = new Umbrella[7];
-		for(int i = 0; i < umbrellas.length; i++) {
-			umbrellas[i] = new Umbrella(i);
-			umbrellas[i].setSize(100, 100);
-			umbrellas[i].setLocation(startX[i], startY[i]);
-		}
-        // Scene title
+		InitializeUmbrellas();
+		// Scene title
         JLabel titleLabel = new JLabel("Scene 3A");
         titleLabel.setFont(Palette.TITLE_FONT);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -124,10 +118,7 @@ public class Scene3A extends BaseScene {
         });
     }
 
-    @Override
-    public void onShowScene() {
-        super.onShowScene();
-		userIn.promptCount = 0;
+	private void InitializeUmbrellas() {
 		index = 0;
 		umbrellas = new Umbrella[7];
 		for(int i = 0; i < umbrellas.length; i++) {
@@ -135,7 +126,14 @@ public class Scene3A extends BaseScene {
 			umbrellas[i].setSize(100, 100);
 			umbrellas[i].setLocation(startX[i], startY[i]);
 		}
-		
+	}
+
+	@Override
+    public void onShowScene() {
+        super.onShowScene();
+		userIn.promptCount = 0;
+		InitializeUmbrellas();
+
 		for(Umbrella u : umbrellas) {
 			main.add(u, JLayeredPane.PALETTE_LAYER);
 		}
@@ -143,7 +141,7 @@ public class Scene3A extends BaseScene {
         timer.start();
     }
 	
-	class Umbrella extends JComponent {
+	static class Umbrella extends JComponent {
 		int number, width, height, scale;
 		Umbrella(int n) {
 			number = n;
