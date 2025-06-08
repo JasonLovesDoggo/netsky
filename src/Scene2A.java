@@ -23,8 +23,7 @@ public class Scene2A extends BaseScene {
     GarbageTruck truck;
     int currentWidth;
     int index; //The variable that tracks which part of the animation the truck is on. Refers to the index of the items array
-	boolean done;
-	
+
     public Scene2A(SceneManager sceneManager) {
         super(sceneManager);
     }
@@ -179,8 +178,10 @@ public class Scene2A extends BaseScene {
     }
 
     static class Garbage extends JComponent {
-        int scale, width, height;
-        String type;
+        final int scale;
+        int width;
+        int height;
+        final String type;
 
         Garbage(int scale, String type) {
             this.scale = scale;
@@ -232,7 +233,7 @@ public class Scene2A extends BaseScene {
         }
     }
 
-    class GarbageTruck extends JComponent {
+    static class GarbageTruck extends JComponent {
         int width, height;
 
         public void paintComponent(Graphics g) {

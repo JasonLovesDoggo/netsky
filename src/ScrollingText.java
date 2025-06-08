@@ -163,10 +163,4 @@ public class ScrollingText extends JComponent implements MouseWheelListener {
     public boolean isScrollingComplete() {
         return !autoScrolling;
     }
-
-    public void resetScroll() {
-        y = 0;
-        autoScrolling = true;
-        repaint();
-    }
 }

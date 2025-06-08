@@ -13,8 +13,8 @@ import java.awt.geom.RoundRectangle2D;
 
 public class HelpIcon extends JComponent {
     boolean helptext;
-    Image icon;
-    HelpText text;
+    final Image icon;
+    final HelpText text;
 
     HelpIcon(JLayeredPane main) {
         this.addMouseListener(new MouseAdapter() {

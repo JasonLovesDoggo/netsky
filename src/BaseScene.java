@@ -10,7 +10,7 @@ import java.awt.*;
 
 // Base abstract class for all scenes
 public abstract class BaseScene extends JPanel {
-    protected SceneManager sceneManager;
+    protected final SceneManager sceneManager;
 
     public BaseScene(SceneManager sceneManager) {
         this.sceneManager = sceneManager;

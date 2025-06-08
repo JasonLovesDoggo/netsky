@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 public class Scene1D extends BaseScene {
     SceneOneD sceneOne;
     Timer timer;
-    FadeOut fade;
     double ratio;
     RobotBottom rb;
 
@@ -66,9 +65,7 @@ public class Scene1D extends BaseScene {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        if (nextButton != null) {
-            buttonPanel.add(nextButton);
-        }
+        buttonPanel.add(nextButton);
         buttonPanel.add(menuButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
@@ -102,7 +99,7 @@ public class Scene1D extends BaseScene {
         }
     }
 
-    class SceneOneD extends JComponent {
+    static class SceneOneD extends JComponent {
         public void paintComponent(Graphics g) {
             Image sceneOnePicture = new ImageIcon("./Images/Scene1D.png").getImage();
             g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);

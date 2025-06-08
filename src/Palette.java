@@ -8,8 +8,6 @@
 import java.awt.*;
 
 public class Palette extends Color {
-    // Original ZColor
-    public static final Color ZColor = new Color(0xB3CEE5);
 
     // Button Colors
     public static final Color BUTTON_PRIMARY = new Color(100, 150, 220);     // Blue for normal buttons

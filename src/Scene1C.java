@@ -159,7 +159,7 @@ public class Scene1C extends BaseScene {
         timer.start();
     }
 
-    class SceneOneC extends JComponent {
+    static class SceneOneC extends JComponent {
         public void paintComponent(Graphics g) {
             Image sceneOnePicture = new ImageIcon("./Images/Scene1A.png").getImage();
             g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
@@ -167,7 +167,7 @@ public class Scene1C extends BaseScene {
         }
     }
 
-    class SceneOneForeground extends JComponent {
+    static class SceneOneForeground extends JComponent {
         public void paintComponent(Graphics g) {
             Image sceneOneTree = new ImageIcon("./Images/Scene1ATree.png").getImage();
             g.drawImage(sceneOneTree, 100, 120, sceneOneTree.getWidth(null), sceneOneTree.getHeight(null), this);

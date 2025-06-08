@@ -2,8 +2,7 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
+ * Description: Animates a circular fade-out effect over the current scene component.
  */
 
 import javax.swing.*;
@@ -15,9 +14,9 @@ import java.awt.event.ActionListener;
 public class FadeOut extends JComponent {
     public int radius;
     Timer timer;
-    JComponent scene;
+    final JComponent scene;
     boolean fading;
-    Color color;
+    final Color color;
 
     FadeOut(JComponent s, Color color) {
 
@@ -66,3 +65,4 @@ public class FadeOut extends JComponent {
 
     }
 }
+

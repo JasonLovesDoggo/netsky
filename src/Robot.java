@@ -2,8 +2,7 @@
  * Names: Jason Cameron, Zoe Li
  * Date: Jun 9th, 2025
  * Teacher: Ms. Krasteva
- * Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- *
+ * Description: Manages robot interactions, displaying speech bubbles, dialogues, and accessories within scenes.
  */
 
 import javax.swing.*;
@@ -22,15 +21,14 @@ public class Robot extends JComponent {
     public boolean hasAccessory;
     public int wordsCount;
     public boolean dialogComplete;
-    Image robot;
-    Speech speechBubble;
+    final Image robot;
+    final Speech speechBubble;
     Image accessory;
     RobotTalking text;
     ArrayList<String> words;
     FadeOut fadeOut;
     int fadeCount;
-    boolean canFade;
-    JLayeredPane pane;
+    final JLayeredPane pane;
 
     Robot(JLayeredPane p) {
         this.pane = p;
@@ -137,7 +135,7 @@ public class Robot extends JComponent {
 
 
     class Speech extends JComponent {
-        Image speechBubble;
+        final Image speechBubble;
 
         Speech() {
             speechBubble = new ImageIcon("./Images/SpeechBubble.png").getImage();
@@ -161,9 +159,10 @@ public class Robot extends JComponent {
     }
 
     class RobotTalking extends JComponent {
-        Image textRobot;
-        Image textUser;
-        JButton back, next;
+        final Image textRobot;
+        final Image textUser;
+        final JButton back;
+        final JButton next;
         Timer timer;
 
         RobotTalking(JLayeredPane pane) {

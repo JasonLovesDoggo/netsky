@@ -161,27 +161,27 @@ public class Scene3B extends BaseScene {
 		timer1.start();
 	}
 	
-	class Timelapse extends JComponent {
+	static class Timelapse extends JComponent {
 		public void paintComponent(Graphics g) {
 			Image text = new ImageIcon("./Images/Timelapse.png").getImage();
 			g.drawImage(text, 0, 0, 358, 61, this);
 		}
 	}
 	
-	class Rain1 extends JComponent {
+	static class Rain1 extends JComponent {
 		public void paintComponent(Graphics g) {
 			Image rain = new ImageIcon("./Images/Rain1.png").getImage();
 			g.drawImage(rain, 0, 0, 800, 500, this);
 		}
 	}
-	class Rain2 extends JComponent {
+	static class Rain2 extends JComponent {
 		public void paintComponent(Graphics g) {
 			Image rain = new ImageIcon("./Images/Rain2.png").getImage();
 			g.drawImage(rain, 0, 0, 800, 500, this);
 		}
 	}
 	
-	class SceneThreeB extends JComponent {
+	static class SceneThreeB extends JComponent {
 		public void paintComponent(Graphics g) {
 			Image background = new ImageIcon("./Images/Scene3BGB.png").getImage();
 			g.drawImage(background, 0, 0, 800, 500, this);

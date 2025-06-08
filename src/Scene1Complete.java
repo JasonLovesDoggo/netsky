@@ -275,7 +275,7 @@ public class Scene1Complete extends BaseScene implements KeyListener {
     }
 
     // Image display component with proper scaling and background matching
-    class ScaledImageLabel extends JLabel {
+    static class ScaledImageLabel extends JLabel {
         private Image image;
 
         public ScaledImageLabel() {

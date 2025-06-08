@@ -93,7 +93,6 @@ public class ButtonFactory {
                 if (robot.talk && !robot.dialogComplete) {
                     // If we found a Robot with active dialog, simulate a click on its "next" button
                     robot.text.next.doClick();
-                    return;
                 } else if (robot.speech && !robot.talk && !robot.dialogComplete) {
                     // If we found a Robot with speech bubble that hasn't been clicked yet,
                     // show a hint to click on the robot and BLOCK scene transition
@@ -104,7 +103,6 @@ public class ButtonFactory {
                         JOptionPane.INFORMATION_MESSAGE
                     );
                     // Don't proceed to scene transition - return early
-                    return;
                 } else {
                     // If robot has already been clicked and dialog is complete,
                     // or if it's in another state, proceed with scene transition
@@ -159,7 +157,6 @@ public class ButtonFactory {
     private static Robot findRobotWithActiveDialogInScene(Container container) {
         if (container == null) return null;
 
-        Robot robotWithActiveDialog = null;
         Robot robotWithSpeech = null;
 
         // Handle JLayeredPane specifically as they're often used for complex scenes with robots

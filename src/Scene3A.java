@@ -16,14 +16,14 @@ public class Scene3A extends BaseScene {
     public UserInput userIn;
     SceneThree sceneThree;
     FadeOut fade;
-    Timer timer, timer1, timer2, timer3;
+    Timer timer, timer1;
     boolean moving;
     int index; //The variable that keeps track of which animation is occuring
 	Umbrella[] umbrellas;
-	static int[] startX = {100, 500, 200, 160, 630, 510, 430};
-	static int[] startY = {0, 0, 0, 0, 0, 0, 0};
-	static int[] destinationX = {280, 320, 250, 330, 360, 290, 330};
-	static int[] destinationY = {350, 350, 350, 370, 320, 320, 380};
+	static final int[] startX = {100, 500, 200, 160, 630, 510, 430};
+	static final int[] startY = {0, 0, 0, 0, 0, 0, 0};
+	static final int[] destinationX = {280, 320, 250, 330, 360, 290, 330};
+	static final int[] destinationY = {350, 350, 350, 370, 320, 320, 380};
 	JLayeredPane main;
 	
     public Scene3A(SceneManager sceneManager) {
@@ -100,7 +100,7 @@ public class Scene3A extends BaseScene {
             public void actionPerformed(ActionEvent e) {
 				int xdiff = destinationX[index]-umbrellas[index].getX();
 				int ydiff = destinationY[index]-umbrellas[index].getY();
-				umbrellas[index].scale = (int)(umbrellas[index].scale + 4);
+				umbrellas[index].scale = umbrellas[index].scale + 4;
 				
 				if (Math.abs(xdiff) < 5 && Math.abs(ydiff) < 5) {
 					timer1.stop();
@@ -142,7 +142,10 @@ public class Scene3A extends BaseScene {
     }
 	
 	static class Umbrella extends JComponent {
-		int number, width, height, scale;
+		final int number;
+        int width;
+        int height;
+        int scale;
 		Umbrella(int n) {
 			number = n;
 			scale = 9;
