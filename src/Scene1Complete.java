@@ -21,16 +21,10 @@ public class Scene1Complete extends BaseScene implements KeyListener {
     private JButton nextExplanationButton;
     private ArrayList<String> explanationSteps;
     private int currentStep = 0;
-    private JPanel explanationPanel;
-    private JPanel visualDisplayPanel;
-    private CardLayout visualCardLayout;
     private ScaledImageLabel imageLabel;
     private Image cowImage = null;
     private Image dogSceneImage = null;
     private Image birdImage = null;
-
-    private JPanel buttonPanel;
-    private JButton menuButton;
 
     public Scene1Complete(SceneManager sceneManager) {
         super(sceneManager);
@@ -44,22 +38,7 @@ public class Scene1Complete extends BaseScene implements KeyListener {
         setLayout(new BorderLayout(10, 10));
 
         // Scene title with a subtle gradient background
-        JPanel titlePanel = new JPanel(new BorderLayout());
-        titlePanel.setBackground(new Color(240, 240, 250));
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-
-        JLabel titleLabel = new JLabel("Understanding the Robot's Behavior");
-        titleLabel.setFont(Palette.TITLE_FONT);
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLabel.setForeground(new Color(70, 70, 80));
-        titlePanel.add(titleLabel, BorderLayout.CENTER);
-
-        // Add keyboard hint to the title bar instead of taking up space in the main panel
-        JLabel keyHint = new JLabel("(i: next, u: back)");
-        keyHint.setFont(Palette.HINT_FONT);
-        keyHint.setForeground(Palette.TEXT_SECONDARY);
-        keyHint.setHorizontalAlignment(SwingConstants.CENTER);
-        titlePanel.add(keyHint, BorderLayout.SOUTH);
+        JPanel titlePanel = getTitlePanel();
 
         add(titlePanel, BorderLayout.NORTH);
 
@@ -76,13 +55,13 @@ public class Scene1Complete extends BaseScene implements KeyListener {
         ));
 
         // Main explanation panel with soft background color
-        explanationPanel = new JPanel(new BorderLayout(10, 10));
+        JPanel explanationPanel = new JPanel(new BorderLayout(10, 10));
         explanationPanel.setBorder(BorderFactory.createEmptyBorder(5, 20, 10, 20));
         explanationPanel.setBackground(new Color(248, 248, 252));
 
         // Visual display area (primarily for images) - increased height
-        visualDisplayPanel = new JPanel();
-        visualCardLayout = new CardLayout();
+        JPanel visualDisplayPanel = new JPanel();
+        CardLayout visualCardLayout = new CardLayout();
         visualDisplayPanel.setLayout(visualCardLayout);
         visualDisplayPanel.setPreferredSize(new Dimension(800, 400)); // Increased height for more image space
         visualDisplayPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -131,7 +110,7 @@ public class Scene1Complete extends BaseScene implements KeyListener {
         });
 
         // Button panel with gradient background
-        buttonPanel = new JPanel() {
+        JPanel buttonPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -146,7 +125,7 @@ public class Scene1Complete extends BaseScene implements KeyListener {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 15));
         buttonPanel.add(nextExplanationButton);
 
-        menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
+        JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
         buttonPanel.add(menuButton);
 
         add(explanationPanel, BorderLayout.CENTER);
@@ -157,6 +136,26 @@ public class Scene1Complete extends BaseScene implements KeyListener {
 
         // Request focus to enable keyboard navigation
         SwingUtilities.invokeLater(() -> requestFocusInWindow());
+    }
+
+    private static JPanel getTitlePanel() {
+        JPanel titlePanel = new JPanel(new BorderLayout());
+        titlePanel.setBackground(new Color(240, 240, 250));
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+
+        JLabel titleLabel = new JLabel("Understanding the Robot's Behavior");
+        titleLabel.setFont(Palette.TITLE_FONT);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setForeground(new Color(70, 70, 80));
+        titlePanel.add(titleLabel, BorderLayout.CENTER);
+
+        // Add keyboard hint to the title bar instead of taking up space in the main panel
+        JLabel keyHint = new JLabel("(i: next, u: back)");
+        keyHint.setFont(Palette.HINT_FONT);
+        keyHint.setForeground(Palette.TEXT_SECONDARY);
+        keyHint.setHorizontalAlignment(SwingConstants.CENTER);
+        titlePanel.add(keyHint, BorderLayout.SOUTH);
+        return titlePanel;
     }
 
     private void updateStepDisplay(int step) {

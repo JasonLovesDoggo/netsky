@@ -104,8 +104,6 @@ public class Scene2A extends BaseScene {
         add(buttonPanel, BorderLayout.SOUTH);
 
         timer = new Timer(20, new ActionListener() {
-            boolean started = false;
-
             public void actionPerformed(ActionEvent e) {
 				currentWidth = 0;
 				for (int i = 0; i < itemState.length; i++) {

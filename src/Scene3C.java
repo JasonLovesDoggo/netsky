@@ -31,22 +31,7 @@ public class Scene3C extends BaseScene implements KeyListener {
         setLayout(new BorderLayout(10, 10));
 
         // Scene title with a subtle gradient background
-        JPanel titlePanel = new JPanel(new BorderLayout());
-        titlePanel.setBackground(new Color(240, 240, 250));
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-
-        JLabel titleLabel = new JLabel("Understanding Correlation vs. Causation in AI");
-        titleLabel.setFont(Palette.TITLE_FONT);
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLabel.setForeground(new Color(70, 70, 80));
-        titlePanel.add(titleLabel, BorderLayout.CENTER);
-
-        // Add keyboard hint to the title bar
-        JLabel keyHint = new JLabel("(i: next, u: back)");
-        keyHint.setFont(Palette.HINT_FONT);
-        keyHint.setForeground(Palette.TEXT_SECONDARY);
-        keyHint.setHorizontalAlignment(SwingConstants.CENTER);
-        titlePanel.add(keyHint, BorderLayout.SOUTH);
+        JPanel titlePanel = getTitlePanel();
 
         add(titlePanel, BorderLayout.NORTH);
 
@@ -137,6 +122,26 @@ public class Scene3C extends BaseScene implements KeyListener {
 
         // Request focus to enable keyboard navigation
         SwingUtilities.invokeLater(() -> requestFocusInWindow());
+    }
+
+    private static JPanel getTitlePanel() {
+        JPanel titlePanel = new JPanel(new BorderLayout());
+        titlePanel.setBackground(new Color(240, 240, 250));
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+
+        JLabel titleLabel = new JLabel("Understanding Correlation vs. Causation in AI");
+        titleLabel.setFont(Palette.TITLE_FONT);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setForeground(new Color(70, 70, 80));
+        titlePanel.add(titleLabel, BorderLayout.CENTER);
+
+        // Add keyboard hint to the title bar
+        JLabel keyHint = new JLabel("(i: next, u: back)");
+        keyHint.setFont(Palette.HINT_FONT);
+        keyHint.setForeground(Palette.TEXT_SECONDARY);
+        keyHint.setHorizontalAlignment(SwingConstants.CENTER);
+        titlePanel.add(keyHint, BorderLayout.SOUTH);
+        return titlePanel;
     }
 
     private void updateStepDisplay(int step) {

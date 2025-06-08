@@ -51,21 +51,7 @@ public abstract class AbstractNewsScene extends BaseScene {
     protected void initializeComponents() {
         setLayout(new BorderLayout(0, 0));
 
-        JPanel headerPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                // Simple dark blue background without gradient
-                g.setColor(new Color(20, 20, 50));
-                g.fillRect(0, 0, getWidth(), getHeight());
-
-                // Add a thin highlight line
-                g.setColor(new Color(80, 80, 150));
-                g.fillRect(0, getHeight() - 2, getWidth(), 2);
-            }
-        };
-        headerPanel.setLayout(new BorderLayout());
-        headerPanel.setPreferredSize(new Dimension(800, 80));
+        JPanel headerPanel = getHeaderPanel();
 
         // "BREAKING NEWS" label with bold, impactful font
         breakingNewsLabel = new JLabel("BREAKING NEWS");
@@ -136,6 +122,25 @@ public abstract class AbstractNewsScene extends BaseScene {
 
         // Start scrolling
         news.setScrolling();
+    }
+
+    private JPanel getHeaderPanel() {
+        JPanel headerPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Simple dark blue background without gradient
+                g.setColor(new Color(20, 20, 50));
+                g.fillRect(0, 0, getWidth(), getHeight());
+
+                // Add a thin highlight line
+                g.setColor(new Color(80, 80, 150));
+                g.fillRect(0, getHeight() - 2, getWidth(), 2);
+            }
+        };
+        headerPanel.setLayout(new BorderLayout());
+        headerPanel.setPreferredSize(new Dimension(800, 80));
+        return headerPanel;
     }
 
     private JPanel getButtonPanel() {
