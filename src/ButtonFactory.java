@@ -73,7 +73,7 @@ public class ButtonFactory {
                             System.out.println("Robot is talking - advancing robot dialog");
                             robot.text.next.doClick();
                             return;
-                        } else if (robot.speech && !robot.talk) {
+                        } else if (robot.speech && !robot.talk && !robot.dialogComplete) {
                             // If we found a Robot with speech bubble that hasn't been clicked yet,
                             // show a hint to click on the robot and block further prompt advancement
                             System.out.println("Robot needs to be clicked - showing popup and blocking further prompt advancement");
@@ -109,7 +109,7 @@ public class ButtonFactory {
                     System.out.println("Clicking robot's next button");
                     robot.text.next.doClick();
                     return;
-                } else if (robot.speech && !robot.talk) {
+                } else if (robot.speech && !robot.talk && !robot.dialogComplete) {
                     // If we found a Robot with speech bubble that hasn't been clicked yet,
                     // show a hint to click on the robot and BLOCK scene transition
                     System.out.println("Robot needs to be clicked - showing popup and blocking scene transition");
@@ -263,37 +263,9 @@ public class ButtonFactory {
             }
         }
 
-        // Check for other scene classes with robot fields here
-        // ...
 
         // Return robot with speech bubble if no robot with active dialog was found
         return robotWithSpeech;
-    }
-
-    /**
-     * Helper method to find a Robot component that has completed its dialog in the scene
-     */
-    private static Robot findCompletedRobotInScene(Container container) {
-        if (container == null) return null;
-
-        // Search for Robot components in the container
-        Component[] components = container.getComponents();
-        for (Component component : components) {
-            if (component instanceof Robot) {
-                Robot robot = (Robot) component;
-                // Check if this robot has completed its dialog
-                if (robot.dialogComplete) {
-                    return robot;
-                }
-            } else if (component instanceof Container) {
-                // Recursively search in nested containers
-                Robot result = findCompletedRobotInScene((Container) component);
-                if (result != null) {
-                    return result;
-                }
-            }
-        }
-        return null;
     }
 
     /**
