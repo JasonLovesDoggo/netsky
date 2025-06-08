@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 public class FadeOut extends JComponent {
     public int radius;
     Timer timer;
-    int count;
     JComponent scene;
     boolean fading;
     Color color;

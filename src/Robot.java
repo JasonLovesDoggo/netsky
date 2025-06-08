@@ -135,11 +135,6 @@ public class Robot extends JComponent {
         SceneManager.continueEnabled = dialogComplete;
     }
 
-    public void resetDialog() {
-        dialogComplete = false;
-        wordsCount = 0;
-        SceneManager.continueEnabled = false;
-    }
 
     class Speech extends JComponent {
         Image speechBubble;
