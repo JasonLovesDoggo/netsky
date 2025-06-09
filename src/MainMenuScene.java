@@ -8,6 +8,9 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.*;
 
 public class MainMenuScene extends BaseScene {
     private final Image backgroundImage;
@@ -57,6 +60,7 @@ public class MainMenuScene extends BaseScene {
         bottomButtonPanel.setOpaque(false);
 
         bottomButtonPanel.add(ButtonFactory.createButton("Instructions", e -> showInstructions()));
+		bottomButtonPanel.add(ButtonFactory.createButton("Leaderboard", e -> viewLeaderboard()));
         bottomButtonPanel.add(ButtonFactory.createSceneButton("Change Name", Scene.CHANGE_NAME));
         bottomButtonPanel.add(ButtonFactory.createButton("Skip Ahead", e -> sceneManager.showSkipAheadOptions()));
         bottomButtonPanel.add(ButtonFactory.createButton("Exit", e -> System.exit(0)));
@@ -94,6 +98,57 @@ public class MainMenuScene extends BaseScene {
                         "- Enjoy your journey, " + playerName + "!";
         JOptionPane.showMessageDialog(this, instructionsText, "MEDICI Instructions for " + playerName, JOptionPane.INFORMATION_MESSAGE);
     }
+	
+	private void sortLeaderboard() {
+		ArrayList<String> names = new ArrayList<>();
+		ArrayList<Integer> count = new ArrayList<>();
+		try {
+			File board = new File("leaderboard.txt");
+			Scanner s = new Scanner(board);
+			String text = ""; //The sorted text that will go back into the file
+			while (s.hasNextLine()) {
+				String line = s.nextLine();
+				String[] data = line.split(":");
+				names.add(data[0]);
+				names.add(data[1]);
+			}
+			
+			while (count.size() >= 1) {
+				
+			}
+			
+			PrintWriter pw = new PrintWriter(new FileWriter(board, false));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void viewLeaderboard() {
+		String playerName = sceneManager.getParentFrame().getPlayerName();
+		String text = ""; //String to hold the text in the file
+		try {
+			File leaderboard = new File("leaderboard.txt");
+			Scanner s = new Scanner(leaderboard);
+			text = "  Player name : Times played\n---------------------------------------\n";
+			int counter = 1; //Count the number of players that have been shown
+			while (s.hasNextLine() && counter <= 10) {
+				String line = s.nextLine();
+				String[] data = line.split(":");
+				text += String.format("%-17s : %-4s\n", data[0], data[1]);
+				counter++;
+			}
+			if (s.hasNextLine() && counter == 11) {
+				text+="\nThere are more players listed, but \nonly the top ten players are shown here.    ";
+			}
+			UIManager.put("OptionPane.messageFont", new Font("Consolas", Font.PLAIN, 14));
+			JOptionPane.showMessageDialog(this, text, "MEDICI Leaderboard for " + playerName, JOptionPane.INFORMATION_MESSAGE);
+			UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 12));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 
     @Override
     public void onShowScene() {

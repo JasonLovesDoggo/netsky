@@ -57,7 +57,7 @@ public class Scene2A extends BaseScene {
         add(titleLabel, BorderLayout.NORTH);
 
         sceneTwo = new SceneTwo();
-        userIn = new UserInput(8);
+        userIn = new UserInput(7);
         sceneTwo.setBounds(0, 0, 800, 600);
         sceneTwo.add(userIn);
         userIn.scene = sceneTwo;
@@ -318,6 +318,7 @@ public class Scene2A extends BaseScene {
                     }
                     break;
                 case 7:
+					//Last garbage bag is picked up, and the next button is enabled
                     if (truck.getX() > 110 && !moving) {
                         distance = 60;
                         index = 6;
@@ -327,12 +328,6 @@ public class Scene2A extends BaseScene {
                         userIn.promptCount--;
                         //System.out.println("Went back. promptCount == " + userIn.promptCount);
                     }
-                    break;
-                case 8:
-                    //Fade out, button activated happens
-					if (moving && index < 7) {
-						userIn.promptCount--;
-					}
 					SceneManager.continueEnabled = true;
                     break;
 
