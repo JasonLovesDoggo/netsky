@@ -32,10 +32,9 @@ public class Scene3A extends BaseScene {
 	static final int[] startX = {100, 500, 200, 160, 630, 510, 430};
 	/** The end y locations of the umbrellas */
 	static final int[] startY = {0, 0, 0, 0, 0, 0, 0};
-	/** The destination x locations of the umbrellas */
-	static final int[] destinationX = {280, 320, 250, 330, 360, 290, 330};
-	/** the destination y locations of the umbrellas */
-	static final int[] destinationY = {350, 350, 350, 370, 320, 320, 380};
+	/** The destination locations of the umbrellas */
+	static final int[][] destination = {{280, 320, 250, 330, 360, 290, 330},
+										{350, 350, 350, 370, 320, 320, 380}};
 	/** The JLayeredPane in which everything else is being drawn */
 	JLayeredPane main;
 	
@@ -120,8 +119,8 @@ public class Scene3A extends BaseScene {
 
         timer1 = new Timer(20, new ActionListener() { //Move an umbrella 
             public void actionPerformed(ActionEvent e) {
-				int xdiff = destinationX[index]-umbrellas[index].getX();
-				int ydiff = destinationY[index]-umbrellas[index].getY();
+				int xdiff = destination[0][index]-umbrellas[index].getX();
+				int ydiff = destination[1][index]-umbrellas[index].getY();
 				umbrellas[index].scale = umbrellas[index].scale + 4;
 				
 				if (Math.abs(xdiff) < 5 && Math.abs(ydiff) < 5) {
@@ -186,6 +185,8 @@ public class Scene3A extends BaseScene {
 		
 		/** 
 		 * Creates a new umbrella with a given number and default scale of 9
+		 * 
+		 * @param n		the number that corrsponds to the number of the umbrella
 		 */
 		Umbrella(int n) {
 			number = n;

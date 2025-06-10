@@ -1,12 +1,12 @@
-Glorfindel:1
-Mark Danishevsky:2
-Joseph Wang:3
-Chengshu Bi:5
-Maya Altenberg:5
-Dawson Lam:9
-Maddie Chan:10
-Zoe Li:10
-Jason Cameron:12
-Maria Rudakova:18
-Josie Fong:20
 Sebastian Wang:30
+Josie Fong:20
+Maria Rudakova:18
+Jason Cameron:12
+Zoe Li:10
+Maddie Chan:10
+Dawson Lam:9
+Maya Altenberg:5
+Chengshu Bi:5
+Joseph Wang:3
+Mark Danishevsky:2
+Glorfindel:1
