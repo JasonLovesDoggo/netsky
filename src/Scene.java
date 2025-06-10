@@ -1,8 +1,12 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Enumerates all game scenes and their labels for navigation.
+/**
+ * Enumerates all game scenes and their labels for navigation. 
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
  */
 
 public enum Scene {

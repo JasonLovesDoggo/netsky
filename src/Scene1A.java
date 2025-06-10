@@ -1,33 +1,52 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Presents a robot interaction where it mistakes a leash for a dog and introduces user prompts.
- */
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Presents a robot interaction where it mistakes a leash for a dog and introduces user prompts.
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class Scene1A extends BaseScene {
+	/** The user input variable that takes in user input through keyboard */
     public UserInput userIn;
+	/** The robot instance, of a robot that holds a dog leash*/
     public Robot robotDogLeash;
+	/** The scene one instance that is being drawn by the program */
     SceneOneA sceneOne;
+	/** The next button that advances to the next scene when this scene is complete */
     JButton nextButton;
 
+	/**
+	 * Creates a new SceneA 
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public Scene1A(SceneManager sceneManager) {
         super(sceneManager);
     }
 
+	/**
+	 * The method that is automatically called when the scene is shown to the user. 
+	 * It resets the user input prompt count so that the prompts start at 0
+	 */
     @Override
     public void onShowScene() {
         super.onShowScene();
         userIn.promptCount = 0;
     }
-
+	
+	/**
+	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
+	 * Initializes the scene, adds the buttons and creates the user input variable, along with the robot.
+	 */
     @Override
     protected void initializeComponents() {
         // Scene title
@@ -96,16 +115,33 @@ public class Scene1A extends BaseScene {
             }
         }).start();
     }
-
+	
+	/**
+	 * The foreground of scene one. 
+	 * Is a separate component to ensure that the robot can go behind the tree.
+	 */
     static class SceneOneForeground extends JComponent {
-        public void paint(Graphics g) {
+		/**
+		 * initalizes and draws the tree in the foreground
+		 * 
+		 * @param g		the graphics instance that draws the tree
+		 */
+        public void paintComponent(Graphics g) {
             Image sceneOneTree = new ImageIcon("./Images/Scene1ATree.png").getImage();
             g.drawImage(sceneOneTree, 100, 120, sceneOneTree.getWidth(null), sceneOneTree.getHeight(null), this);
         }
     }
-
+	
+	/**
+	 * The background of the scene itself. It loads the image and handles which prompt is shown based on what the userIn prompt count is.
+	 */
     class SceneOneA extends JComponent {
-        public void paint(Graphics g) {
+		/**
+		 * paints the background and the appropriate prompt onto the screen
+		 * 
+		 * @param g		the graphics instance that draws the background and the prompts
+		 */
+        public void paintComponent(Graphics g) {
             //sceneOne.requestFocusInWindow();
 
             Image sceneOnePicture = new ImageIcon("./Images/Scene1A.png").getImage();

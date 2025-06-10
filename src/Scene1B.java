@@ -1,34 +1,53 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: This is the second portion of scene 1, where the user sees a robot that has been asked to walk the dog
- *
- */
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This is the second portion of scene 1, where the user sees a robot that has been asked to walk the dog
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class Scene1B extends BaseScene {
+	/** The user input variable that takes in user input through keyboard */
     public UserInput userIn;
+	/** The scene one instance that is being drawn by the program */
     SceneOneB sceneOne;
+	/** The fade out animation that occurs once this scene is finished */
     FadeOut fadeOut;
+	/** The JLayeredPane in which everything else is being drawn */
     JLayeredPane main;
+	/** The next button that advances to the next scene when this scene is complete */
     JButton nextButton;
-
+	
+	/**
+	 * Creates a new Scene1B
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public Scene1B(SceneManager sceneManager) {
         super(sceneManager);
     }
-
+	
+	/**
+	 * The method that is automatically called when the scene is shown to the user. 
+	 * It resets the user input prompt count so that the prompts start at 0
+	 */
     @Override
     public void onShowScene() {
         super.onShowScene();
         userIn.promptCount = 0;
     }
-
+	
+	/**
+	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
+	 * Initializes the scene, adds the buttons and creates the user input variable, along with the robot.
+	 */
     @Override
     protected void initializeComponents() {
         // Scene title
@@ -100,11 +119,19 @@ public class Scene1B extends BaseScene {
             }
         }).start();
     }
-
+	
+	/**
+	 * The scene itself. This JComponent is added to the JLayeredPane so it can be drawn for the user.
+	 */
     class SceneOneB extends JComponent {
-
+		/** The boolean that checks if the fade has already occured */
         boolean fade;
-
+		
+		/**
+		 * paints the background and the appropriate prompt onto the screen
+		 * 
+		 * @param g		the graphics instance that draws the background and the prompts
+		 */
         public void paintComponent(Graphics g) {
 
             Image sceneOnePicture = new ImageIcon("./Images/Scene1B.png").getImage();

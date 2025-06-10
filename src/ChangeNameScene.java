@@ -1,22 +1,35 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Allows the user to input and save a new display name for their player profile.
- */
-
 import javax.swing.*;
 import java.awt.*;
 
-// Change Name Scene
+/**
+ * Allows the user to input and save a new display name for their player profile.
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class ChangeNameScene extends BaseScene {
+	/** The location where the user may type in their new username */
     private JTextField nameField;
+	/** Used to display messages to the user */
     private JLabel feedbackLabel; // For displaying messages
-
+	
+	/** 
+	 * Constructor in which sceneManager is passed in. 
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public ChangeNameScene(SceneManager sceneManager) {
         super(sceneManager);
     }
-
+	
+	/**
+	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
+	 * It creates all the components that are part of this scene. 
+	 */
     @Override
     protected void initializeComponents() {
         // Title
@@ -64,7 +77,12 @@ public class ChangeNameScene extends BaseScene {
 
         add(buttonPanel, BorderLayout.SOUTH);
     }
-
+	
+	/**
+	 * Creates a saveButton that saves the player's new name and updates the appropriate variable.
+	 * 
+	 * @return		the button created by this method, the saveButton
+	 */
     private JButton getSaveButton() {
         JButton saveButton = new JButton("Save");
         saveButton.setFont(new Font("Arial", Font.BOLD, 16));
@@ -83,7 +101,11 @@ public class ChangeNameScene extends BaseScene {
         });
         return saveButton;
     }
-
+	
+	/**
+	 * The method that is automatically called when the scene is shown to the user. 
+	 * Sets the player's current name into the name field and clears the feedback message.
+	 */
     @Override
     public void onShowScene() {
         // Pre-fill the name field with the current player's name when the scene is shown

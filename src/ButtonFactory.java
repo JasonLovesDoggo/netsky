@@ -1,10 +1,3 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Factory class for creating consistently styled buttons across the application
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -12,9 +5,23 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * Factory class for creating consistently styled buttons across the application
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva 
+ */
 public class ButtonFactory {
     /**
      * Creates a standard button with consistent styling
+	 * 
+	 * @param text				the text that goes on the JButton
+	 * @param actionListener	the action that is performed when the button is clicked
+	 * @return					the button that was created
      */
     static JButton createButton(String text, ActionListener actionListener) {
         JButton button = new JButton(text);
@@ -33,6 +40,9 @@ public class ButtonFactory {
 
     /**
      * Creates a continue button if SceneManager.continueEnabled is true
+	 * 
+	 * @param scene		The scene that the continue button will lead to
+	 * @return			The button that was created
      */
     static JButton createSceneContinueButton(Scene scene) {
         JButton button = new JButton("Continue");
@@ -131,6 +141,9 @@ public class ButtonFactory {
 
     /**
      * Helper method to find a UserInput component in the scene
+	 * 
+	 * @param container		the container in which the UserInput component may be
+	 * @return				the UserInput instance that is nested in the container. Returns null if no instance found.
      */
     private static UserInput findUserInputInScene(Container container) {
         if (container == null) return null;
@@ -153,6 +166,9 @@ public class ButtonFactory {
 
     /**
      * Helper method to find a Robot component with active dialog in the scene
+	 * 
+	 * @param container		the container in which the Robot with active dialog may be
+	 * @return				the robot that is nested in the container. Returns null if not found.
      */
     private static Robot findRobotWithActiveDialogInScene(Container container) {
         if (container == null) return null;
@@ -239,6 +255,9 @@ public class ButtonFactory {
 
     /**
      * Creates a button to navigate back to a previous scene
+	 * 
+	 * @param scene		the scene that the back button will lead to if clicked
+	 * @return 			the button that was created using this method
      */
     static JButton createPrevSceneButton(Scene scene) {
         // Keep default primary color for back buttons
@@ -247,6 +266,10 @@ public class ButtonFactory {
 
     /**
      * Creates a button for scene navigation
+	 * 
+	 * @param text		the text that will be displayed on the JButton
+	 * @param scene		the scene that the button will lead to when clicked
+	 * @return 			the button that was created by this method
      */
     static JButton createSceneButton(String text, Scene scene) {
         return createButton(text, e -> SceneManager.getInstance().showScene(scene));
@@ -256,6 +279,8 @@ public class ButtonFactory {
      * Applies hover animations to a button
      * When the mouse hovers over the button, it becomes slightly brighter
      * When the mouse leaves, it returns to its original color
+	 * 
+	 * @param button		the JButton that the hover effects are being applied to
      */
     private static void applyHoverEffects(JButton button) {
         // Remove any existing hover mouse listeners to avoid duplicates
@@ -273,16 +298,30 @@ public class ButtonFactory {
      * A custom MouseAdapter class that handles the hover effect
      */
     private static class HoverAdapter extends MouseAdapter {
+		/** The button that has the hover effect */
         private final JButton button;
+		/** The original color of the button */
         private Color originalColor;
-
+		
+		/** 
+		 * The constructor that creates a new HoverAdapter instance.
+		 * It sets the button variable.
+		 * 
+		 * @param button		the button that gets passed to this class, to apply the hover effect to
+		 */
         public HoverAdapter(JButton button) {
             this.button = button;
         }
-
+		
+		/**
+		 * The method that is called whenever the mouse enters the button.
+		 * It changes the button color and the mouse cursor shape.
+		 * 
+		 * @param e		The MouseEvent that occured, that triggered the mouseEntered call
+		 */
         @Override
         public void mouseEntered(MouseEvent e) {
-            if (!button.isEnabled()) {
+            if (!button.isEnabled()) { //If the button can't move on to the next scene, the hover effect is not applied.
                 return;
             }
 
@@ -300,6 +339,12 @@ public class ButtonFactory {
             button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         }
 
+		/**
+		 * The method that is called whenever the mouse exits the button. 
+		 * It restores the original button color and sets the cursor back to the default.
+		 * 
+		 * @param e		the MouseEvent that triggered the mouseExited call
+		 */
         @Override
         public void mouseExited(MouseEvent e) {
             // Restore the original color

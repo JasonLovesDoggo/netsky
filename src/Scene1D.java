@@ -1,18 +1,24 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Demonstrates a robot moving and a circular fade-out animation at the end of Scene 1D.
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Demonstrates a robot moving and a circular fade-out animation at the end of Scene 1D.
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class Scene1D extends BaseScene {
+	/** The scene one instance that is being drawn by the program */
     SceneOneD sceneOne;
+	/** The timer that handles the robot flying off into the sky */
     Timer timer;
+	/** The ratio of the robot's current size to it's original size (out of 100) */
     double ratio;
     RobotBottom rb;
 

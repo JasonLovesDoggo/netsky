@@ -1,23 +1,39 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Provides layout and behavior for news scenes with flashing headlines and scrolling text.
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public abstract class AbstractNewsScene extends BaseScene {
-    private final Timer flashingTimer;
-    private final Timer scrollCheckTimer;
-    ScrollingText news;
-    private boolean isFlashingRed = false;
-    private JLabel breakingNewsLabel;
-    private JButton nextSceneButton;
 
+/**
+ * An abstract class that provides layout and behavior for news scenes with flashing headlines and scrolling text.
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: Jun 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva 
+ */
+public abstract class AbstractNewsScene extends BaseScene {
+	/** The timer that controls when the text flashes */
+    private final Timer flashingTimer;
+	/** The timer that checks if the scrolling is complete */
+    private final Timer scrollCheckTimer;
+	/** The instance of ScrollingText used to implement the actual text scrolling*/
+    ScrollingText news; 
+	/** Keeps track of whether the breaking news label is bright or not, to create the flashing "BREAKING" effect*/
+    private boolean isFlashingRed = false;
+	/** The Jlabel that contains the text "BREAKING NEWS" at the top of the page*/
+    private JLabel breakingNewsLabel;
+	/** The JButton that allows the user to move on to the next scene */
+    private JButton nextSceneButton;
+	
+	/** The constructor that creates the AbstractNewsScene. 
+	 * It initializes the flashing effect and also starts and creates the timer that 
+	 * checks if scrolling is complete. 
+	 * 
+	 * @param sceneManager		The sceneManager instance that manages all of the scenes in the entire program
+	 */
     public AbstractNewsScene(SceneManager sceneManager) {
         super(sceneManager);
         // Initialize flashing "BREAKING" effect
@@ -46,7 +62,13 @@ public abstract class AbstractNewsScene extends BaseScene {
         });
         scrollCheckTimer.start();
     }
-
+	
+	/** 
+	 * The method called to initalize components when the scene is added to sceneManager.
+	 * It draws out the breakingNewsLabel and the time label that shows up on the right corner.
+	 * It also creates a dark background for the news text, a network logo, and a red "LIVE"
+	 * indicator. It adds the buttons to the bottom of the window and starts the scrolling. 
+	 */
     @Override
     protected void initializeComponents() {
         setLayout(new BorderLayout(0, 0));
@@ -123,7 +145,12 @@ public abstract class AbstractNewsScene extends BaseScene {
         // Start scrolling
         news.setScrolling();
     }
-
+	
+	/** 
+	 * This creates the header panel, which is a separate JPanel. 
+	 * 
+	 * @return 	the created header panel so that it can be added to the frame.
+	 */
     private JPanel getHeaderPanel() {
         JPanel headerPanel = new JPanel() {
             @Override
@@ -142,7 +169,11 @@ public abstract class AbstractNewsScene extends BaseScene {
         headerPanel.setPreferredSize(new Dimension(800, 80));
         return headerPanel;
     }
-
+	
+	/** 
+	 * This creates the JPanel that holds all the buttons, at the bottom of the screen. 
+	 * @return 	the button panel so that it can be added to the frame.
+	 */
     private JPanel getButtonPanel() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -162,7 +193,12 @@ public abstract class AbstractNewsScene extends BaseScene {
         buttonPanel.add(menuButton);
         return buttonPanel;
     }
-
+	
+	/** 
+	 * Resets all the different effects whenever the scene is shown. It resets the news scrolling
+	 * position, the flashing effect, scroll check timer, and the continue button, which cannot be 
+	 * clicked until the scroll timer has indicated that the scrolling is complete. 
+	 */
     @Override
     public void onShowScene() {
         // Reset the news scrolling position when the scene is shown
@@ -188,7 +224,10 @@ public abstract class AbstractNewsScene extends BaseScene {
         super.onShowScene();
     }
 
-    // Stop the timers when this scene is no longer visible
+    /**
+	 * Stops all the timers used by this class once the scene is hidden and the user has moved
+	 * on to another scene.
+	 */
     @Override
     public void onHideScene() {
         super.onHideScene();
@@ -199,6 +238,11 @@ public abstract class AbstractNewsScene extends BaseScene {
             scrollCheckTimer.stop();
         }
     }
-
-    protected abstract ScrollingText getNews(); // Abstract method to get the news content
+	
+	/** 
+	 * Abstract method to get the news content
+	 * 
+	 * @return 	an instance of ScrollingText, that contains the news content
+	 */
+    protected abstract ScrollingText getNews();
 }

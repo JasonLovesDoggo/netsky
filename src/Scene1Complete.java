@@ -1,11 +1,3 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: This scene concludes the first part of the story and explains the concept of
- *              shortcut learning based on the robot\'s behavior in Scene 1.
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -14,8 +6,20 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Scene1Complete extends BaseScene implements KeyListener {
 
+/**
+ * This scene concludes the first part of the story and explains the concept of 
+ * shortcut learning based on the robot\'s behavior in Scene 1.
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
+public class Scene1Complete extends BaseScene implements KeyListener {
+	
     private static final int COW_IMAGE_STEP_INDEX = 3;
     private JTextArea explanationArea;
     private JButton nextExplanationButton;

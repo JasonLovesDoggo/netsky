@@ -1,30 +1,48 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Presents a sequence where one robot retrieves a leash and another rescues a bird, with interactive prompts and fade-out transitions.
- */
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Presents a sequence where one robot retrieves a leash and another rescues a bird, with interactive prompts and fade-out transitions.
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class Scene1C extends BaseScene {
+	/** The robot with the dog leash */
     public Robot robotDogLeash;
+	/** The robot that is in charge of the injured bird in the tree */
     public Robot robotBird;
+	/** The scene one instance that is being drawn by the program */
     SceneOneC sceneOne;
+	/** The timers that move the robot with the dog leash, move the second robot, and activate the fade effect */
     Timer timer, timer2, timer3;
+	/** The JLayeredPane in which everything else is being drawn */
     JLayeredPane main;
+	/** The fade out animation that occurs once this scene is finished */
     FadeOut fade;
+	/** The next button that advances to the next scene when this scene is complete */
     JButton nextButton;
-
+	
+	/**
+	 * Creates a new Scene1C
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public Scene1C(SceneManager sceneManager) {
         super(sceneManager);
     }
 
+	/**
+	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
+	 * Initializes the scene, adds the buttons, and creates the robot along with defining the timers
+	 */
     @Override
     protected void initializeComponents() {
         // Scene title
@@ -151,6 +169,10 @@ public class Scene1C extends BaseScene {
         });
     }
 
+	/**
+	 * The method that is automatically called when the scene is shown to the user. 
+	 * It resets the locations of the robots and starts the first timer to start the scene
+	 */
     @Override
     public void onShowScene() {
         super.onShowScene();
@@ -159,15 +181,31 @@ public class Scene1C extends BaseScene {
         timer.start();
     }
 
+	/**
+	 * The background image of SceneOneC
+	 */
     static class SceneOneC extends JComponent {
+		/**
+		 * paints the background onto the screen
+		 * 
+		 * @param g		the graphics instance that draws the image
+		 */
         public void paintComponent(Graphics g) {
             Image sceneOnePicture = new ImageIcon("./Images/Scene1A.png").getImage();
             g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
 
         }
     }
-
+	
+	/**
+	 * The foreground of SceneOneC
+	 */
     static class SceneOneForeground extends JComponent {
+		/**
+		 * paints the foreground onto the screen
+		 * 
+		 * @param g		the graphics instance that draws the image
+		 */
         public void paintComponent(Graphics g) {
             Image sceneOneTree = new ImageIcon("./Images/Scene1ATree.png").getImage();
             g.drawImage(sceneOneTree, 100, 120, sceneOneTree.getWidth(null), sceneOneTree.getHeight(null), this);

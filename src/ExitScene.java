@@ -1,29 +1,49 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Handles the exit scene for game completion and credits, highlighting the game's theme on AI shortcut learning.
- */
-
 import javax.swing.*;
 import java.awt.*;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.*;
 
+/**
+ * Handles the exit scene for game completion and credits, highlighting the game's theme on AI shortcut learning.
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: Jun 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class ExitScene extends BaseScene {
+	/** The background image of the scene */
     private final Image backgroundImage;
 
+	/** 
+	 * The constructor that creates the exit scene. It initializes the background image. 
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public ExitScene(SceneManager sceneManager) {
         super(sceneManager);
         backgroundImage = new ImageIcon("./Images/MainBG.png").getImage();
     }
-
+	
+	/**
+	 * Draws the background onto the screen. 
+	 * 
+	 * @param g		the Graphics variable that draws the image
+	 */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
-
+	
+	/**
+	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
+	 * It creates all the components that are part of this scene. 
+	 */
     @Override
     protected void initializeComponents() {
         setLayout(new BorderLayout());
@@ -86,7 +106,13 @@ public class ExitScene extends BaseScene {
 
         add(contentPanel, BorderLayout.CENTER);
     }
-
+	
+	/**
+	 * Creates and gets the content panel that contains the semi-transparent
+	 * block that is the background of the content panel. 
+	 * 
+	 * @return		the panel created by this method.
+	 */
     private JPanel getContentPanel() {
         JPanel contentPanel = new JPanel() {
             @Override
@@ -102,7 +128,12 @@ public class ExitScene extends BaseScene {
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
         return contentPanel;
     }
-
+	
+	/**
+	 * Creates and gets a JScrollPane containing all the text for the end.
+	 * 
+	 * @return		the JScrollPane created by this method.
+	 */
     private JScrollPane getJScrollPane() {
         String playerName = sceneManager.getParentFrame().getPlayerName();
         JTextArea summaryText = new JTextArea();
@@ -154,4 +185,82 @@ public class ExitScene extends BaseScene {
 
         return new JScrollPane(summaryText);
     }
+	
+	/**
+	 * The method that is automatically called when the scene is shown to the user. 
+	 * This updates the leaderboard by searching for the player's name, and either adding the player
+	 * or incrementing the player's count by one, then re-sorting the leaderboard before updating 
+	 * the leaderboard file. 
+	 */
+	@Override
+	public void onShowScene() {
+		super.onShowScene();
+		//Update the leaderboard
+		ArrayList<String> names = new ArrayList<>();
+		ArrayList<Integer> count = new ArrayList<>();
+		String playerName = sceneManager.getParentFrame().getPlayerName();
+		try {
+			File board = new File("leaderboard.txt");
+			Scanner s = new Scanner(board);
+			String text = ""; //The sorted text that will go back into the file, with the current player added
+			while (s.hasNextLine()) { //Load info from the file
+				String line = s.nextLine();
+				String[] data = line.split(":");
+				names.add(data[0]);
+				count.add(Integer.parseInt(data[1]));
+			}
+			s.close();
+			
+			//Look for the current player
+			boolean found = false;
+			for(int i = 0; i < names.size(); i++) {
+				if (names.get(i).equals(playerName)) {
+					found = true;
+					count.set(i, count.get(i)+1);
+					System.out.println("Count updated to " + count.get(i));
+				}
+			}
+			
+			if (!found) {//Not found, add a new user
+				names.add(playerName);
+				count.add(1); // The user has completed one playthrough
+			}
+			
+			//Sort the arrays based on count
+			int size = count.size(); // The size of the array that still needs to be sorted
+			
+			while (size > 1) { //Sort, to make sure data is up to date
+				int index = 0;
+				for(int i = 0; i < size; i++) {
+					if (count.get(i) >= count.get(index)) {
+						index = i;
+					}
+				}
+				
+				int oldCount = count.get(size-1);
+				count.set(size-1, count.get(index));
+				count.set(index, oldCount);
+				String oldName = names.get(size-1);
+				names.set(size-1, names.get(index));
+				names.set(index, oldName);
+				//System.out.println("index is: " + index+ count+"  |  "+names);
+				size--;
+				
+			}
+			
+			//Update the text variable
+			for(int i = 0; i < names.size(); i++) {
+				text+=names.get(i) + ":"+count.get(i);
+				if (i != names.size()-1) {
+					text+="\n";
+				}
+			}
+			
+			PrintWriter pw = new PrintWriter(new FileWriter(board, false));
+			pw.print(text);
+			pw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

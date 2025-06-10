@@ -1,21 +1,33 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Provides help text and visual cues for navigation
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 
+/**
+ * Shows the help text and visual cues for navigation whenever the user hovers over the icon
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class HelpIcon extends JComponent {
+	/** True if the help text should be displayed, if the mouse hovers over the icon. False if mouse is not hovering over the icon */
     boolean helptext;
+	/** The image of the icon itself */
     final Image icon;
+	/** The JComponent that represents the text drawn whenever the mouse hovers over the icon */
     final HelpText text;
-
+	
+	/** 
+	 * Creates a new HelpIcon with the corresponding mouse listeners to check for whether or not
+	 * the mouse is hovering over the icon. 
+	 * 
+	 * @param main		the JLayeredPane that this is being added to
+	 */
     HelpIcon(JLayeredPane main) {
         this.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
@@ -34,21 +46,45 @@ public class HelpIcon extends JComponent {
         text.setVisible(false);
         main.add(text, JLayeredPane.PALETTE_LAYER);
     }
-
+	
+	/** 
+	 * Draws the icon image and makes the help text visible if the boolean helptext is true
+	 * 
+	 * @param g		the graphics instance that draws the image
+	 */
     public void paintComponent(Graphics g) {
         g.drawImage(icon, 0, 0, icon.getWidth(null), icon.getHeight(null), null);
         text.setVisible(helptext);
     }
-
+	
+	/** 
+	 * Gets the width of the icon
+	 * 
+	 * @return		the width of the icon image
+	 */
     public int getWidth() {
         return icon.getWidth(null);
     }
-
+	
+	/**
+	 * Gets the height of the icon
+	 * 
+	 * @return 		the height of the icon image
+	 */
     public int getHeight() {
         return icon.getHeight(null);
     }
-
+	
+	/**
+	 * The text and corresponding box that is displayed. Contains the text that actually helps
+	 * the user and provides extra information when the help icon is hovered over.
+	 */
     static class HelpText extends JComponent {
+		/**
+		 * Draws the rectangle and text onto the screen
+		 * 
+		 * @param g		the graphics instance that draws the rectange and text
+		 */
         public void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g;
 
