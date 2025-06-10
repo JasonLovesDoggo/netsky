@@ -20,12 +20,22 @@ public class Scene1D extends BaseScene {
     Timer timer;
 	/** The ratio of the robot's current size to it's original size (out of 100) */
     double ratio;
+	/** The instance of the robot from the bottom view */
     RobotBottom rb;
-
+	
+	/**
+	 * Creates a new Scene1D
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public Scene1D(SceneManager sceneManager) {
         super(sceneManager);
     }
 
+	/**
+	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
+	 * Initializes the scene, adds the buttons and defines the timer, along with the robot.
+	 */
     @Override
     protected void initializeComponents() {
         // Scene title
@@ -87,7 +97,11 @@ public class Scene1D extends BaseScene {
             }
         });
     }
-
+	
+	/**
+	 * The method that is automatically called when the scene is shown to the user. 
+	 * It resets the robot's size and location, and starts the timer
+	 */
     @Override
     public void onShowScene() {
         super.onShowScene();
@@ -97,7 +111,15 @@ public class Scene1D extends BaseScene {
         timer.start();
     }
 
+	/** 
+	 * The robot from the bottom view
+	 */
     class RobotBottom extends JComponent {
+		/**
+		 * Draws the image of the bottom of the robot onto the screen, scaled based on the ratio
+		 * 
+		 * @param g		The graphics instance that draws the image
+		 */
         public void paintComponent(Graphics g) {
             Image robot = new ImageIcon("./Images/Scene1DRobot.png").getImage();
             this.setSize((int) (robot.getWidth(null) * ratio / 100), (int) (robot.getWidth(null) * ratio / 100));
@@ -105,7 +127,15 @@ public class Scene1D extends BaseScene {
         }
     }
 
+	/**
+	 * The background of scene 1D
+	 */
     static class SceneOneD extends JComponent {
+		/**
+		 * Draws the background image onto the screen
+		 * 
+		 * @param g		The graphics instance that draws the image
+		 */
         public void paintComponent(Graphics g) {
             Image sceneOnePicture = new ImageIcon("./Images/Scene1D.png").getImage();
             g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);

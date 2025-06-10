@@ -1,21 +1,32 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Manages transitions and registrations of various game scenes.
- */
-
-
 import javax.swing.*;
 
-// Scene manager class to handle switching between scenes
+/**
+ * Scene manager class to handle switching between scenes. It manages transitions and registrations of various game scenes.
+ *
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class SceneManager {
-    public static boolean continueEnabled = true; // Flag to control continue button visibility
+	/** Flag to control button visiblity */
+    public static boolean continueEnabled = true;
+	/** instance of the sceneManager class */
     static SceneManager instance;
+	/** instance of the Game Frame class as the parent class */
     private final GameFrame parentFrame;
+	/** Hash map of all the scenes and their corresponding enums */
     private final java.util.Map<Scene, BaseScene> scenes;
+	/** The current scene the user is on */
     private Scene currentScene;
-
+	
+	/**
+	 * Creates a new SceneManager
+	 * 
+	 * @param parentFrame 	The parentFrame from which everything else is created
+	 */
     public SceneManager(GameFrame parentFrame) {
         this.parentFrame = parentFrame;
         this.scenes = new java.util.HashMap<>();
@@ -26,11 +37,19 @@ public class SceneManager {
         instance = this;
 
     }
-
+	
+	/**
+	 * Get the current instance of scenemanger
+	 *
+	 * @return 		the current instance
+	 */
     public static SceneManager getInstance() {
         return instance;
     }
-
+	
+	/**
+	 * Initializes all of the scenes by putting the scene and it's enum into the hash map
+	 */
     private void initializeScenes() {
         // Create and register all game scenes
         scenes.put(Scene.MAIN_MENU, new MainMenuScene(this));
@@ -50,6 +69,11 @@ public class SceneManager {
         scenes.put(Scene.EXIT_SCENE, new ExitScene(this));
     }
 
+	/**
+	 * Show a certain scene based on the scene name
+	 *
+	 * @param sceneName		the name of the new scene
+	 */
     public void showScene(Scene sceneName) {
 
 
@@ -76,10 +100,18 @@ public class SceneManager {
         parentFrame.repaint();
     }
 
+	/** 
+	 * Gets the parent frame
+	 * 
+	 * @return 		the parent GameFrame frame
+	 */
     public GameFrame getParentFrame() {
         return parentFrame;
     }
-
+	
+	/** 
+	 * Shows the skip ahead options when the user chooses to skip ahead
+	 */
     public void showSkipAheadOptions() {
         String[] skipOptions = {
             "Main Menu - Return to title screen",
@@ -143,6 +175,8 @@ public class SceneManager {
 
     /**
      * Returns the current BaseScene instance
+	 * 
+	 * @return		the current BaseScene instance
      */
     public BaseScene getCurrentBaseScene() {
         if (currentScene != null) {

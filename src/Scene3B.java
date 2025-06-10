@@ -1,26 +1,39 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Scene 3B in which the user speaks to a robot about handing over their umbrella, but it soon rains anyways.
- *
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+/**
+ * Scene 3B in which the user speaks to a robot about handing over their umbrella, but it soon rains anyways.
+ *
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class Scene3B extends BaseScene {
-	
+	/** The scene that is being drawn by the program */
 	SceneThreeB sceneThree;
+	/** The timers that check for the fade out, check if the robot is done talking, check for the fade out animation, and for the rain animation */
 	Timer timer, timer1, timer2, timer3;
+	/** The fade out animation that occurs once this scene is finished */
 	FadeOut fade;
 	
+	/**
+	 * Creates a new Scene3B
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public Scene3B(SceneManager sceneManager) {
         super(sceneManager);
     }
 
+	/**
+	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
+	 * Defines the timers, initializes the components and the robots. 
+	 */
     @Override
     protected void initializeComponents() {
         // Scene title
@@ -155,33 +168,70 @@ public class Scene3B extends BaseScene {
 		});
     }
 	
+	/**
+	 * The method that is automatically called when the scene is shown to the user. 
+	 * Starts the first timer for this scene
+	 */
 	@Override 
 	public void onShowScene() {
 		super.onShowScene();
 		timer1.start();
 	}
 	
+	/**
+	 * The text that goes accross the screen for a timelapse
+	 */
 	static class Timelapse extends JComponent {
+		/**
+		 * paints the text onto the screen
+		 * 
+		 * @param g		the graphics instance that draws the text
+		 */
 		public void paintComponent(Graphics g) {
 			Image text = new ImageIcon("./Images/Timelapse.png").getImage();
 			g.drawImage(text, 0, 0, 358, 61, this);
 		}
 	}
 	
-	static class Rain1 extends JComponent {
+	/**
+	 * The first image used in the rain animation
+	 */
+	static class Rain1 extends JComponent {	
+		/**
+		 * paints the rain onto the screen
+		 * 
+		 * @param g		the graphics instance that draws the rain
+		 */
 		public void paintComponent(Graphics g) {
 			Image rain = new ImageIcon("./Images/Rain1.png").getImage();
 			g.drawImage(rain, 0, 0, 800, 500, this);
 		}
 	}
+	
+	/**
+	 * The second image used in the rain animation
+	 */
 	static class Rain2 extends JComponent {
+		/**
+		 * paints the rain onto the screen
+		 * 
+		 * @param g		the graphics instance that draws the rain
+		 */
 		public void paintComponent(Graphics g) {
 			Image rain = new ImageIcon("./Images/Rain2.png").getImage();
 			g.drawImage(rain, 0, 0, 800, 500, this);
 		}
 	}
 	
+	/**
+	 * The background of scene three
+	 */
 	static class SceneThreeB extends JComponent {
+		/**
+		 * paints the background and the person onto the screen
+		 * 
+		 * @param g		the graphics instance that draws the background and person
+		 */
 		public void paintComponent(Graphics g) {
 			Image background = new ImageIcon("./Images/Scene3BGB.png").getImage();
 			g.drawImage(background, 0, 0, 800, 500, this);

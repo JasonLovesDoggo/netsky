@@ -1,39 +1,61 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: This is Scene 3A, where the user sees a bunch of other people tossing their umbrellas to join a big pile
- *
- */
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This is Scene 3A, where the user sees a bunch of other people tossing their umbrellas to join a big pile
+ *
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class Scene3A extends BaseScene {
+	/** The user input variable that takes in user input through keyboard */
     public UserInput userIn;
+	/** The scene three instance that is being drawn by the program */
     SceneThree sceneThree;
+    /** The fade out animation that occurs once this scene is finished */
     FadeOut fade;
+	/** the timers that check for fade out and move an umbrella */
     Timer timer, timer1;
+	/** True if an umbrella is moving, false if not */
     boolean moving;
-    int index; //The variable that keeps track of which animation is occuring
+	/** The variable that keeps track of which animation is occuring */
+    int index;
+	/** The array of umbrellas */
 	Umbrella[] umbrellas;
+	/** The start x locations of the umrellas */
 	static final int[] startX = {100, 500, 200, 160, 630, 510, 430};
+	/** The end y locations of the umbrellas */
 	static final int[] startY = {0, 0, 0, 0, 0, 0, 0};
+	/** The destination x locations of the umbrellas */
 	static final int[] destinationX = {280, 320, 250, 330, 360, 290, 330};
+	/** the destination y locations of the umbrellas */
 	static final int[] destinationY = {350, 350, 350, 370, 320, 320, 380};
+	/** The JLayeredPane in which everything else is being drawn */
 	JLayeredPane main;
 	
+	/**
+	 * Creates a new Scene3A
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public Scene3A(SceneManager sceneManager) {
         super(sceneManager);
     }
 
+	/**
+	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
+	 * Initializes the umbrellas, creates the components for the scene, and defines the timers
+	 */
     @Override
     protected void initializeComponents() {
 		SceneManager.continueEnabled = true;
-		InitializeUmbrellas();
+		initializeUmbrellas();
 		// Scene title
         JLabel titleLabel = new JLabel("Scene 3A");
         titleLabel.setFont(Palette.TITLE_FONT);
@@ -118,7 +140,10 @@ public class Scene3A extends BaseScene {
         });
     }
 
-	private void InitializeUmbrellas() {
+	/** 
+	 * Initialize all of the umbrellas with their respective locations
+	 */
+	private void initializeUmbrellas() {
 		index = 0;
 		umbrellas = new Umbrella[7];
 		for(int i = 0; i < umbrellas.length; i++) {
@@ -127,12 +152,17 @@ public class Scene3A extends BaseScene {
 			umbrellas[i].setLocation(startX[i], startY[i]);
 		}
 	}
-
+	
+	/**
+	 * The method that is automatically called when the scene is shown to the user. 
+	 * It resets the userinput prompt count, along with re-initializing all of the 
+	 * umbrellas to ensure they end up in the right locations.
+	 */
 	@Override
     public void onShowScene() {
         super.onShowScene();
 		userIn.promptCount = 0;
-		InitializeUmbrellas();
+		initializeUmbrellas();
 
 		for(Umbrella u : umbrellas) {
 			main.add(u, JLayeredPane.PALETTE_LAYER);
@@ -141,15 +171,31 @@ public class Scene3A extends BaseScene {
         timer.start();
     }
 	
+	/**
+	 * An umbrella
+	 */
 	static class Umbrella extends JComponent {
+		/** The number of which umbrella it is*/
 		final int number;
+		/** The width of the image */
         int width;
+		/** The height of the image */
         int height;
+		/** The scale of the image relative to the original photo*/
         int scale;
+		
+		/** 
+		 * Creates a new umbrella with a given number and default scale of 9
+		 */
 		Umbrella(int n) {
 			number = n;
 			scale = 9;
 		}
+		/**
+		 * paints the umbrella with the correct size based on the scale
+		 * 
+		 * @param g		the graphics instance that draws the umbrella
+		 */
 		public void paintComponent(Graphics g) {
 			Image umbrella = new ImageIcon("./Images/Umbrella"+number+".png").getImage();
 			if (width > 0 && height > 0) {
@@ -163,8 +209,17 @@ public class Scene3A extends BaseScene {
 		}
 	}
 	
+	/**
+	 * The scene three background that also handles which umbrella is being moved based on the user input prompt count
+	 */
     class SceneThree extends JComponent {
+		/** The count of how many umbrellas have been moved */
 		int count;
+		/**
+		 * paints the background and the corresponding prompt / umbrella animation
+		 * 
+		 * @param g		the graphics instance that draws the background and the prompts
+		 */
         public void paintComponent(Graphics g) {
             Image background = new ImageIcon("./Images/Scene3BGA.png").getImage();
             g.drawImage(background, 0, 0, 800, 500, this);

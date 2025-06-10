@@ -19,23 +19,40 @@ import java.util.Arrays;
  * Ms. Krasteva
  */
 public class Scene1Complete extends BaseScene implements KeyListener {
-	
+	/** The index where the cow image should be visible */
     private static final int COW_IMAGE_STEP_INDEX = 3;
+	/** The area where the explaination is */
     private JTextArea explanationArea;
+	/** The button that takes the user to the next explaination */
     private JButton nextExplanationButton;
+	/** The array of partial explainations */
     private ArrayList<String> explanationSteps;
+	/** The current step that is being displayed */
     private int currentStep = 0;
+	/** The label of the image */
     private ScaledImageLabel imageLabel;
+	/** The cow image */
     private Image cowImage = null;
+	/** The image from the dog scene */
     private Image dogSceneImage = null;
+	/** The image from the bird scene */
     private Image birdImage = null;
 
+	/** 
+	 * Creates a new Scene1Complete with keylisteners
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public Scene1Complete(SceneManager sceneManager) {
         super(sceneManager);
         addKeyListener(this);
         setFocusable(true);
     }
 
+	/**
+	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
+	 * Creates all of the components of the scene.
+	 */
     @Override
     protected void initializeComponents() {
         SceneManager.continueEnabled = false;
@@ -142,6 +159,11 @@ public class Scene1Complete extends BaseScene implements KeyListener {
         SwingUtilities.invokeLater(() -> requestFocusInWindow());
     }
 
+	/** 
+	 * Creates and returns the title panel
+	 * 
+	 * @return 		the title panel created by this method
+	 */
     private static JPanel getTitlePanel() {
         JPanel titlePanel = new JPanel(new BorderLayout());
         titlePanel.setBackground(new Color(240, 240, 250));
@@ -161,7 +183,12 @@ public class Scene1Complete extends BaseScene implements KeyListener {
         titlePanel.add(keyHint, BorderLayout.SOUTH);
         return titlePanel;
     }
-
+	
+	/**
+	 * Changes the display based on which step the scene has changed to
+	 * 
+	 * @param step		the new step
+	 */
     private void updateStepDisplay(int step) {
         if (step < 0) {
             step = 0;
@@ -236,15 +263,26 @@ public class Scene1Complete extends BaseScene implements KeyListener {
             nextExplanationButton.setBackground(Palette.BUTTON_PRIMARY);
         }
     }
-
+	
+	/** 
+	 * Move to the next step
+	 */
     private void goToNextStep() {
         updateStepDisplay(currentStep + 1);
     }
-
+	
+	/** 
+	 * Go back to the previous step
+	 */
     private void goToPreviousStep() {
         updateStepDisplay(currentStep - 1);
     }
-
+	
+	/**
+	 * The method that is automatically called when the scene is shown to the user. 
+	 * Keeps the sceneManager from continuing until the scene is done. Resets to the first 
+	 * step, and requests focus once again.
+	 */
     @Override
     public void onShowScene() {
         super.onShowScene();
@@ -255,12 +293,17 @@ public class Scene1Complete extends BaseScene implements KeyListener {
         SwingUtilities.invokeLater(() -> requestFocusInWindow());
     }
 
-    // KeyListener implementation
+    /**
+	 * KeyListener implementation
+	 */
     @Override
     public void keyTyped(KeyEvent e) {
         // Not used
     }
-
+	
+	/**
+	 *	Keylistener implementation for keypressed. Whenever i or u is pressed, the step changes
+	 */
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyChar()) {
@@ -273,15 +316,24 @@ public class Scene1Complete extends BaseScene implements KeyListener {
         }
     }
 
+	/**
+	 * KeyListener implementation
+	 */
     @Override
     public void keyReleased(KeyEvent e) {
         // Not used
     }
 
-    // Image display component with proper scaling and background matching
+    /**
+	 * Image display component with proper scaling and background matching
+	 */
     static class ScaledImageLabel extends JLabel {
+		/** The image being shown */
         private Image image;
 
+		/**
+		 * creates a new ScaledImageLabel and aligns it horizontally and vertically
+		 */
         public ScaledImageLabel() {
             super();
             this.setHorizontalAlignment(SwingConstants.CENTER);
@@ -289,12 +341,22 @@ public class Scene1Complete extends BaseScene implements KeyListener {
             this.setOpaque(true);
         }
 
+		/** 
+		 *	sets the image for this class
+		 *
+		 * @param img 		the new image for the class
+		 */
         public void setImage(Image img) {
             this.image = img;
             this.setText(null);
             repaint();
         }
 
+		/**
+		 * Sets the text for this class
+		 * 
+		 * @param text		the new text for the class
+		 */
         @Override
         public void setText(String text) {
             if (image == null) {
@@ -304,6 +366,11 @@ public class Scene1Complete extends BaseScene implements KeyListener {
             }
         }
 
+		/**
+		 * paints the image
+		 * 
+		 * @param g		the graphics instance that draws the image
+		 */
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;

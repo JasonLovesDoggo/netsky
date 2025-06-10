@@ -1,15 +1,28 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Breaking news scene with dynamic scrolling text
+/**
+ * Breaking news scene with dynamic scrolling text
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
  */
-
 public class Scene1News extends AbstractNewsScene {
+	/**
+	 * Creates a new Scene1News
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public Scene1News(SceneManager sceneManager) {
         super(sceneManager);
     }
-
+	
+	/**
+	 * Sets the text for the news
+	 * 
+	 * @return 	the text for the news
+	 */
     @Override
     protected ScrollingText getNews() {
         return new ScrollingText(

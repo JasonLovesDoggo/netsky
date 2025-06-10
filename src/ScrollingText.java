@@ -1,32 +1,55 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Component that displays vertically scrolling text with customizable styling
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+/**
+ * Component that displays vertically scrolling text with customizable styling
+ *
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class ScrollingText extends JComponent implements MouseWheelListener {
+	/** the distance from the top that the text should pause */
     private static final int PAUSE_DISTANCE = 40;
+	/** The starting y position of the text */
     private static final int START_Y = 500;
+	/** The speed at which the text scrolls */
     private static final int SCROLL_MULT = 2;
+	/** The margin the edges and the text */
     private static final int MARGIN = 10;
+	/** The line height */
     private static int LINE_HEIGHT = 30;
+	/** The text that is scrolling */
     private final String text;
+	/** the timer that controlls scrolling*/
     private final Timer timer;
+	/** Y location of the text */
     private int y = 0;
+	/** Flag that is true if it is the first time painted, and false otherwise. */
     private boolean firstPaint = true;
+	/** the scroll speed of the text */
     private double scrollSpeed = 1.0;
+	/** the total distance scrolled automatically */
     private double accumulatedScroll = 0.0;
+	/** The color of the text */
     private Color textColor = Color.BLACK;
+	/** The font for the text */
     private Font textFont = new Font("Times New Roman", Font.PLAIN, 30);
+	/** Whether or not autoscrolling is currently happening */
     private boolean autoScrolling = true;
+	/** The total height of all the text combined */
     private int totalTextHeight = 0;
 
+	/**
+	 * Creates a new ScrollingText and defines the timers
+	 * 
+	 * @param text		the text that is scrolling
+	 */
     public ScrollingText(String text) {
         this.text = text;
         this.addMouseWheelListener(this);
@@ -49,7 +72,12 @@ public class ScrollingText extends JComponent implements MouseWheelListener {
             }
         });
     }
-
+	
+	/**
+	 * draws everything if it isn't the first paint of the text
+	 * 
+	 * @param g		the graphics instance that draws the text  
+	 */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -113,35 +141,70 @@ public class ScrollingText extends JComponent implements MouseWheelListener {
             g.drawString(instructions, instructX, getHeight() - 20);
         }
     }
-
+	
+	/**
+	 * draws the text centered 
+	 * 
+	 * @param g 		the graphics instance that draws the text
+	 * @param text		the text that is being drawn
+	 * @param fm		the fontmetrics that allows the program to determine the width of the font
+	 * @param width		the width of the text
+	 * @param y			the y location of the text
+	 */
     private void drawCentered(Graphics g, String text, FontMetrics fm, int width, int y) {
         int x = MARGIN + (width - fm.stringWidth(text)) / 2;
         g.drawString(text, x, y);
     }
-
+	
+	/**
+	 * Sets the scroll speed
+	  * 
+	  * @param speed 		the new value of the scroll speed
+	 */
     public void setScrollSpeed(double speed) {
         if (speed > 0) scrollSpeed = speed;
     }
-
+	
+	/** 
+	 *	Sets autoscrolling and starts the timer for autoscrolling
+	 */
     public void setScrolling() {
         autoScrolling = true;
         timer.start();
     }
 
+	/** 
+	 * sets the y location of the text
+	 * 
+	 * @param y		the new y location of the text 
+	 */
     public void setY(int y) {
         this.y = y;
     }
 
+	/** 
+	 * Sets the new text color
+	 * 
+	 * @param color		the color of the new text
+	 */
     public void setTextColor(Color color) {
         this.textColor = color;
     }
 
+	/**
+	 * Sets the font to a new font
+	 * 
+	 * @param font		the new font for the text 
+	 */
     public void setFont(Font font) {
         this.textFont = font;
         int fontSize = font.getSize();
         LINE_HEIGHT = Math.max(30, fontSize + 10);
     }
 
+	/** 
+	 * Enable manual scrolling. Called if the mouse wheel is moved
+	 */
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         // Stop auto-scrolling when user interacts with the mouse wheel
@@ -160,6 +223,11 @@ public class ScrollingText extends JComponent implements MouseWheelListener {
         repaint();
     }
 
+	/**
+	 * Gets whether or not autoscrolling is done
+	 * 
+	 * @return 	true if autoscrolling is done, false otherwise
+	 */
     public boolean isScrollingComplete() {
         return !autoScrolling;
     }

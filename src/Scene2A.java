@@ -1,33 +1,53 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: This is Scene 2, where the garbage truck drives down the road and picks up garbage
- *
- */
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This is Scene 2, where the garbage truck drives down the road and picks up garbage
+ *
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class Scene2A extends BaseScene {
+	/** The user input variable that takes in user input through keyboard */
     public UserInput userIn;
+	/** The scene two instance that is being drawn by the program */
     SceneTwo sceneTwo;
+	/** The timers that move the garbage in front of the truck, move the truck, the truck's hand, and the garbage respectively */
     Timer timer, timer1, timer2, timer3;
+	/** The distance that the truck moves forward */
     int distance;
+	/** The y location that the truck hand moves to */
     int handToY = 90;
+	/** Whether or not the truck is moving*/
     boolean moving;
+	/** The hand of the garbage truck */
     GarbageTruckHand hand;
+	/** The truck itself */
     GarbageTruck truck;
+	/** The current width of the garbage in the truck */
     int currentWidth;
-    int index; //The variable that tracks which part of the animation the truck is on. Refers to the index of the items array
-
+	/** The variable that tracks which part of the animation the truck is on. Refers to the index of the items array */
+    int index;
+	
+	/**
+	 * Creates a new Scene2A 
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public Scene2A(SceneManager sceneManager) {
         super(sceneManager);
     }
-
+	
+	/**
+	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
+	 * Creates the array of garbage items along with the scene itself and the timers
+	 */
     @Override
     protected void initializeComponents() {
 		SceneManager.continueEnabled = true;
@@ -168,7 +188,11 @@ public class Scene2A extends BaseScene {
             }
         });
     }
-
+	
+	/**
+	 * The method that is automatically called when the scene is shown to the user. 
+	 * It starts the timers.
+	 */
     @Override
     public void onShowScene() {
         super.onShowScene();
@@ -176,18 +200,36 @@ public class Scene2A extends BaseScene {
         timer1.start();
         timer.start();
     }
-
+	
+	/**
+	 * Pieces of garbage that will be picked up by the garbage truck's hand 
+	 */
     static class Garbage extends JComponent {
+		/** The scale of the image - how big it is in relation to the original photo */
         final int scale;
+		/** the width of the image */
         int width;
+		/** The height of the image */
         int height;
+		/** The type of garbage (umbrella, bag, bike, person)*/
         final String type;
-
+		
+		/**
+		 * creates a new garbage 
+		 * 
+		 * @param scale		the scale of the image
+		 * @param type		the type of garbage this creates
+		 */
         Garbage(int scale, String type) {
             this.scale = scale;
             this.type = type;
         }
-
+		
+		/**
+		 * draws the garbage based on the type
+		 * 
+		 * @param g		the graphics instance that draws the garbage 
+		 */
         public void paintComponent(Graphics g) {
             Image garbage;
             switch (type) {
@@ -216,10 +258,19 @@ public class Scene2A extends BaseScene {
             //System.out.println("Width: " + width + " and height: " + height);
         }
     }
-
+	
+	/**
+	 * The garbage truck's hand that picks up the garbage
+	 */
     class GarbageTruckHand extends JComponent {
+		/** The width and height of the image of the hand */
         int width, height;
-
+		
+		/**
+		 * initalizes and draws the hand
+		 * 
+		 * @param g		the graphics instance that draws the hand 
+		 */
         public void paintComponent(Graphics g) {
             Image handPic = new ImageIcon("./Images/GarbageTruckHand.png").getImage();
             if (width > 0 && height > 0) {
@@ -232,10 +283,19 @@ public class Scene2A extends BaseScene {
             g.drawImage(handPic, 0, 0, width, height, this);
         }
     }
-
+	
+	/** 
+	 * The garbage truck
+	 */
     static class GarbageTruck extends JComponent {
+		/** The width and height of the image of the truck */
         int width, height;
 
+		/**
+		 * initalizes and draws the truck
+		 * 
+		 * @param g		the graphics instance that draws the truck
+		 */
         public void paintComponent(Graphics g) {
             if (width > 0 && height > 0) {
                 setSize(width, height);
@@ -249,7 +309,15 @@ public class Scene2A extends BaseScene {
         }
     }
 
+	/**
+	 * The background scene that also handles where the hand moves based on which piece of garbage is being moved
+	 */
     class SceneTwo extends JComponent {
+		/**
+		 * initalizes and draws the background. Also handles where the hand moves and which animations occur
+		 * 
+		 * @param g		the graphics instance that draws the tree
+		 */
         public void paintComponent(Graphics g) {
             Image background = new ImageIcon("./Images/Scene2BG.png").getImage();
             g.drawImage(background, 0, 0, 800, 500, this);

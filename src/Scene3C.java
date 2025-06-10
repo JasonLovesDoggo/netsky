@@ -1,11 +1,3 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: This scene explains the shortcut learning concept based on the AI's behavior
- *              in Scene 3A and 3B where it mistakenly associated umbrellas with rainstorms.
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -13,18 +5,41 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * This scene explains the shortcut learning concept based on the AI's behavior in Scene 3A and 3B where it mistakenly associated umbrellas with rainstorms.
+ *
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
+ */
 public class Scene3C extends BaseScene implements KeyListener {
+	/** The area where the explaination is */
     private JTextArea explanationArea;
+	/** The button that takes the user to the next explaination */
     private JButton nextExplanationButton;
+	/** The array of partial explainations */
     private ArrayList<String> explanationSteps;
+	/** The current step that is being displayed */
     private int currentStep = 0;
 
+	/**
+	 * Creates a new Scene3C 
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public Scene3C(SceneManager sceneManager) {
         super(sceneManager);
         addKeyListener(this);
         setFocusable(true);
     }
 
+	/**
+	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
+	 * Creates all of the components of the scene.
+	 */
     @Override
     protected void initializeComponents() {
         SceneManager.continueEnabled = false;
@@ -124,6 +139,11 @@ public class Scene3C extends BaseScene implements KeyListener {
         SwingUtilities.invokeLater(() -> requestFocusInWindow());
     }
 
+	/** 
+	 * Creates and returns the title panel
+	 * 
+	 * @return 		the title panel created by this method
+	 */
     private static JPanel getTitlePanel() {
         JPanel titlePanel = new JPanel(new BorderLayout());
         titlePanel.setBackground(new Color(240, 240, 250));
@@ -144,6 +164,11 @@ public class Scene3C extends BaseScene implements KeyListener {
         return titlePanel;
     }
 
+	/**
+	 * Changes the display based on which step the scene has changed to
+	 * 
+	 * @param step		the new step
+	 */
     private void updateStepDisplay(int step) {
         if (step < 0) {
             step = 0;
@@ -166,15 +191,26 @@ public class Scene3C extends BaseScene implements KeyListener {
             nextExplanationButton.setBackground(Palette.BUTTON_PRIMARY);
         }
     }
-
+	
+	/** 
+	 * Move to the next step
+	 */
     private void goToNextStep() {
         updateStepDisplay(currentStep + 1);
     }
-
+	
+	/** 
+	 * Go back to the previous step
+	 */
     private void goToPreviousStep() {
         updateStepDisplay(currentStep - 1);
     }
-
+	
+	/**
+	 * The method that is automatically called when the scene is shown to the user. 
+	 * Keeps the sceneManager from continuing until the scene is done. Resets to the first 
+	 * step, and requests focus once again.
+	 */
     @Override
     public void onShowScene() {
         super.onShowScene();
@@ -196,13 +232,18 @@ public class Scene3C extends BaseScene implements KeyListener {
             }
         });
     }
-
-    // KeyListener implementation
+	
+	/**
+	 * KeyListener implementation
+	 */
     @Override
     public void keyTyped(KeyEvent e) {
         // Not used
     }
-
+	
+   	/**
+	 *	Keylistener implementation for keypressed. Whenever i or u is pressed, the step changes
+	 */
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyChar()) {
@@ -215,6 +256,9 @@ public class Scene3C extends BaseScene implements KeyListener {
         }
     }
 
+	/**
+	 * Keylistener implementation
+	 */
     @Override
     public void keyReleased(KeyEvent e) {
         // Not used

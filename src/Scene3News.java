@@ -1,17 +1,28 @@
-/*
- * Names: Jason Cameron, Zoe Li
- * Date: Jun 9th, 2025
- * Teacher: Ms. Krasteva
- * Description: Breaking news scene #2 with dynamic scrolling text. Announces that umbrellas must be turned in
+/**
+ * Breaking news scene #2 with dynamic scrolling text. Announces that umbrellas must be turned in
+ * 
+ * @author Jason Cameron
+ * @author Zoe Li
+ * 
+ * Date: June 9th, 2025
+ * ICS4U0
+ * Ms. Krasteva
  */
-
-
 public class Scene3News extends AbstractNewsScene {
-
+	/**
+	 * Creates a new Scene3News
+	 * 
+	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+	 */
     public Scene3News(SceneManager sceneManager) {
         super(sceneManager);
     }
-
+	
+	/**
+	 * Sets the text for the news
+	 * 
+	 * @return 	the text for the news
+	 */
     @Override
     protected ScrollingText getNews() {
         return new ScrollingText(
