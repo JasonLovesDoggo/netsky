@@ -15,15 +15,15 @@ public enum Scene {
 	/** The scene that allows the user to change their name */
     CHANGE_NAME("Change Name - Modify player name"),
 	/** Scene that provides context for scene one */
-    SCENE_1NEWS("Scene 1 News - Initial report and context "),
+    SCENE_1NEWS("Scene 1 News - Initial report and context"),
 	/** Scene in which users interact with their first service robot */
-    SCENE_1A("Scene 1A - Interaction with a service robot "),
+    SCENE_1A("Scene 1A - Interaction with a service robot"),
 	/** Scene in which the user learns why the robot is holding a dog leash */
     SCENE_1B("Scene 1B - Interaction with townspeople"),
 	/** Scene in which the user interacts with a second robot */
-    SCENE_1C("Scene 1C - Another one "),
+    SCENE_1C("Scene 1C - Another one"),
 	/** Scene in which the robot rockets up into the sky */
-    SCENE_1D("Scene 1D - Rocket robot "),
+    SCENE_1D("Scene 1D - Rocket robot"),
 	/** Scene in which the actions of the service robots are explained */
     SCENE_1COMPLETE("Scene 1 Explanation - Shortcut learning and explainations"),
 	/** Scene in which the garbage truck picks up everything on the curb */
