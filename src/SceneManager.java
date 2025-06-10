@@ -1,32 +1,43 @@
 import javax.swing.*;
+import java.util.Arrays;
 
 /**
  * Scene manager class to handle switching between scenes. It manages transitions and registrations of various game scenes.
  *
  * @author Jason Cameron
  * @author Zoe Li
- * 
+ * <p>
  * Date: June 9th, 2025
  * ICS4U0
  * Ms. Krasteva
  */
 public class SceneManager {
-	/** Flag to control button visiblity */
+    /**
+     * Flag to control button visiblity
+     */
     public static boolean continueEnabled = true;
-	/** instance of the sceneManager class */
+    /**
+     * instance of the sceneManager class
+     */
     static SceneManager instance;
-	/** instance of the Game Frame class as the parent class */
+    /**
+     * instance of the Game Frame class as the parent class
+     */
     private final GameFrame parentFrame;
-	/** Hash map of all the scenes and their corresponding enums */
+    /**
+     * Hash map of all the scenes and their corresponding enums
+     */
     private final java.util.Map<Scene, BaseScene> scenes;
-	/** The current scene the user is on */
+    /**
+     * The current scene the user is on
+     */
     private Scene currentScene;
-	
-	/**
-	 * Creates a new SceneManager
-	 * 
-	 * @param parentFrame 	The parentFrame from which everything else is created
-	 */
+
+    /**
+     * Creates a new SceneManager
+     *
+     * @param parentFrame The parentFrame from which everything else is created
+     */
     public SceneManager(GameFrame parentFrame) {
         this.parentFrame = parentFrame;
         this.scenes = new java.util.HashMap<>();
@@ -37,19 +48,19 @@ public class SceneManager {
         instance = this;
 
     }
-	
-	/**
-	 * Get the current instance of scenemanger
-	 *
-	 * @return 		the current instance
-	 */
+
+    /**
+     * Get the current instance of scenemanger
+     *
+     * @return the current instance
+     */
     public static SceneManager getInstance() {
         return instance;
     }
-	
-	/**
-	 * Initializes all of the scenes by putting the scene and it's enum into the hash map
-	 */
+
+    /**
+     * Initializes all of the scenes by putting the scene and it's enum into the hash map
+     */
     private void initializeScenes() {
         // Create and register all game scenes
         scenes.put(Scene.MAIN_MENU, new MainMenuScene(this));
@@ -69,11 +80,11 @@ public class SceneManager {
         scenes.put(Scene.EXIT_SCENE, new ExitScene(this));
     }
 
-	/**
-	 * Show a certain scene based on the scene name
-	 *
-	 * @param sceneName		the name of the new scene
-	 */
+    /**
+     * Show a certain scene based on the scene name
+     *
+     * @param sceneName the name of the new scene
+     */
     public void showScene(Scene sceneName) {
 
 
@@ -100,83 +111,67 @@ public class SceneManager {
         parentFrame.repaint();
     }
 
-	/** 
-	 * Gets the parent frame
-	 * 
-	 * @return 		the parent GameFrame frame
-	 */
+    /**
+     * Gets the parent frame
+     *
+     * @return the parent GameFrame frame
+     */
     public GameFrame getParentFrame() {
         return parentFrame;
     }
-	
-	/** 
-	 * Shows the skip ahead options when the user chooses to skip ahead
-	 */
+
+    /**
+     * Shows the skip ahead options when the user chooses to skip ahead
+     */
     public void showSkipAheadOptions() {
-        String[] skipOptions = {
-            "Main Menu - Return to title screen",
-            "Scene 1 News - Initial environmental report",
-            "Scene 1A - Garbage investigation with Robot",
-            "Scene 1B - Interaction with townspeople",
-            "Scene 1C - Tree planting activity",
-            "Scene 1D - Air pollution encounter",
-            "Scene 1 Explanation - Environmental damage summary",
-            "Scene 2A - Recycling challenge",
-            "Scene 2 Explanation - Recycling importance",
-            "Scene 3 News - Climate change report",
-            "Scene 3A - Community garden initiative",
-            "Scene 3B - Green energy solutions",
-            "Scene 3 Explanation - Future sustainability",
-            "Exit Scene - Game completion and credits"
+        Scene[] skipOptions = {
+                Scene.MAIN_MENU,
+                Scene.SCENE_1NEWS,
+                Scene.SCENE_1A,
+                Scene.SCENE_1B,
+                Scene.SCENE_1C,
+                Scene.SCENE_1D,
+                Scene.SCENE_1COMPLETE,
+                Scene.SCENE_2A,
+                Scene.SCENE_2B,
+                Scene.SCENE_3NEWS,
+                Scene.SCENE_3A,
+                Scene.SCENE_3B,
+                Scene.SCENE_3C,
+                Scene.EXIT_SCENE
         };
 
-        String selectedSkip = (String) JOptionPane.showInputDialog(
+        // Build a display list from the labels
+        String[] displayOptions = Arrays.stream(skipOptions)
+                .map(scene -> scene.label)
+                .toArray(String[]::new);
+
+// Show dialog using the label strings
+        String selectedLabel = (String) JOptionPane.showInputDialog(
                 this.getParentFrame(),
                 "Choose a point to skip to:",
                 "Skip Ahead",
                 JOptionPane.PLAIN_MESSAGE,
                 null,
-                skipOptions,
-                skipOptions[0]
+                displayOptions,
+                displayOptions[0]
         );
 
-        if (selectedSkip != null) {
-            if (selectedSkip.startsWith("Main Menu")) {
-                showScene(Scene.MAIN_MENU);
-            } else if (selectedSkip.startsWith("Scene 1 News")) {
-                showScene(Scene.SCENE_1NEWS);
-            } else if (selectedSkip.startsWith("Scene 1A")) {
-                showScene(Scene.SCENE_1A);
-            } else if (selectedSkip.startsWith("Scene 1B")) {
-                showScene(Scene.SCENE_1B);
-            } else if (selectedSkip.startsWith("Scene 1C")) {
-                showScene(Scene.SCENE_1C);
-            } else if (selectedSkip.startsWith("Scene 1D")) {
-                showScene(Scene.SCENE_1D);
-            } else if (selectedSkip.startsWith("Scene 1 Explanation")) {
-                showScene(Scene.SCENE_1COMPLETE);
-            } else if (selectedSkip.startsWith("Scene 2A")) {
-                showScene(Scene.SCENE_2A);
-            } else if (selectedSkip.startsWith("Scene 2 Explanation")) {
-                showScene(Scene.SCENE_2B);
-            } else if (selectedSkip.startsWith("Scene 3 News")) {
-                showScene(Scene.SCENE_3NEWS);
-            } else if (selectedSkip.startsWith("Scene 3A")) {
-                showScene(Scene.SCENE_3A);
-            } else if (selectedSkip.startsWith("Scene 3B")) {
-                showScene(Scene.SCENE_3B);
-            } else if (selectedSkip.startsWith("Scene 3 Explanation")) {
-                showScene(Scene.SCENE_3C);
-            } else if (selectedSkip.startsWith("Exit Scene")) {
-                showScene(Scene.EXIT_SCENE);
+        // Convert selected label back to corresponding Scene
+        if (selectedLabel != null) {
+            for (Scene s : skipOptions) {
+                if (s.label.equals(selectedLabel)) {
+                    showScene(s);
+                    break;
+                }
             }
         }
     }
 
     /**
      * Returns the current BaseScene instance
-	 * 
-	 * @return		the current BaseScene instance
+     *
+     * @return the current BaseScene instance
      */
     public BaseScene getCurrentBaseScene() {
         if (currentScene != null) {
