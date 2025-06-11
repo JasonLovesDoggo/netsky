@@ -217,7 +217,7 @@ public class ExitScene extends BaseScene {
 				if (names.get(i).equals(playerName)) {
 					found = true;
 					count.set(i, count.get(i)+1);
-					System.out.println("Count updated to " + count.get(i));
+					//System.out.println("Count updated to " + count.get(i));
 				}
 			}
 			
