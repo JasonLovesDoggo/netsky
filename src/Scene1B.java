@@ -138,7 +138,11 @@ public class Scene1B extends BaseScene {
             g.drawImage(sceneOnePicture, 0, 0, 800, 500, this);
             Image person = new ImageIcon("./Images/Person.png").getImage();
             g.drawImage(person, 450, 200, person.getWidth(null), person.getHeight(null), null);
-
+			
+			if (fade) { //if fading, the user is not allowed to change prompts
+				userIn.promptCount = 4;
+			}
+			
             if (userIn.promptCount == 0) {
                 new Prompt("Controls are consistent throughout the program. i to interact.", 50, 50, g, (Graphics2D) g);
             } else if (userIn.promptCount < 4) {

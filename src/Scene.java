@@ -76,7 +76,10 @@ public enum Scene {
      * The label for the scene, used for display purposes
      */
     public final String label;
-
+		
+	/**
+	 * The constructor that creates a new scene and sets the label value
+	 */
     Scene(String label) {
         this.label = label;
     }
