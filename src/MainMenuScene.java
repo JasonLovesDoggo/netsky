@@ -1,41 +1,47 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.io.*;
+import java.util.Scanner;
 
 /**
  * The first scene the user sees, through which they can start the program. The main menu.
- * 
+ *
  * @author Jason Cameron
  * @author Zoe Li
- * 
+ * <p>
  * Date: Jun 9th, 2025
  * ICS4U0
  * Ms. Krasteva
  */
 public class MainMenuScene extends BaseScene {
-	/** The image that makes up the background */
+    /**
+     * The image that makes up the background
+     */
     private final Image backgroundImage;
-	/** The text at the top of the screen that welcomes the player */
+    /**
+     * The text at the top of the screen that welcomes the player
+     */
     private JLabel welcomeLabel;
-	
-	/** 
-	 * Creates a new main menu and initializes the background image
-	 * 
-	 * @param sceneManager 	The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
-	 */
+
+    /**
+     * Creates a new main menu and initializes the background image
+     *
+     * @param sceneManager The sceneManager that runs the whole program, passed in so that it can be accessed throughout the class
+     */
     public MainMenuScene(SceneManager sceneManager) {
         super(sceneManager);
         // once within the JAR, getClass().getResource("/Images/MainBG.png")
         backgroundImage = new ImageIcon("./Images/MainBG.png").getImage();
     }
-	
-	/**
-	 * Draws the background image and company logo.
-	 * 
-	 * @param g		the graphics instance that draws the background image and company logo
-	 */
+
+    /**
+     * Draws the background image and company logo.
+     *
+     * @param g the graphics instance that draws the background image and company logo
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -44,11 +50,11 @@ public class MainMenuScene extends BaseScene {
         Image logo = new ImageIcon("./Images/Logo.png").getImage();
         g.drawImage(logo, 10, 10, logo.getWidth(null) / 5, logo.getHeight(null) / 5, this);
     }
-	
-	/** 
-	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
-	 * Creates and initializes all the different components that are a part of the main menu scene.
-	 */
+
+    /**
+     * Called at the beginning, when this scene is added to the sceneManager and created for the first time.
+     * Creates and initializes all the different components that are a part of the main menu scene.
+     */
     @Override
     protected void initializeComponents() {
         setLayout(new BorderLayout(20, 20)); // Add some spacing
@@ -78,7 +84,7 @@ public class MainMenuScene extends BaseScene {
         bottomButtonPanel.setOpaque(false);
 
         bottomButtonPanel.add(ButtonFactory.createButton("Instructions", e -> showInstructions()));
-		bottomButtonPanel.add(ButtonFactory.createButton("Leaderboard", e -> viewLeaderboard()));
+        bottomButtonPanel.add(ButtonFactory.createButton("Leaderboard", e -> viewLeaderboard()));
         bottomButtonPanel.add(ButtonFactory.createSceneButton("Change Name", Scene.CHANGE_NAME));
         bottomButtonPanel.add(ButtonFactory.createButton("Skip Ahead", e -> sceneManager.showSkipAheadOptions()));
         bottomButtonPanel.add(ButtonFactory.createButton("Exit", e -> System.exit(0)));
@@ -91,12 +97,12 @@ public class MainMenuScene extends BaseScene {
 
         add(buttonContainerPanel, BorderLayout.SOUTH);
     }
-	
-	/**
-	 * Creates the top button panel, which contains the start game button.
-	 * 
-	 * @return 		the jpanel created by this method, so that it can be added to the scene
-	 */
+
+    /**
+     * Creates the top button panel, which contains the start game button.
+     *
+     * @return the jpanel created by this method, so that it can be added to the scene
+     */
     private JPanel getTopButtonPanel() {
         JPanel topButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         topButtonPanel.setOpaque(false);
@@ -105,10 +111,10 @@ public class MainMenuScene extends BaseScene {
         topButtonPanel.add(startGameButton);
         return topButtonPanel;
     }
-	
-	/**
-	 * Shows the instructions to the player
-	 */
+
+    /**
+     * Shows the instructions to the player
+     */
     private void showInstructions() {
         String playerName = sceneManager.getParentFrame().getPlayerName();
         String instructionsText =
@@ -124,86 +130,97 @@ public class MainMenuScene extends BaseScene {
                         "- Enjoy your journey, " + playerName + "!";
         JOptionPane.showMessageDialog(this, instructionsText, "MEDICI Instructions for " + playerName, JOptionPane.INFORMATION_MESSAGE);
     }
-	
-	/**
-	 * Reads in the data from the leaderboard and sorts it 
-	 */
-	private void sortLeaderboard() {
-		ArrayList<String> names = new ArrayList<>();
-		ArrayList<Integer> count = new ArrayList<>();
-		try {
-			File board = new File("leaderboard.txt");
-			Scanner s = new Scanner(board);
-			String text = ""; //The sorted text that will go back into the file
-			while (s.hasNextLine()) { //Load info from the file
-				String line = s.nextLine();
-				String[] data = line.split(":");
-				names.add(data[0]);
-				count.add(Integer.parseInt(data[1]));
-			}
-			s.close();
-			while (count.size() >= 1) { //Sort 
-				int index = 0;
-				for(int i = 0; i < count.size(); i++) {
-					if (count.get(i) >= count.get(index)) {
-						index = i;
-					}
-				}
-				text+=names.get(index) + ":"+count.get(index);
-				count.remove(index);
-				names.remove(index);
-				if (count.size() != 0) {
-					text+="\n";
-				}
-			}
-			
-			PrintWriter pw = new PrintWriter(new FileWriter(board, false));
-			pw.print(text);
-			pw.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/** 
-	 * Reads in the data from the leaderboard file and displays it in a table format.
-	 * Calls on the sortLeaderboard() method to ensure the leaderboard is sorted before it is displayed.
-	 */
-	private void viewLeaderboard() {
-		sortLeaderboard();
-		String playerName = sceneManager.getParentFrame().getPlayerName();
-		String text = ""; //String to hold the text in the file
-		try {
-			File leaderboard = new File("leaderboard.txt");
-			Scanner s = new Scanner(leaderboard);
-			text = "      Player name : Times played\n---------------------------------------\n";
-			int counter = 1; //Count the number of players that have been shown
-			while (s.hasNextLine() && counter <= 10) {
-				String line = s.nextLine();
-				String[] data = line.split(":");
-				text += String.format("%-17s : %-4s\n", data[0], data[1]);
-				counter++;
-			}
-			if (s.hasNextLine() && counter == 11) {
-				text+="\nThere are more players listed, but \nonly the top ten players are shown here.  ";
-			}
-			s.close();
-			UIManager.put("OptionPane.messageFont", new Font("Consolas", Font.PLAIN, 14));
-			if (text.length() > 74) {
-				JOptionPane.showMessageDialog(this, text, "MEDICI Leaderboard for " + playerName, JOptionPane.INFORMATION_MESSAGE);
-			} else {
-				JOptionPane.showMessageDialog(this, "There are no players listed. Finish a game to be added to the leaderboard!", "MEDICI Leaderboard for " + playerName, JOptionPane.INFORMATION_MESSAGE);
-			}
-			UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 12));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * The method that is automatically called when the scene is shown to the user. 
-	 * Updates the welcome label, in case the user recently changed their name
-	 */
+
+    /**
+     * Reads in the data from the leaderboard and sorts it
+     */
+    private void sortLeaderboard() {
+        ArrayList<String> names = new ArrayList<>();
+        ArrayList<Integer> count = new ArrayList<>();
+        try {
+            File board = new File("leaderboard.txt");
+            Scanner s = new Scanner(board);
+            String text = ""; //The sorted text that will go back into the file
+            while (s.hasNextLine()) { //Load info from the file
+                String line = s.nextLine();
+                String[] data = line.split(":");
+                names.add(data[0]);
+                count.add(Integer.parseInt(data[1]));
+            }
+            s.close();
+            while (count.size() >= 1) { //Sort
+                int index = 0;
+                for (int i = 0; i < count.size(); i++) {
+                    if (count.get(i) >= count.get(index)) {
+                        index = i;
+                    }
+                }
+                text += names.get(index) + ":" + count.get(index);
+                count.remove(index);
+                names.remove(index);
+                if (count.size() != 0) {
+                    text += "\n";
+                }
+            }
+
+            PrintWriter pw = new PrintWriter(new FileWriter(board, false));
+            pw.print(text);
+            pw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Reads in the data from the leaderboard file and displays it in a table format.
+     * Calls on the sortLeaderboard() method to ensure the leaderboard is sorted before it is displayed.
+     */
+    private void viewLeaderboard() {
+        sortLeaderboard();
+        String playerName = sceneManager.getParentFrame().getPlayerName();
+        String text = ""; //String to hold the text in the file
+        try {
+            File leaderboard = new File("leaderboard.txt");
+            Scanner s = new Scanner(leaderboard);
+            text = "      Player name : Times played\n---------------------------------------\n";
+            int counter = 1; //Count the number of players that have been shown
+            while (s.hasNextLine() && counter <= 10) {
+                String line = s.nextLine();
+                String[] data = line.split(":");
+                text += String.format("%-17s : %-4s\n", data[0], data[1]);
+                counter++;
+            }
+            if (s.hasNextLine() && counter == 11) {
+                text += "\nThere are more players listed, but \nonly the top ten players are shown here.  ";
+            }
+            s.close();
+
+            // Save the original font
+            Font originalFont = UIManager.getFont("OptionPane.messageFont");
+
+            // Set the monospaced font for the leaderboard display
+            UIManager.put("OptionPane.messageFont", new Font("Consolas", Font.PLAIN, 14));
+
+            JOptionPane optionPane = new JOptionPane(
+                    text,
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+
+            JDialog dialog = optionPane.createDialog(this, "MEDICI Leaderboard for " + playerName);
+            dialog.setVisible(true);
+
+            // Restore the original font after the dialog is closed
+            UIManager.put("OptionPane.messageFont", originalFont);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * The method that is automatically called when the scene is shown to the user.
+     * Updates the welcome label, in case the user recently changed their name
+     */
     @Override
     public void onShowScene() {
         // Update the welcome label with the current player name when the scene is shown
