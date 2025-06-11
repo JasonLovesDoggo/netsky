@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Breaking news scene #2 with dynamic scrolling text. Announces that umbrellas must be turned in
  * 
@@ -16,6 +19,31 @@ public class Scene3News extends AbstractNewsScene {
 	 */
     public Scene3News(SceneManager sceneManager) {
         super(sceneManager);
+    }
+	
+	/** 
+	 * This creates the JPanel that holds all the buttons, at the bottom of the screen. 
+	 * @return 	the button panel so that it can be added to the frame.
+	 */
+	@Override
+    protected JPanel getButtonPanel() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        buttonPanel.setOpaque(true);
+
+        nextSceneButton = ButtonFactory.createSceneContinueButton(Scene.SCENE_3A);
+        JButton menuButton = ButtonFactory.createPrevSceneButton(Scene.MAIN_MENU);
+
+        if (nextSceneButton != null) {
+            // Initially disable the continue button until scrolling is complete
+            nextSceneButton.setEnabled(false);
+            nextSceneButton.setToolTipText("Please finish reading to continue.");
+            nextSceneButton.setForeground(Palette.TEXT_DISABLED);
+            nextSceneButton.setBackground(Palette.BUTTON_DISABLED);
+            buttonPanel.add(nextSceneButton);
+        }
+        buttonPanel.add(menuButton);
+        return buttonPanel;
     }
 	
 	/**

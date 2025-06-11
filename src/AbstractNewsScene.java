@@ -26,7 +26,7 @@ public abstract class AbstractNewsScene extends BaseScene {
 	/** The Jlabel that contains the text "BREAKING NEWS" at the top of the page*/
     private JLabel breakingNewsLabel;
 	/** The JButton that allows the user to move on to the next scene */
-    private JButton nextSceneButton;
+    protected JButton nextSceneButton;
 	
 	/** The constructor that creates the AbstractNewsScene. 
 	 * It initializes the flashing effect and also starts and creates the timer that 
@@ -174,7 +174,7 @@ public abstract class AbstractNewsScene extends BaseScene {
 	 * This creates the JPanel that holds all the buttons, at the bottom of the screen. 
 	 * @return 	the button panel so that it can be added to the frame.
 	 */
-    private JPanel getButtonPanel() {
+	protected JPanel getButtonPanel() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         buttonPanel.setOpaque(true);

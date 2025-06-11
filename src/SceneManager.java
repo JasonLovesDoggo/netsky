@@ -96,6 +96,8 @@ public class SceneManager {
         // Remove current scene if exists
         if (currentScene != null) {
             parentFrame.getContentPane().removeAll();
+			BaseScene oldScene = scenes.get(currentScene);
+			oldScene.onHideScene();
         }
 
         // Show new scene

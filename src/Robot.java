@@ -191,6 +191,18 @@ public class Robot extends JComponent {
     public int getHeight() {
         return robot.getHeight(null);
     }
+	
+	/**
+	 * Returns the RobotTalking instance
+	 * 
+	 * @return 		the RobotTalking instance
+	 */
+	public RobotTalking getRobotTalking() {
+		if (text != null) {
+			return text;
+		}
+		return null;
+	}
 
     /**
      * Updates the SceneManager's continueEnabled flag based on dialog completion

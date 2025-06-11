@@ -37,7 +37,10 @@ public class Scene3A extends BaseScene {
 										{350, 350, 350, 370, 320, 320, 380}};
 	/** The JLayeredPane in which everything else is being drawn */
 	JLayeredPane main;
-	
+	/** The count of how many umbrellas have been moved */
+	int count;
+	/** Checks if the fade animation has begun */
+	boolean started;
 	/**
 	 * Creates a new Scene3A
 	 * 
@@ -94,8 +97,6 @@ public class Scene3A extends BaseScene {
         add(buttonPanel, BorderLayout.SOUTH);
 
         timer = new Timer(20, new ActionListener() {
-            boolean started = false;
-
             public void actionPerformed(ActionEvent e) { //Check for fade out
                 if (!started && userIn.promptCount == 8) {
                     fade = new FadeOut(main, Color.black);
@@ -144,11 +145,18 @@ public class Scene3A extends BaseScene {
 	 */
 	private void initializeUmbrellas() {
 		index = 0;
+		if (main != null && umbrellas != null) {
+			//Hide the old umbrellas 
+			for(Umbrella u : umbrellas) {
+				u.setVisible(false);
+			}
+		}
 		umbrellas = new Umbrella[7];
 		for(int i = 0; i < umbrellas.length; i++) {
 			umbrellas[i] = new Umbrella(i);
 			umbrellas[i].setSize(100, 100);
 			umbrellas[i].setLocation(startX[i], startY[i]);
+			umbrellas[i].setVisible(true);
 		}
 	}
 	
@@ -162,13 +170,24 @@ public class Scene3A extends BaseScene {
         super.onShowScene();
 		userIn.promptCount = 0;
 		initializeUmbrellas();
-
 		for(Umbrella u : umbrellas) {
 			main.add(u, JLayeredPane.PALETTE_LAYER);
 		}
+		count = 0;
+		main.repaint();
 		timer1.stop();
         timer.start();
     }
+	
+	@Override
+	public void onHideScene() {
+		timer1.stop();
+		timer.stop();
+		if (fade != null) {
+			fade.setVisible(false);
+		}
+		started = false;
+	}
 	
 	/**
 	 * An umbrella
@@ -214,8 +233,6 @@ public class Scene3A extends BaseScene {
 	 * The scene three background that also handles which umbrella is being moved based on the user input prompt count
 	 */
     class SceneThree extends JComponent {
-		/** The count of how many umbrellas have been moved */
-		int count;
 		/**
 		 * paints the background and the corresponding prompt / umbrella animation
 		 * 

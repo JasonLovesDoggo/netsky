@@ -61,6 +61,17 @@ public class FadeOut extends JComponent {
     }
 	
 	/**
+	 * Stops the fade out and resets it (in case the user exits a scene before the fade animation is done)
+	 */
+	public void stop() {
+		fading = false;
+		radius = 800;
+		scene.repaint();
+		timer.stop();
+		setVisible(false);
+	}
+	
+	/**
 	 * Draws the fade out, which is a screen of a solid color with a transparent circle in the middle.
 	 * 
 	 * @param g		the graphics instance that draws the fade out onto the screen

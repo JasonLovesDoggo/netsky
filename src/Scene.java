@@ -79,6 +79,8 @@ public enum Scene {
 		
 	/**
 	 * The constructor that creates a new scene and sets the label value
+	 * 
+	 * @param label		The value for the label for the scene
 	 */
     Scene(String label) {
         this.label = label;

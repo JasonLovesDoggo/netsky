@@ -34,6 +34,14 @@ public class Scene2A extends BaseScene {
     int currentWidth;
 	/** The variable that tracks which part of the animation the truck is on. Refers to the index of the items array */
     int index;
+	/** The starting locations of the garbage */
+	final static int[][] start = { {600, 530, 460, 340, 280, 215, 165}, {65, 75, 20, 0, 20, 50, 20} };
+	/** The array of garbage stuff */
+	Garbage[] items;
+	/** The array that keeps track of whether or not an item has been moved already */
+	boolean[] itemState;
+	/** The JLayeredPane that contains all of the components of the scene */
+	JLayeredPane main;
 	
 	/**
 	 * Creates a new Scene2A 
@@ -51,24 +59,21 @@ public class Scene2A extends BaseScene {
     @Override
     protected void initializeComponents() {
 		SceneManager.continueEnabled = true;
-        boolean[] itemState = new boolean[8];
+        itemState = new boolean[7];
         int[] itemYs = {68, 64, 71, 63, 60, 60, 65};
 
-        Garbage[] items = new Garbage[7];
+        items = new Garbage[7];
         items[0] = new Garbage(100, "bag");
-        items[0].setLocation(600, 65);
         items[1] = new Garbage(80, "bag");
-        items[1].setLocation(530, 75);
         items[2] = new Garbage(100, "umbrellas");
-        items[2].setLocation(460, 20);
         items[3] = new Garbage(100, "bike");
-        items[3].setLocation(340, 0);
         items[4] = new Garbage(50, "person");
-        items[4].setLocation(280, 20);
         items[5] = new Garbage(100, "bag");
-        items[5].setLocation(215, 50);
         items[6] = new Garbage(40, "person");
-        items[6].setLocation(165, 20);
+		
+		for(int i = 0; i < items.length; i++) {
+			items[i].setLocation(start[0][i], start[1][i]);
+		}
 
         // Scene title
         JLabel titleLabel = new JLabel("Scene 2A");
@@ -89,7 +94,7 @@ public class Scene2A extends BaseScene {
 
         truck = new GarbageTruck();
 
-        JLayeredPane main = new JLayeredPane();
+        main = new JLayeredPane();
         main.setPreferredSize(new Dimension(800, 600));
         main.add(sceneTwo, JLayeredPane.DEFAULT_LAYER);
         truck.setLocation(600, 150);
@@ -199,6 +204,17 @@ public class Scene2A extends BaseScene {
         distance = 100;
         timer1.start();
         timer.start();
+		truck.setLocation(600, 150);
+		hand.setLocation(700, 155);
+		for(int i = 0; i < items.length; i++) {
+			items[i].setLocation(start[0][i], start[1][i]);
+		}
+		for(int i = 0; i < itemState.length; i++) {
+			itemState[i] = false;
+			main.setLayer(items[i], JLayeredPane.PALETTE_LAYER);
+		}
+		index = 0; //Make sure the program starts from the very first piece of garbage
+		userIn.promptCount = 0;
     }
 	
 	/**

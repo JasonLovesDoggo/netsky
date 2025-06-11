@@ -24,6 +24,12 @@ public class Scene1B extends BaseScene {
     JLayeredPane main;
 	/** The next button that advances to the next scene when this scene is complete */
     JButton nextButton;
+	/** The timer that checks when the fade animation is done and moves it to the next scene */
+	Timer timer;
+	/** The robot that appears on the screen */
+	Robot robot;
+	/** The boolean that checks if the fade has already occured */
+    boolean fade;
 	
 	/**
 	 * Creates a new Scene1B
@@ -42,7 +48,24 @@ public class Scene1B extends BaseScene {
     public void onShowScene() {
         super.onShowScene();
         userIn.promptCount = 0;
+		timer.start();
+		robot.fadeCount = 0;
     }
+	
+	/** 
+	 * Automatically called whenever the scene is hidden
+	 * Stops all timers and ends the scene
+	 */
+	@Override
+	public void onHideScene() {
+		timer.stop(); //Stop the timer so it doesn't move on to the next scene
+		robot.fadeCount = 0;
+		userIn.promptCount = 0;
+		if (fadeOut != null) {
+			fadeOut.stop();
+		}
+		fade = false;
+	}
 	
 	/**
 	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
@@ -85,7 +108,7 @@ public class Scene1B extends BaseScene {
         main.setBounds(0, 0, 800, 500);
 
         //Robot
-        Robot robot = new Robot(main);
+        robot = new Robot(main);
         robot.direction = -1;
         robot.speech = false;
         robot.setLocation(100, 200);
@@ -109,7 +132,7 @@ public class Scene1B extends BaseScene {
 
         add(buttonPanel, BorderLayout.SOUTH);
 
-        new Timer(100, new ActionListener() {
+        timer = new Timer (100, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (robot.fadeCount > 0) {
                     nextButton.doClick(); //Go to next scene
@@ -117,15 +140,14 @@ public class Scene1B extends BaseScene {
                     robot.fadeCount = 0;
                 }
             }
-        }).start();
+        });
     }
+	
 	
 	/**
 	 * The scene itself. This JComponent is added to the JLayeredPane so it can be drawn for the user.
 	 */
     class SceneOneB extends JComponent {
-		/** The boolean that checks if the fade has already occured */
-        boolean fade;
 		
 		/**
 		 * paints the background and the appropriate prompt onto the screen

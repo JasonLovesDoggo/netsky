@@ -23,6 +23,8 @@ public class Scene1A extends BaseScene {
     SceneOneA sceneOne;
 	/** The next button that advances to the next scene when this scene is complete */
     JButton nextButton;
+	/** The timer that moves on to the next screen once the fade out has occured */
+	Timer timer;
 
 	/**
 	 * Creates a new SceneA 
@@ -41,7 +43,22 @@ public class Scene1A extends BaseScene {
     public void onShowScene() {
         super.onShowScene();
         userIn.promptCount = 0;
+		timer.start();
+		if (robotDogLeash.fadeOut != null) {
+			robotDogLeash.fadeOut.timer.start();
+		}
     }
+	/**
+	 *
+	 */
+	@Override
+	public void onHideScene() {
+		robotDogLeash.getRobotTalking().timer.stop();
+		if (robotDogLeash.fadeOut != null) {
+			robotDogLeash.fadeOut.stop();
+		}
+		timer.stop();
+	}
 	
 	/**
 	 * Called at the beginning, when this scene is added to the sceneManager and created for the first time. 
@@ -105,15 +122,16 @@ public class Scene1A extends BaseScene {
 
         add(buttonPanel, BorderLayout.SOUTH);
 
-        new Timer(100, new ActionListener() {
+       timer = new Timer(100, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (robotDogLeash.fadeCount > 0) {
+					userIn.promptCount = 4;
                     nextButton.doClick(); //Go to next scene
                     robotDogLeash.fadeOut.setVisible(false);
                     robotDogLeash.fadeCount = 0;
                 }
             }
-        }).start();
+        });
     }
 	
 	/**

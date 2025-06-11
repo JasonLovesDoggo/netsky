@@ -110,6 +110,13 @@ public class Scene1D extends BaseScene {
         ratio = 100.0;
         timer.start();
     }
+	/**
+	 *
+	 */
+	@Override
+	public void onHideScene() {
+		timer.stop();
+	}
 
 	/** 
 	 * The robot from the bottom view

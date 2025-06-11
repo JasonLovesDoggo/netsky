@@ -20,6 +20,18 @@ public class Scene3B extends BaseScene {
 	Timer timer, timer1, timer2, timer3;
 	/** The fade out animation that occurs once this scene is finished */
 	FadeOut fade;
+	/** True if the fade animation has started, else false */
+	boolean started;
+	/** True if the robot has moved after the user interacted with it, false otherwise */
+	boolean robotMoved;
+	/** True if the user is done interacting with the robot, false otherwise */
+	boolean textBool;
+	/** The robot that the user interacts with, the one that takes the umbrella */
+	Robot robot;
+	/** The first image used for rain */
+	Rain1 rain1;
+	/** The second image used for rain */
+	Rain2 rain2;
 	
 	/**
 	 * Creates a new Scene3B
@@ -56,18 +68,18 @@ public class Scene3B extends BaseScene {
 		text.add("uWhat if I don't want to?");
 		text.add("rFEANOR has mandated that all umbrellas be \ncollected. \nThank you for your compliance.");
 		text.add("r*Takes umbrella*");
-		Robot robot = new Robot(main, text);
+		robot = new Robot(main, text);
 		robot.direction = 1;
 		robot.speech = true;
 		robot.setLocation(550, 260);
 		robot.setSize(robot.getWidth(), robot.getHeight());
 		main.add(robot, JLayeredPane.PALETTE_LAYER);
 		
-		Rain1 rain1 = new Rain1();
+		rain1 = new Rain1();
 		rain1.setBounds(0, 0, 800, 500);
 		rain1.setVisible(false);
 		main.add(rain1, JLayeredPane.MODAL_LAYER);
-		Rain2 rain2 = new Rain2();
+		rain2 = new Rain2();
 		rain2.setBounds(0, 0, 800, 500);
 		rain2.setVisible(false);
 		main.add(rain2, JLayeredPane.MODAL_LAYER);
@@ -96,7 +108,6 @@ public class Scene3B extends BaseScene {
         add(buttonPanel, BorderLayout.SOUTH);
 		
 		timer = new Timer(20, new ActionListener() { //Check for fade out
-			boolean started = false;
 			public void actionPerformed(ActionEvent e) {
 				if (!started) {
 					fade = new FadeOut(main, Color.black);
@@ -117,7 +128,7 @@ public class Scene3B extends BaseScene {
 			}
 		});
 		
-		timer1 = new Timer(20, new ActionListener() { //Check if the robot is done talking. If so, start rain animation
+		timer1 = new Timer(20, new ActionListener() { //Check if the robot is done talking. If so, start timelapse  animation
 			public void actionPerformed(ActionEvent e) {
 				if (robot.wordsCount == 4 && robot.text.isVisible()) {
 					robot.speech = false;
@@ -129,8 +140,6 @@ public class Scene3B extends BaseScene {
 			}
 		});
 		timer2 = new Timer(20, new ActionListener() { //Timelapse animation
-			boolean robotMoved;
-			boolean text;
 			public void actionPerformed(ActionEvent e) {
 				if (!robotMoved) {
 					robot.setLocation(robot.getX()-2, robot.getY());
@@ -144,10 +153,10 @@ public class Scene3B extends BaseScene {
 					time.setLocation(time.getX()+6, time.getY());
 					if (time.getX() > 810) {
 						time.setVisible(false);
-						text = true;
+						textBool = true;
 					}
 				} 
-				if (robotMoved && text) {
+				if (robotMoved && textBool) {
 					timer3.start();
 					timer2.stop();
 				}
@@ -176,6 +185,25 @@ public class Scene3B extends BaseScene {
 	public void onShowScene() {
 		super.onShowScene();
 		timer1.start();
+	}
+	
+	/** 
+	 * The method that is automatically called when the scene is hidden
+	 * Resets everything so that the scene is ready if the user returns to it
+	 */
+	@Override
+	public void onHideScene() {
+		started = false;
+		robotMoved = false;
+		textBool = false;
+		robot.speech = true;
+		timer.stop();
+		timer1.stop();
+		timer2.stop();
+		timer3.stop();
+		robot.setLocation(550, 260);
+		rain1.setVisible(false);
+		rain2.setVisible(false);
 	}
 	
 	/**

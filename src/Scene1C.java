@@ -29,6 +29,8 @@ public class Scene1C extends BaseScene {
     FadeOut fade;
 	/** The next button that advances to the next scene when this scene is complete */
     JButton nextButton;
+	/** The boolean that is true once the user has interacted with the second robot */
+	boolean lastText;
 	
 	/**
 	 * Creates a new Scene1C
@@ -129,8 +131,6 @@ public class Scene1C extends BaseScene {
         });
 
         timer2 = new Timer(100, new ActionListener() {
-            boolean lastText;
-
             public void actionPerformed(ActionEvent e) {
                 if (robotBird.wordsCount == 4) {
                     lastText = true;
@@ -148,7 +148,7 @@ public class Scene1C extends BaseScene {
             public void actionPerformed(ActionEvent e) {
                 if (robotBird.getX() < 300) {
                     if (!first) {
-                        fade = new FadeOut(main, new Color(80, 80, 80));
+                        fade = new FadeOut(main, Color.BLACK);
                         fade.setBounds(0, 0, 800, 600);
                         fade.setVisible(true);
                         main.add(fade, Integer.valueOf(Integer.MAX_VALUE)); //Force it to be on the front
@@ -178,8 +178,22 @@ public class Scene1C extends BaseScene {
         super.onShowScene();
         robotDogLeash.setLocation(650, 250);
         robotBird.setLocation(800, 250);
+		lastText = false; //Reset the robot bird sensing
         timer.start();
     }
+	
+	/**
+	 * Stops all timers when the scene is exited
+	 */
+	@Override
+	public void onHideScene() {
+		timer.stop();
+		timer3.stop();
+		timer2.stop();
+		if (fade != null) {
+			fade.stop();
+		}
+	}
 
 	/**
 	 * The background image of SceneOneC
