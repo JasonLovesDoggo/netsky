@@ -218,6 +218,18 @@ public class Scene2A extends BaseScene {
     }
 	
 	/**
+	 * Called automatically when the scene is hidden
+	 * Stops all the timers to ensure the scene resets when it is repainted, if the user revisits it again
+	 */
+	@Override 
+	public void onHideScene() {
+		timer.stop();
+		timer1.stop();
+		timer2.stop();
+		timer3.stop();
+	}
+	
+	/**
 	 * Pieces of garbage that will be picked up by the garbage truck's hand 
 	 */
     static class Garbage extends JComponent {
