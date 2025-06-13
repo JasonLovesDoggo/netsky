@@ -19,8 +19,9 @@ The game teaches concepts of shortcut learning and its impact on AI behavior thr
 2. Compile and run:
 
 ```bash
-javac src/*.java
-java -cp src GameMain
+cd src
+javac *.java
+java GameMain
 ```
 
 ## Authors
